@@ -1,0 +1,15 @@
+{
+  "name": "toleckk/instaTest",
+  "description": "Test",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Toleckk",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+    "raiym/instagram-php-scraper": "v0.8.22"
+  }
+}
