@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cd26bcd3f2239edc042caf62bce142d1",
+    "content-hash": "e4b2460db10ef4fb170375c40fc18c52",
     "packages": [
         {
             "name": "mashape/unirest-php",
@@ -285,16 +285,16 @@
             "time": "2016-08-06T20:24:11+00:00"
         },
         {
-            "name": "raiym/instagram-php-scraper",
+            "name": "shilza/instagram-php-scraper",
             "version": "v0.8.22",
             "source": {
                 "type": "git",
-                "url": "https://github.com/postaddictme/instagram-php-scraper.git",
+                "url": "https://github.com/Shilza/instagram-php-scraper.git",
                 "reference": "c36ca08724fb20e0c03e473f7398aefea87cf359"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/postaddictme/instagram-php-scraper/zipball/c36ca08724fb20e0c03e473f7398aefea87cf359",
+                "url": "https://api.github.com/repos/Shilza/instagram-php-scraper/zipball/c36ca08724fb20e0c03e473f7398aefea87cf359",
                 "reference": "c36ca08724fb20e0c03e473f7398aefea87cf359",
                 "shasum": ""
             },

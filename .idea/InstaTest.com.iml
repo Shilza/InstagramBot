@@ -9,6 +9,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/predis/predis" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/cache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/raiym/instagram-php-scraper" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/shilza/instagram-php-scraper" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

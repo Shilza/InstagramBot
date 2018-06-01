@@ -1,15 +1,15 @@
 {
-  "name": "toleckk/instaTest",
+  "name": "Shilza/instagramBot",
   "description": "Test",
   "minimum-stability": "stable",
   "license": "proprietary",
   "authors": [
     {
-      "name": "Toleckk",
+      "name": "Shilza",
       "email": "email@example.com"
     }
   ],
   "require": {
-    "raiym/instagram-php-scraper": "v0.8.22"
+    "shilza/instagram-php-scraper": "v0.8.22"
   }
 }

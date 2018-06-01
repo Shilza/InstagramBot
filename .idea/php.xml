@@ -9,6 +9,7 @@
       <path value="$PROJECT_DIR$/vendor/psr/cache" />
       <path value="$PROJECT_DIR$/vendor/raiym/instagram-php-scraper" />
       <path value="$PROJECT_DIR$/vendor/predis/predis" />
+      <path value="$PROJECT_DIR$/vendor/shilza/instagram-php-scraper" />
     </include_path>
   </component>
 </project>
