@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e4b2460db10ef4fb170375c40fc18c52",
+    "content-hash": "b05a630deb49c5d3c6cb1f1a065f7ba4",
     "packages": [
         {
             "name": "mashape/unirest-php",
@@ -286,16 +286,16 @@
         },
         {
             "name": "shilza/instagram-php-scraper",
-            "version": "v0.8.22",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Shilza/instagram-php-scraper.git",
-                "reference": "c36ca08724fb20e0c03e473f7398aefea87cf359"
+                "reference": "7af240c62c7f49abf42f773dd27aa0c22a71cbbb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Shilza/instagram-php-scraper/zipball/c36ca08724fb20e0c03e473f7398aefea87cf359",
-                "reference": "c36ca08724fb20e0c03e473f7398aefea87cf359",
+                "url": "https://api.github.com/repos/Shilza/instagram-php-scraper/zipball/7af240c62c7f49abf42f773dd27aa0c22a71cbbb",
+                "reference": "7af240c62c7f49abf42f773dd27aa0c22a71cbbb",
                 "shasum": ""
             },
             "require": {
@@ -318,23 +318,25 @@
             ],
             "authors": [
                 {
-                    "name": "raiym",
+                    "name": "shilza",
                     "email": "r.kapishev@gmail.com"
                 }
             ],
             "description": "Instagram PHP Scraper. Get account information, photos and videos without any authorization",
-            "homepage": "https://github.com/raiym/instagram-php-scraper",
+            "homepage": "https://github.com/Shilza/instagram-php-scraper",
             "keywords": [
                 "instagram",
                 "scraper"
             ],
-            "time": "2018-05-29T13:14:26+00:00"
+            "time": "2018-06-01T16:31:34+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "shilza/instagram-php-scraper": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

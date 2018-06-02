@@ -10,6 +10,6 @@
     }
   ],
   "require": {
-    "shilza/instagram-php-scraper": "v0.8.22"
+    "shilza/instagram-php-scraper": "dev-master"
   }
 }
