@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/src/HashtagsBot.php" line="14" mnemonic="4" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="ee65cf2f-b42d-49cd-aae3-dcf44451cd04" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Bot.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/AccountsBot.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -35,27 +37,65 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="34" lean-forward="true" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
+            <state relative-caret-position="238">
+              <caret line="14" column="24" lean-forward="true" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bot.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Instagram.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Instagram.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="137">
+              <caret line="779" column="28" lean-forward="true" selection-start-line="779" selection-start-column="28" selection-end-line="779" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Media.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Model/Media.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="167">
+              <caret line="662" column="61" lean-forward="true" selection-start-line="662" selection-start-column="61" selection-end-line="662" selection-end-column="61" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Account.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Model/Account.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="326">
+              <caret line="106" column="20" selection-start-line="106" selection-start-column="20" selection-end-line="106" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AccountsBot.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AccountsBot.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="58" column="51" selection-start-line="58" selection-start-column="26" selection-end-line="58" selection-end-column="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Bot.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Bot.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="492">
-              <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
-              <folding>
-                <element signature="n#__construct#0;n#Bot#0;n#!!top" />
-                <element signature="n#processing#0;n#Bot#0;n#!!top" />
-                <element signature="n#getPublicAccounts#0;n#Bot#0;n#!!top" />
-                <element signature="n#isStageFinished#0;n#Bot#0;n#!!top" />
-                <element signature="n#commentAccountsMedia#0;n#Bot#0;n#!!top" />
-              </folding>
+            <state relative-caret-position="204">
+              <caret line="42" column="46" lean-forward="true" selection-start-line="42" selection-start-column="46" selection-end-line="42" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HashtagsBot.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/HashtagsBot.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="244">
+              <caret line="23" column="64" lean-forward="true" selection-start-line="23" selection-start-column="64" selection-end-line="23" selection-end-column="64" />
             </state>
           </provider>
         </entry>
@@ -64,32 +104,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ssl</find>
-      <find>$csrfToken</find>
-      <find>token</find>
-      <find>csrf</find>
-      <find>login</find>
-      <find>Request</find>
-      <find>EndPoints::</find>
-      <find>post</find>
-      <find>InstagramException</find>
-      <find>isFake</find>
-      <find>getFollowUrl</find>
-      <find>UNFOLLOW_URL</find>
-      <find>FOLLOW_URL</find>
-      <find>like</find>
-      <find>query_</find>
-      <find>query_ha</find>
-      <find>follow</find>
-      <find>getFollowing</find>
-      <find>getAccountBy</find>
-      <find>func(</find>
-      <find>edge</find>
-      <find>isAd</find>
       <find>liked</find>
       <find>set</find>
       <find>comment(</find>
       <find>disable</find>
+      <find>getfollow</find>
+      <find>FOLLOWS_QUERY_HASH</find>
+      <find>getfollower</find>
+      <find>count</find>
+      <find>followers</find>
+      <find>getfollowe</find>
+      <find>getfollowing</find>
+      <find>gis</find>
+      <find>generateHeaders</find>
+      <find>$this-&gt;generateGisToken($variables)</find>
+      <find>variables</find>
+      <find>generateGisToken</find>
+      <find>getfollowi</find>
+      <find>getFollowing</find>
+      <find>getFollower</find>
+      <find>getmediasby</find>
+      <find>comment</find>
+      <find>http_ok</find>
+      <find>getuse</find>
+      <find>getusername</find>
+      <find>isset</find>
+      <find>_</find>
+      <find>getmediaBy</find>
+      <find>null</find>
+      <find>getOwner()</find>
+      <find>getmedia</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -103,10 +147,13 @@
         <option value="$PROJECT_DIR$/vendor/raiym/instagram-php-scraper/src/InstagramScraper/Instagram.php" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Model/Media.php" />
-        <option value="$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Instagram.php" />
         <option value="$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Model/Comment.php" />
-        <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/vendor/mashape/unirest-php/src/Unirest/Request.php" />
+        <option value="$PROJECT_DIR$/src/AccountsBot.php" />
         <option value="$PROJECT_DIR$/src/Bot.php" />
+        <option value="$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Instagram.php" />
+        <option value="$PROJECT_DIR$/src/HashtagsBot.php" />
+        <option value="$PROJECT_DIR$/index.php" />
       </list>
     </option>
   </component>
@@ -145,48 +192,47 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="InstaTest.com" type="b2602c69:ProjectViewProjectNode" />
-              <item name="InstaTest.com" type="462c0819:PsiDirectoryNode" />
+              <item name="InstagramBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="InstagramBot" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="InstaTest.com" type="b2602c69:ProjectViewProjectNode" />
-              <item name="InstaTest.com" type="462c0819:PsiDirectoryNode" />
+              <item name="InstagramBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="InstagramBot" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="InstaTest.com" type="b2602c69:ProjectViewProjectNode" />
-              <item name="InstaTest.com" type="462c0819:PsiDirectoryNode" />
+              <item name="InstagramBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="InstagramBot" type="462c0819:PsiDirectoryNode" />
               <item name="vendor" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="InstaTest.com" type="b2602c69:ProjectViewProjectNode" />
-              <item name="InstaTest.com" type="462c0819:PsiDirectoryNode" />
+              <item name="InstagramBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="InstagramBot" type="462c0819:PsiDirectoryNode" />
               <item name="vendor" type="462c0819:PsiDirectoryNode" />
               <item name="shilza" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="InstaTest.com" type="b2602c69:ProjectViewProjectNode" />
-              <item name="InstaTest.com" type="462c0819:PsiDirectoryNode" />
+              <item name="InstagramBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="InstagramBot" type="462c0819:PsiDirectoryNode" />
               <item name="vendor" type="462c0819:PsiDirectoryNode" />
               <item name="shilza" type="462c0819:PsiDirectoryNode" />
               <item name="instagram-php-scraper" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="InstaTest.com" type="b2602c69:ProjectViewProjectNode" />
-              <item name="InstaTest.com" type="462c0819:PsiDirectoryNode" />
+              <item name="InstagramBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="InstagramBot" type="462c0819:PsiDirectoryNode" />
               <item name="vendor" type="462c0819:PsiDirectoryNode" />
               <item name="shilza" type="462c0819:PsiDirectoryNode" />
               <item name="instagram-php-scraper" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="InstaTest.com" type="b2602c69:ProjectViewProjectNode" />
-              <item name="InstaTest.com" type="462c0819:PsiDirectoryNode" />
+              <item name="InstagramBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="InstagramBot" type="462c0819:PsiDirectoryNode" />
               <item name="vendor" type="462c0819:PsiDirectoryNode" />
               <item name="shilza" type="462c0819:PsiDirectoryNode" />
               <item name="instagram-php-scraper" type="462c0819:PsiDirectoryNode" />
@@ -194,8 +240,8 @@
               <item name="InstagramScraper" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="InstaTest.com" type="b2602c69:ProjectViewProjectNode" />
-              <item name="InstaTest.com" type="462c0819:PsiDirectoryNode" />
+              <item name="InstagramBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="InstagramBot" type="462c0819:PsiDirectoryNode" />
               <item name="vendor" type="462c0819:PsiDirectoryNode" />
               <item name="shilza" type="462c0819:PsiDirectoryNode" />
               <item name="instagram-php-scraper" type="462c0819:PsiDirectoryNode" />
@@ -207,6 +253,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -252,26 +299,27 @@
       <workItem from="1527873068953" duration="767000" />
       <workItem from="1527880796293" duration="2173000" />
       <workItem from="1527930927882" duration="19798000" />
+      <workItem from="1528112819946" duration="23149000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45642000" />
+    <option name="totallyTimeSpent" value="68791000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="946" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1933657" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50073206" side_tool="true" weight="0.3286385" />
-      <window_info anchor="right" id="Database" order="3" weight="0.32928804" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49926794" weight="0.3279703" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.35714287" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19591528" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" order="3" weight="0.32928804" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32954547" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.14356436" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -280,7 +328,6 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,6 +342,13 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -322,9 +376,6 @@
           <caret line="6" column="3" lean-forward="true" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -414,7 +465,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vendor/raiym/instagram-php-scraper/src/InstagramScraper/Model/Media.php" />
-    <entry file="file://$PROJECT_DIR$/vendor/mashape/unirest-php/src/Unirest/Request.php" />
     <entry file="file://$PROJECT_DIR$/vendor/raiym/instagram-php-scraper/src/InstagramScraper/Traits/InitializerTrait.php" />
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/Core/Core_c.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -427,12 +477,6 @@
     <entry file="file://$PROJECT_DIR$/vendor/raiym/instagram-php-scraper/src/InstagramScraper/Model/Comment.php" />
     <entry file="file://$PROJECT_DIR$/vendor/raiym/instagram-php-scraper/src/InstagramScraper/Endpoints.php" />
     <entry file="file://$PROJECT_DIR$/vendor/raiym/instagram-php-scraper/src/InstagramScraper/Instagram.php" />
-    <entry file="file://$PROJECT_DIR$/config">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/composer.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -452,11 +496,6 @@
         <state relative-caret-position="181">
           <caret line="977" column="9" selection-start-line="977" selection-start-column="9" selection-end-line="977" selection-end-column="9" />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Model/Account.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-51" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Endpoints.php">
@@ -480,38 +519,73 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/mashape/unirest-php/src/Unirest/Request.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3111">
+          <caret line="234" column="5" selection-start-line="234" selection-start-column="5" selection-end-line="234" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/_types.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="105" column="13" selection-start-line="105" selection-start-column="13" selection-end-line="105" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AccountsBot.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="58" column="51" selection-start-line="58" selection-start-column="26" selection-end-line="58" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Model/Account.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="106" column="20" selection-start-line="106" selection-start-column="20" selection-end-line="106" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Model/Media.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4562">
-          <caret line="140" column="29" selection-start-line="140" selection-start-column="22" selection-end-line="140" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="34" lean-forward="true" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Instagram.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="868">
-          <caret line="1464" lean-forward="true" selection-start-line="1464" selection-end-line="1464" />
+        <state relative-caret-position="167">
+          <caret line="662" column="61" lean-forward="true" selection-start-line="662" selection-start-column="61" selection-end-line="662" selection-end-column="61" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Bot.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="492">
-          <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
-          <folding>
-            <element signature="n#__construct#0;n#Bot#0;n#!!top" />
-            <element signature="n#processing#0;n#Bot#0;n#!!top" />
-            <element signature="n#getPublicAccounts#0;n#Bot#0;n#!!top" />
-            <element signature="n#isStageFinished#0;n#Bot#0;n#!!top" />
-            <element signature="n#commentAccountsMedia#0;n#Bot#0;n#!!top" />
-          </folding>
+        <state relative-caret-position="204">
+          <caret line="42" column="46" lean-forward="true" selection-start-line="42" selection-start-column="46" selection-end-line="42" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Instagram.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="779" column="28" lean-forward="true" selection-start-line="779" selection-start-column="28" selection-end-line="779" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/standard_0.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="156" column="9" selection-start-line="156" selection-start-column="9" selection-end-line="156" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/HashtagsBot.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="23" column="64" lean-forward="true" selection-start-line="23" selection-start-column="64" selection-end-line="23" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="24" lean-forward="true" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
         </state>
       </provider>
     </entry>
