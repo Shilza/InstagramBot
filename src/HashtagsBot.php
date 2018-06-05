@@ -20,10 +20,15 @@ class HashtagsBot extends Bot{
         $medias = $this->instagram->getMediasByTag($this->hashtags[mt_rand(0, count($this->hashtags) - 1)], 5);
         $accounts = [];
         foreach ($medias as $item)
-            if (!in_array($item->getOwner(), $accounts))
+            if(!static::contains($accounts, $item->getOwnerId()))
                 array_push($accounts, $this->instagram->getAccountById($item->getOwnerId()));
         $this->processing($accounts);
-
     }
 
+    private static function contains($accounts, $accountId){
+        foreach ($accounts as $account)
+            if($account->getId() == $accountId)
+                return true;
+        return false;
+    }
 }

@@ -71,5 +71,4 @@ class AccountsBot extends Bot{
             return false;
     }
 
-
 }

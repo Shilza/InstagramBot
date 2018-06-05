@@ -69,23 +69,18 @@ abstract class Bot{
         $medias = $this->instagram->getMedias($accountObject->getUsername(), 15);
         $count = mt_rand(3, 5);
 
-        $unlikedMedias = [];
-        foreach($medias as $media)
-            if(!$media->isLikedByViewer())
-                array_push($unlikedMedias, $media);
-
-        if(count($unlikedMedias) > 0) {
-            if ($count > count($unlikedMedias))
-                foreach ($unlikedMedias as $media)
+        if(count($medias) > 0) {
+            if ($count > count($medias))
+                foreach ($medias as $media)
                     $this->instagram->like($media->getId());
             else
                 while ($count > 0) {
-                    $index = mt_rand(0, count($unlikedMedias) - 1);
-                    $media = $unlikedMedias[$index];
+                    $index = mt_rand(0, count($medias) - 1);
+                    $media = $medias[$index];
 
                     if (!$media->isLikedByViewer()) {
                         $this->instagram->like($media->getId());
-                        array_splice($unlikedMedias, $index, 1);
+                        array_splice($medias, $index, 1);
                         $count--;
                     }
                 }

@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "b05a630deb49c5d3c6cb1f1a065f7ba4",
@@ -290,12 +290,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Shilza/instagram-php-scraper.git",
-                "reference": "20f8210fddb531f18933fbd7b71974a72c5f1895"
+                "reference": "e97404ea617d9b4de45a90e0bd67f3eb4bef2ecd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Shilza/instagram-php-scraper/zipball/20f8210fddb531f18933fbd7b71974a72c5f1895",
-                "reference": "20f8210fddb531f18933fbd7b71974a72c5f1895",
+                "url": "https://api.github.com/repos/Shilza/instagram-php-scraper/zipball/e97404ea617d9b4de45a90e0bd67f3eb4bef2ecd",
+                "reference": "e97404ea617d9b4de45a90e0bd67f3eb4bef2ecd",
                 "shasum": ""
             },
             "require": {
@@ -328,7 +328,7 @@
                 "instagram",
                 "scraper"
             ],
-            "time": "2018-06-02T19:27:02+00:00"
+            "time": "2018-06-04T19:35:47+00:00"
         }
     ],
     "packages-dev": [],
