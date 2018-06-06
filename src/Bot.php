@@ -38,9 +38,9 @@ abstract class Bot{
 
             $accountObject = (gettype($account) == "object"
                 ? $account
-                : $this->instagram->getAccountById( $account['id']));
+                : $this->instagram->getAccountById($account['id']));
 
-            echo $account->getUsername()."\n";
+            echo $accountObject->getUsername()."\n";
 
             if($accountObject->getUsername() != $this->instagram->getSessionUsername()) {
 

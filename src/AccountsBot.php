@@ -12,10 +12,10 @@ class AccountsBot extends Bot{
 
     public function start(){
         if($this->isFollowingEnabled || $this->isLikesEnabled || $this->isCommentsEnabled)
-            $this->processing1($this->instagram->getAccount('an7glu'));
+            $this->accountProcessing($this->instagram->getAccount('someonesday'));
     }
 
-    private function processing1($account, $limit = 10){
+    private function accountProcessing($account, $limit = 10){
         sleep(mt_rand(0, 3));
         if ($this->isStageFinished())
             return true;
@@ -32,11 +32,11 @@ class AccountsBot extends Bot{
 
         if ($count > $limit) {
             if (count($publicAccounts) == 0)
-                return $this->processing1($account, $limit * 2 > $count ? $count : $limit * 2);
+                return $this->accountProcessing($account, $limit * 2 > $count ? $count : $limit * 2);
             else {
-                if (!$this->processing1($publicAccounts[rand(0, count($publicAccounts) - 1)])) {
+                if (!$this->accountProcessing($publicAccounts[rand(0, count($publicAccounts) - 1)])) {
                     foreach ($publicAccounts as $publicAccount)
-                        if ($this->processing1($publicAccount))
+                        if ($this->accountProcessing($publicAccount))
                             return true;
                     return false;
                 } else
@@ -44,9 +44,9 @@ class AccountsBot extends Bot{
             }
         } else if (count($publicAccounts) == 0)
             return false;
-        else if (!$this->processing1($publicAccounts[rand(0, count($publicAccounts) - 1)])) {
+        else if (!$this->accountProcessing($publicAccounts[rand(0, count($publicAccounts) - 1)])) {
             foreach ($publicAccounts as $publicAccount)
-                if ($this->processing1($publicAccount))
+                if ($this->accountProcessing($publicAccount))
                     return true;
             return false;
         } else
