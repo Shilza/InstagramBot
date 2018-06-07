@@ -1,11 +1,11 @@
 <?php
 
-require_once 'src/TagBot.php';
+require_once 'TagBot.php';
 
-class HashtagsBot extends TagBot{
+class HashtagBot extends TagBot{
     private $hashtags;
 
-    public function __construct($instagram, $settings, $hashtags){
+    public function __construct($instagram, array $settings, array $hashtags){
         parent::__construct($instagram, $settings);
 
         $this->hashtags = $hashtags;

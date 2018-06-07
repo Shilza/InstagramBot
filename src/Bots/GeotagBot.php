@@ -1,12 +1,13 @@
 <?php
 
-require_once 'src/TagBot.php';
+require_once 'TagBot.php';
+use InstagramScraper\Instagram;
 
 class GeotagBot extends TagBot{
 
     private $geotags;
 
-    public function __construct($instagram, $settings, $geotags){
+    public function __construct(Instagram $instagram, array $settings, array $geotags){
         parent::__construct($instagram, $settings);
 
         $this->geotags = $geotags;

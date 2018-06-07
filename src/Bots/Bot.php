@@ -1,6 +1,9 @@
 <?php
 
+use InstagramScraper\Instagram;
+
 abstract class Bot{
+
     protected $instagram;
     private $commentsText = [];
 
@@ -10,7 +13,7 @@ abstract class Bot{
 
     abstract public function start();
 
-    protected function __construct($instagram, $settings){
+    protected function __construct(Instagram $instagram, array $settings){
         $this->instagram = $instagram;
 
         if(isset($settings)){

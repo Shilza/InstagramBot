@@ -1,12 +1,13 @@
 <?php
 
-require_once 'src/Bot.php';
+require_once 'Bot.php';
+use InstagramScraper\Instagram;
 
 class AccountsBot extends Bot{
     ////////////////////////Temporary
     private $tempCount = 0;
 
-    public function __construct($instagram, $settings){
+    public function __construct(Instagram $instagram, array $settings){
         parent::__construct($instagram, $settings);
     }
 
@@ -53,7 +54,7 @@ class AccountsBot extends Bot{
             return true;
     }
 
-    private function getPublicAccounts($accounts){
+    private function getPublicAccounts(array $accounts){
         $publicAccounts = [];
         foreach ($accounts as $acc) {
             $acc = $this->instagram->getAccountById($acc['id']);

@@ -1,9 +1,11 @@
 <?php
 
+use InstagramScraper\Instagram;
+
 class AccountWorker{
     private $instagram;
 
-    public function __construct($instagram){
+    public function __construct(Instagram $instagram){
         $this->instagram = $instagram;
     }
 
