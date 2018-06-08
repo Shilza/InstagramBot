@@ -15,12 +15,15 @@ class DatabaseWorker{
         return static::$instance;
     }
 
-    public static function execute($queryString, array $values){
+    public static function execute($queryString, array $values = null)
+    {
         $query = static::getInstance()->db->prepare($queryString);
 
-        foreach ($values as $key => $value)
-            $query->bindParam($key, $value);
+        if (isset($values))
+            foreach (array_keys($values) as $key)
+                $query->bindParam(':'.$key, $values[$key]);
 
         $query->execute();
+        return $query->fetchAll();
     }
 }

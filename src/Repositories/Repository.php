@@ -1,9 +1,9 @@
 <?php
 
 abstract class Repository{
-    protected abstract static function select(array $criterions);
+    public abstract static function getBy(array $criterions);
 
-    protected abstract static function update($id, array $values);
+    public abstract static function add($entity);
 
-    protected abstract static function insert(array $values);
+    public abstract static function delete($entity);
 }

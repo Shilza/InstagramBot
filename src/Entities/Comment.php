@@ -2,6 +2,7 @@
 
 class Comment{
     private $id;
+    private $ownerId;
     private $mediaId;
     private $text;
     private $date;
@@ -9,16 +10,34 @@ class Comment{
     /**
      * Comment constructor.
      * @param $id
+     * @param $ownerId
      * @param $mediaId
      * @param $text
      * @param $date
      */
-    public function __construct($id, $mediaId, $text, $date)
+    public function __construct($id, $ownerId, $mediaId, $text, $date = null)
     {
         $this->id = $id;
+        $this->ownerId = $ownerId;
         $this->mediaId = $mediaId;
         $this->text = $text;
         $this->date = $date;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOwnerId()
+    {
+        return $this->ownerId;
+    }
+
+    /**
+     * @param mixed $ownerId
+     */
+    public function setOwnerId($ownerId)
+    {
+        $this->ownerId = $ownerId;
     }
 
     /**
