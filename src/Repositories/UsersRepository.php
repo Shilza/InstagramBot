@@ -45,11 +45,11 @@ class UsersRepository extends Repository implements Updatable{
     }
 
     /**
-     * @param User $values
+     * @param User $user
      */
     public static function add($user)
     {
-        if ($user instanceof User) {
+        if ($user instanceof User && static::isValid($user->getUserId())) {
             $query = "INSERT INTO users (id, login, password, last_activity,
                       money, following_enabled, likes_enabled, comments_enabled) 
                       VALUES(:id, :login, :password, :last_activity,
@@ -59,9 +59,16 @@ class UsersRepository extends Repository implements Updatable{
         }
     }
 
-    public static function delete($entity)
+    /**
+     * @param User $user
+     */
+    public static function delete($user)
     {
-        // TODO: Implement delete() method.
+        if ($user instanceof User && static::isValid($user->getUserId())) {
+            $query = "DELETE FROM users WHERE id=:id";
+
+            DatabaseWorker::execute($query, ['id' => $user->getUserId()]);
+        }
     }
 
     /**

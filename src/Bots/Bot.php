@@ -53,7 +53,6 @@ abstract class Bot{
                 if (!$accountObject->isPrivate()) {
                     if ($this->isLikesEnabled && mt_rand(0, 1) == 1)
                         $this->likeAccountsMedia($accountObject);
-
                     try {
                         if ($this->isCommentsEnabled && mt_rand(0, 3) == 1)
                             $this->commentAccountsMedia($accountObject);

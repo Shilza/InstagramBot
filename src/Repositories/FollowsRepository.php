@@ -4,13 +4,17 @@ require_once 'Repository.php';
 
 class FollowsRepository extends Repository{
 
+    /**
+     * @param array $criterions
+     * @return array|null
+     */
     public static function getBy(array $criterions)
     {
         $ownerId = $criterions['owner_id'];
         unset($criterions['owner_id']);
         $criterions = array_filter($criterions);
 
-        if (isset($ownerId) && (is_int($ownerId) || ctype_digit($ownerId))) {
+        if (static::isValid($ownerId)) {
             $query = "SELECT * FROM follows$ownerId WHERE ";
 
             if(count($criterions) == 0)
@@ -31,26 +35,37 @@ class FollowsRepository extends Repository{
             return null;
     }
 
+    /**
+     * @param FollowedUser $follow
+     */
     public static function add($follow)
     {
-        if($follow instanceof FollowedUser){
-            $tableName = 'follows'.$follow->getOwnerId();
-            $query = "INSERT INTO $tableName (user_id) VALUES(:user_id)";
+        $ownerId = $follow->getOwnerId();
+        if($follow instanceof FollowedUser && static::isValid($ownerId)){
+            $query = "INSERT INTO follows$ownerId (user_id) VALUES(:user_id)";
 
             DatabaseWorker::execute($query, ['user_id' => $follow->getUserId()]);
         }
     }
 
-    public static function delete($entity)
+    /**
+     * @param FollowedUser $follow
+     */
+    public static function delete($follow)
     {
-        // TODO: Implement delete() method.
+        $ownerId = $follow->getOwnerId();
+        if($follow instanceof FollowedUser && static::isValid($ownerId)){
+            $query = "DELETE FROM follows$ownerId WHERE user_id=:user_id";
+
+            DatabaseWorker::execute($query, ['user_id' => $follow->getUserId()]);
+        }
     }
 
     /**
      * @param $userId
      */
     public static function createTable($userId){
-        if (is_int($userId) || ctype_digit($userId)) {
+        if (static::isValid($userId)) {
             $query = ("CREATE TABLE follows$userId(
             user_id VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
             date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()

@@ -15,7 +15,7 @@ class CommentsRepository extends Repository implements Updatable {
         unset($criterions['owner_id']);
         $criterions = array_filter($criterions);
 
-        if (isset($ownerId) && (is_int($ownerId) || ctype_digit($ownerId))) {
+        if (static::isValid($ownerId)) {
             $query = "SELECT * FROM comments$ownerId WHERE ";
 
             if(count($criterions) == 0)
@@ -42,9 +42,9 @@ class CommentsRepository extends Repository implements Updatable {
      */
     public static function update($comment)
     {
-        if($comment instanceof Comment){
-            $tableName = 'comments'.$comment->getOwnerId();
-            $query = "UPDATE $tableName SET id = :id, media_id = :media_id, text = :text";
+        $ownerId = $comment->getOwnerId();
+        if($comment instanceof Comment && static::isValid($ownerId)){
+            $query = "UPDATE comments$ownerId SET id = :id, media_id = :media_id, text = :text";
 
             DatabaseWorker::execute($query, static::commentsDataToArray($comment));
         }
@@ -55,18 +55,26 @@ class CommentsRepository extends Repository implements Updatable {
      */
     public static function add($comment)
     {
-        if($comment instanceof Comment){
-            $tableName = 'comments'.$comment->getOwnerId();
-            $query = "INSERT INTO $tableName (id, media_id, text) 
+        $ownerId = $comment->getOwnerId();
+        if($comment instanceof Comment && static::isValid($ownerId)){
+            $query = "INSERT INTO comments$ownerId (id, media_id, text) 
                       VALUES(:id, :media_id, :text)";
 
             DatabaseWorker::execute($query, static::commentsDataToArray($comment));
         }
     }
 
-    public static function delete($entity)
+    /**
+     * @param Comment $comment
+     */
+    public static function delete($comment)
     {
-        // TODO: Implement delete() method.
+        $ownerId = $comment->getOwnerId();
+        if($comment instanceof Comment && static::isValid($ownerId)){
+            $query = "DELETE FROM comments$ownerId WHERE id=:id";
+
+            DatabaseWorker::execute($query, ['id' => $comment->getId()]);
+        }
     }
 
     /**
@@ -74,7 +82,7 @@ class CommentsRepository extends Repository implements Updatable {
      */
     public static function createTable($userId)
     {
-        if (is_int($userId) || ctype_digit($userId)) {
+        if (static::isValid($userId)) {
             $query = ("CREATE TABLE comments$userId(
             id VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
             media_id VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,

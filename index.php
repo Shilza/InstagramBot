@@ -18,13 +18,37 @@ function getUserAndPass()
 }
 
 try {
+    $arr = getUserAndPass();
 
+    $instagram = InstagramScraper\Instagram::withCredentials($arr[0], $arr[1]);
+    $instagram->login();
+
+    var_dump(UsersRepository::getBy(['id' => 12]));
+
+    /*
+    $fl = $instagram->getFollowing($instagram->getAccount($instagram->getSessionUsername())->getId(), 100);
+    foreach ($fl as $item) {
+        try {
+            $instagram->unfollow($item['id']);
+        }
+        catch (Exception $e){
+            if (substr($e->getMessage(), 17, 3) == 403)
+                sleep(3);
+        }
+    }
+    */
+
+    /*
     $settings = [
         'comments_enabled' => true,
         'likes_enabled' => true,
         'following_enabled' => true,
     ];
 
+    $user = new User("23df4", "sdf", "sdfsdf", null, 12341234, 0, $settings);
+    $cm = new Comment(23424, 234234, 234234, "dfgdfg");
+    $fl = new FollowedUser(234234, 234234);
+*/
 
 } catch (Exception $exception) {
     echo "\nException\n" . $exception;
