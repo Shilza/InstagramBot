@@ -11,9 +11,16 @@ class AccountsBot extends Bot{
         parent::__construct($instagram, $settings);
     }
 
-    public function start(){
-        if($this->isFollowingEnabled || $this->isLikesEnabled || $this->isCommentsEnabled)
-            $this->accountProcessing($this->instagram->getAccount('someonesday'));
+    public function start()
+    {
+        if ($this->isFollowingEnabled || $this->isLikesEnabled || $this->isCommentsEnabled) {
+            try {
+                $this->accountProcessing($this->instagram->getAccount('selenagomez'));
+            } catch (Exception $e) {
+                $this->start();
+            }
+        }
+        $this->tempCount = 0;
     }
 
     private function accountProcessing($account, $limit = 10){

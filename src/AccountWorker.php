@@ -1,6 +1,7 @@
 <?php
 
 use InstagramScraper\Instagram;
+require_once 'src/Repositories/CommentsRepository.php';
 
 class AccountWorker{
     private $instagram;
@@ -31,6 +32,15 @@ class AccountWorker{
             'owner_id' => $this->instagram->getAccount($this->instagram->getSessionUsername())->getId()
         ]);
 
+        foreach ($comments as $comment) {
+            try {
+                $this->instagram->deleteComment($comment->getMediaId(), $comment->getId());
+            } catch (Exception $e){
+                if((strpos($e->getMessage(), "You cannot delete this comment")) === false)
+                    throw $e;
+            }
+            CommentsRepository::delete($comment);
+        }
     }
 
 }

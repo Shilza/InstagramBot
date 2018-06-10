@@ -1,6 +1,8 @@
 <?php
 
 use InstagramScraper\Instagram;
+require_once 'src/Repositories/CommentsRepository.php';
+require_once 'src/Repositories/FollowsRepository.php';
 
 abstract class Bot{
 
@@ -47,8 +49,16 @@ abstract class Bot{
 
             if($accountObject->getUsername() != $this->instagram->getSessionUsername()) {
 
-                if ($this->isFollowingEnabled && mt_rand(0, 1) == 1)
+                if ($this->isFollowingEnabled && mt_rand(0, 1) == 1){
                     $this->instagram->follow($accountObject->getId());
+
+                    FollowsRepository::add(new FollowedUser($accountObject->getId(),
+                        $this->instagram->getAccount($this->instagram->getSessionUsername())->getId()));
+
+                    echo "Follow: \n ID: "
+                        .strval($accountObject->getUsername()).' Id: '.strval($accountObject->getId())."\n\n";
+
+                }
 
                 if (!$accountObject->isPrivate()) {
                     if ($this->isLikesEnabled && mt_rand(0, 1) == 1)
@@ -72,6 +82,9 @@ abstract class Bot{
         $count = mt_rand(3, 5);
 
         if(count($medias) > 0) {
+
+            echo "Like\n\n";
+
             if ($count > count($medias))
                 foreach ($medias as $media)
                     $this->instagram->like($media->getId());
@@ -97,13 +110,19 @@ abstract class Bot{
             if(!$media->isCommentDisable())
                 array_push($commentableMedias, $media);
 
-        if(count($commentableMedias) > 0){ //TODO: Write commentary into DB
+        if(count($commentableMedias) > 0){
             $comment = $this->instagram->comment(
                 $commentableMedias[mt_rand(0, count($commentableMedias)-1)]->getId(),
                 $this->commentsText[mt_rand(0, count($this->commentsText)-1)]
             );
+
+            CommentsRepository::add(new Comment(
+                $comment->getId(), $comment->getOwner()->getId(),
+                $comment->getPicId(),$comment->getText(), $comment->getCreatedAt())
+            );
+
             echo "Comment: \n ID: ".strval($comment->getId()).' Text: '.strval($comment->getText())
-                .' Owner: '.strval($comment->getOwner()).' PicID: '.strval($comment->getPicId())."\n\n";
+                .' OwnerId: '.strval($comment->getOwner()->getId()).' PicID: '.strval($comment->getPicId())."\n\n";
         }
     }
 }

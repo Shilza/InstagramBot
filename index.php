@@ -17,77 +17,64 @@ function getUserAndPass()
     return explode(" ", file_get_contents("config", FILE_USE_INCLUDE_PATH));
 }
 
-try {
-    $arr = getUserAndPass();
+function registration($login, $pass, &$instagram, &$settings){
 
-    $instagram = InstagramScraper\Instagram::withCredentials($arr[0], $arr[1]);
+    $instagram = InstagramScraper\Instagram::withCredentials($login, $pass);
     $instagram->login();
 
-    var_dump(UsersRepository::getBy(['id' => 12]));
-
-    /*
-    $fl = $instagram->getFollowing($instagram->getAccount($instagram->getSessionUsername())->getId(), 100);
-    foreach ($fl as $item) {
-        try {
-            $instagram->unfollow($item['id']);
-        }
-        catch (Exception $e){
-            if (substr($e->getMessage(), 17, 3) == 403)
-                sleep(3);
-        }
-    }
-    */
-
-    /*
     $settings = [
         'comments_enabled' => true,
         'likes_enabled' => true,
         'following_enabled' => true,
     ];
 
-    $user = new User("23df4", "sdf", "sdfsdf", null, 12341234, 0, $settings);
-    $cm = new Comment(23424, 234234, 234234, "dfgdfg");
-    $fl = new FollowedUser(234234, 234234);
-*/
+    $user = new User($instagram->getAccount($login)->getId(), $login, $pass, null, 1234234, 0, $settings);
 
-} catch (Exception $exception) {
-    echo "\nException\n" . $exception;
+    UsersRepository::add($user);
+    CommentsRepository::createTable($user->getUserId());
+    FollowsRepository::createTable($user->getUserId());
+
+    return $user;
 }
 
 
+$arr = getUserAndPass();
 
+$user = registration($arr[0], $arr[1], $instagram, $settings);
 
-//$aw = new AccountWorker($instagram);
-
-
-/*    $arr = getUserAndPass();
-
-    $instagram = InstagramScraper\Instagram::withCredentials($arr[0], $arr[1]);
-    $instagram->login();
- *  $settings = [
-    'comments_enabled' => true,
-    'likes_enabled' => true,
-    'following_enabled' => true,
+$geotags = [
+    'California', "India", "Kiev"
 ];
+$bot2 = new GeotagBot($instagram, $user->getSettings(), $geotags);
+$bot2->start();
+
+
+
+/*
+ *
+
 
 $bot = new AccountsBot($instagram, $settings);
-$bot->start($account);
+$bot->start();
+
 
 $hashtags = ['follow4like', "follow4likes", "follow",
     "follow4", "follow4folow", "followers",
     "following", "liker", "likers",
     "likelike", "liked", "likeme", "like4follow", "instalike", "likeit"];
-$bot1 = new HashtagBot($instagram, $settings, $hashtags);
+$bot1 = new HashtagBot($instagram, $user->getSettings(), $hashtags);
 $bot1->start();
 
-$geotags = [
-    'Milan', "India", "Berlin"
-];
-$bot2 = new GeotagBot($instagram, $settings, $geotags);
-$bot2->start();
-*/
-//$aw = new AccountWorker($instagram);
 
-/*
- *
- * */
+
+$fl = $instagram->getFollowing($instagram->getAccount($instagram->getSessionUsername())->getId(), 100);
+foreach ($fl as $item) {
+    try {
+        $instagram->unfollow($item['id']);
+    }
+    catch (Exception $e){
+        if (substr($e->getMessage(), 17, 3) == 403)
+            sleep(3);
+    }
+}
+*/
