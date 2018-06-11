@@ -3,18 +3,18 @@
 require_once 'TagBot.php';
 
 class HashtagBot extends TagBot{
-    private $hashtags;
+    const DEFAULT_HASHTAGS = ['follow4like', "follow4likes", "follow",
+        "follow4", "follow4folow", "followers",
+        "following", "liker", "likers",
+        "likelike", "liked", "likeme", "like4follow", "instalike", "likeit"];
 
-    public function __construct($instagram, array $settings, array $hashtags){
+    public function __construct($instagram, array $settings){
         parent::__construct($instagram, $settings);
-
-        $this->hashtags = $hashtags;
     }
 
-    public function start(){
-        if(isset($this->hashtags)) {
-            $medias = $this->instagram->getMediasByTag($this->hashtags[mt_rand(0, count($this->hashtags) - 1)], 5);
-            $this->mediaProcessing($medias);
-        }
+    public function start()
+    {
+        $medias = $this->instagram->getMediasByTag($this->DEFAULT_HASHTAGS[mt_rand(0, count($this->hashtags) - 1)], 20);
+        $this->mediaProcessing($medias);
     }
 }

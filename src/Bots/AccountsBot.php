@@ -15,7 +15,7 @@ class AccountsBot extends Bot{
     {
         if ($this->isFollowingEnabled || $this->isLikesEnabled || $this->isCommentsEnabled) {
             try {
-                $this->accountProcessing($this->instagram->getAccount('selenagomez'));
+                $this->accountProcessing($this->instagram->getAccount('anthonellaruizdiaz'));
             } catch (Exception $e) {
                 $this->start();
             }

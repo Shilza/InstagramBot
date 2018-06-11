@@ -31,6 +31,7 @@ class DatabaseWorker{
                 $query->bindParam(':'.$key, $values[$key]);
 
         $query->execute();
+
         return $query->fetchAll();
     }
 }

@@ -37,23 +37,30 @@ class UsersRepository extends Repository implements Updatable{
     {
         if ($user instanceof User) {
             $query = "UPDATE users SET login = :login, password = :password, last_activity = :last_activity,
-                      money = :money, following_enabled = :following_enabled,
-                      likes_enabled = :likes_enabled, comments_enabled = :comments_enabled WHERE id = :id";
+                      money = :money, following_selected = :following_selected,
+                      likes_selected = :likes_selected, comments_selected = :comments_selected,
+                      genesis_account_bot_selected = :genesis_account_bot_selected,
+                      hashtag_bot_selected = :hashtag_bot_selected,
+                      geotag_bot_selected = :geotag_bot_selected
+                      WHERE id = :id";
 
             DatabaseWorker::execute($query, static::usersDataToArray($user));
         }
     }
 
     /**
-     * @param User $user
+     * @param $user
+     * @return mixed|void
      */
     public static function add($user)
     {
         if ($user instanceof User && static::isValid($user->getUserId())) {
             $query = "INSERT INTO users (id, login, password, last_activity,
-                      money, following_enabled, likes_enabled, comments_enabled) 
+                      money, following_selected, likes_selected, comments_selected,
+                      genesis_account_bot_selected, hashtag_bot_selected, geotag_bot_selected) 
                       VALUES(:id, :login, :password, :last_activity,
-                      :money, :following_enabled, :likes_enabled, :comments_enabled)";
+                      :money, :following_selected, :likes_selected, :comments_selected,
+                      :genesis_account_bot_selected, :hashtag_bot_selected, :geotag_bot_selected)";
 
             DatabaseWorker::execute($query, static::usersDataToArray($user));
         }
@@ -92,9 +99,12 @@ class UsersRepository extends Repository implements Updatable{
             $userData['id'], $userData['login'], $userData['password'],
             $userData['registration'], $userData['last_activity'], $userData['money'],
             [
-                'following_enabled' => $userData['following_enabled'],
-                'likes_enabled' => $userData['likes_enabled'],
-                'comments_enabled' => $userData['comments_enabled']
+                'following_selected' => $userData['following_selected'],
+                'likes_selected' => $userData['likes_selected'],
+                'comments_selected' => $userData['comments_selected'],
+                'genesis_account_bot_selected' => $userData['genesis_account_bot_selected'],
+                'hashtag_bot_selected' => $userData['hashtag_bot_selected'],
+                'geotag_bot_selected' => $userData['geotag_bot_selected']
             ]
         );
     }

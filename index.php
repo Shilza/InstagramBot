@@ -23,9 +23,12 @@ function registration($login, $pass, &$instagram, &$settings){
     $instagram->login();
 
     $settings = [
-        'comments_enabled' => true,
-        'likes_enabled' => true,
-        'following_enabled' => true,
+        'comments_selected' => true,
+        'likes_selected' => true,
+        'following_selected' => true,
+        'genesis_account_bot_selected' => true,
+        'hashtag_bot_selected' => true,
+        'geotag_bot_selected' => true
     ];
 
     $user = new User($instagram->getAccount($login)->getId(), $login, $pass, null, 1234234, 0, $settings);
@@ -38,34 +41,13 @@ function registration($login, $pass, &$instagram, &$settings){
 }
 
 
-$arr = getUserAndPass();
 
-$user = registration($arr[0], $arr[1], $instagram, $settings);
-
-$geotags = [
-    'California', "India", "Kiev"
-];
-$bot2 = new GeotagBot($instagram, $user->getSettings(), $geotags);
-$bot2->start();
-
+//$arr = getUserAndPass();
+//
+//$user = registration($arr[0], $arr[1], $instagram, $settings);
 
 
 /*
- *
-
-
-$bot = new AccountsBot($instagram, $settings);
-$bot->start();
-
-
-$hashtags = ['follow4like', "follow4likes", "follow",
-    "follow4", "follow4folow", "followers",
-    "following", "liker", "likers",
-    "likelike", "liked", "likeme", "like4follow", "instalike", "likeit"];
-$bot1 = new HashtagBot($instagram, $user->getSettings(), $hashtags);
-$bot1->start();
-
-
 
 $fl = $instagram->getFollowing($instagram->getAccount($instagram->getSessionUsername())->getId(), 100);
 foreach ($fl as $item) {

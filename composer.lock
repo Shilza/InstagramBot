@@ -290,12 +290,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Shilza/instagram-php-scraper.git",
-                "reference": "52835a98aa49805104cb087d736bd7e98abb0a19"
+                "reference": "bc90a8c16e1d634ce65f4ba1d677d593f4ae5e65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Shilza/instagram-php-scraper/zipball/52835a98aa49805104cb087d736bd7e98abb0a19",
-                "reference": "52835a98aa49805104cb087d736bd7e98abb0a19",
+                "url": "https://api.github.com/repos/Shilza/instagram-php-scraper/zipball/bc90a8c16e1d634ce65f4ba1d677d593f4ae5e65",
+                "reference": "bc90a8c16e1d634ce65f4ba1d677d593f4ae5e65",
                 "shasum": ""
             },
             "require": {
@@ -328,7 +328,7 @@
                 "instagram",
                 "scraper"
             ],
-            "time": "2018-06-09T18:53:23+00:00"
+            "time": "2018-06-10T20:47:50+00:00"
         }
     ],
     "packages-dev": [],
