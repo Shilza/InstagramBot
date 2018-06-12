@@ -14,7 +14,7 @@ class HashtagBot extends TagBot{
 
     public function start()
     {
-        $medias = $this->instagram->getMediasByTag($this->DEFAULT_HASHTAGS[mt_rand(0, count($this->hashtags) - 1)], 20);
+        $medias = $this->instagram->getMediasByTag(DEFAULT_HASHTAGS[mt_rand(0, count(DEFAULT_HASHTAGS) - 1)], 20);
         $this->mediaProcessing($medias);
     }
 }

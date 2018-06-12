@@ -2,16 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee65cf2f-b42d-49cd-aae3-dcf44451cd04" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b996efe3-623a-480e-a461-f31bd65ee3d4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/b996efe3-623a-480e-a461-f31bd65ee3d4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ef20668d-2987-494d-9d7e-08f974871077.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BotProcess.php" beforeDir="false" afterPath="$PROJECT_DIR$/BotProcess.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BotsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/BotsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Bots/AccountsBot.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bots/AccountsBot.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Bots/Bot.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bots/Bot.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Bots/HashtagBot.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bots/HashtagBot.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DatabaseWorker.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DatabaseWorker.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entities/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repositories/Repository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repositories/Repository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repositories/AccountsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repositories/AccountsRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repositories/UsersRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repositories/UsersRepository.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -59,13 +56,6 @@
         <item name="sql7242150: schema" type="c314c289:MysqlImplModel$Schema" />
         <item name="accounts_queue: table" type="98d5ac3d:MysqlImplModel$Table" />
       </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="InstaTest" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="sql7242150: schema" type="c314c289:MysqlImplModel$Schema" />
-        <item name="users: table" type="98d5ac3d:MysqlImplModel$Table" />
-      </path>
     </expand>
     <select />
   </component>
@@ -74,35 +64,35 @@
       <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="40" column="1" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
+            <state relative-caret-position="34">
+              <caret line="8" column="48" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BotsController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BotsController.php">
+      <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/b996efe3-623a-480e-a461-f31bd65ee3d4/console.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="827">
-              <caret line="60" column="3" selection-start-line="60" selection-start-column="3" selection-end-line="60" selection-end-column="3" />
+            <state>
+              <caret column="41" selection-start-column="41" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DatabaseWorker.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DatabaseWorker.php">
+      <file leaf-file-name="UsersRepository.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Repositories/UsersRepository.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="32" column="26" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="26" />
+            <state relative-caret-position="187">
+              <caret line="104" column="25" selection-start-line="104" selection-start-column="25" selection-end-line="104" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Account.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Entities/Account.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="65" column="5" selection-start-line="65" selection-start-column="5" selection-end-line="65" selection-end-column="5" />
+      <file leaf-file-name="users" pinned="false" current-in-tab="false">
+        <entry file="das://b996efe3-623a-480e-a461-f31bd65ee3d4/schema/sql7242150/table/users">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state>
+              <filtering enabled="true" />
             </state>
           </provider>
         </entry>
@@ -110,17 +100,17 @@
       <file leaf-file-name="BotProcess.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BotProcess.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="260">
+              <caret line="44" column="22" lean-forward="true" selection-start-line="44" selection-start-column="22" selection-end-line="44" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AccountsRepository.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Repositories/AccountsRepository.php">
+      <file leaf-file-name="HashtagBot.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Bots/HashtagBot.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="99" column="31" lean-forward="true" selection-start-line="99" selection-start-column="31" selection-end-line="99" selection-end-column="31" />
+            <state relative-caret-position="223">
+              <caret line="16" column="101" selection-start-line="16" selection-start-column="101" selection-end-line="16" selection-end-column="101" />
             </state>
           </provider>
         </entry>
@@ -129,8 +119,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getFollowing</find>
-      <find>getFollower</find>
       <find>getmediasby</find>
       <find>http_ok</find>
       <find>getuse</find>
@@ -159,6 +147,8 @@
       <find>is_new</find>
       <find>enabled</find>
       <find>echo</find>
+      <find>var_du</find>
+      <find>var_d</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -187,7 +177,6 @@
         <option value="$PROJECT_DIR$/src/Repositories/FollowsRepository.php" />
         <option value="$PROJECT_DIR$/src/Repositories/CommentsRepository.php" />
         <option value="$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Endpoints.php" />
-        <option value="$PROJECT_DIR$/src/Bots/Bot.php" />
         <option value="$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Model/Comment.php" />
         <option value="$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Instagram.php" />
         <option value="$PROJECT_DIR$/src/AccountWorker.php" />
@@ -196,16 +185,17 @@
         <option value="$PROJECT_DIR$/src/AccountsRepository.php" />
         <option value="$PROJECT_DIR$/src/Repositories/Repository.php" />
         <option value="$PROJECT_DIR$/src/Entities/User.php" />
-        <option value="$PROJECT_DIR$/src/Repositories/UsersRepository.php" />
-        <option value="$PROJECT_DIR$/src/Bots/HashtagBot.php" />
         <option value="$PROJECT_DIR$/src/Bots/GeotagBot.php" />
-        <option value="$PROJECT_DIR$/src/Repositories/AccountsRepository.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/src/Entities/Account.php" />
-        <option value="$PROJECT_DIR$/BotProcess.php" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/b996efe3-623a-480e-a461-f31bd65ee3d4/console.sql" />
-        <option value="$PROJECT_DIR$/src/DatabaseWorker.php" />
         <option value="$PROJECT_DIR$/BotsController.php" />
+        <option value="$PROJECT_DIR$/src/DatabaseWorker.php" />
+        <option value="$PROJECT_DIR$/src/Repositories/AccountsRepository.php" />
+        <option value="$PROJECT_DIR$/src/Repositories/UsersRepository.php" />
+        <option value="$PROJECT_DIR$/src/Bots/Bot.php" />
+        <option value="$PROJECT_DIR$/src/Bots/HashtagBot.php" />
+        <option value="$PROJECT_DIR$/BotProcess.php" />
       </list>
     </option>
   </component>
@@ -244,7 +234,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -256,6 +245,12 @@
               <item name="InstagramBot" type="b2602c69:ProjectViewProjectNode" />
               <item name="InstagramBot" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="InstagramBot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="InstagramBot" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Bots" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="InstagramBot" type="b2602c69:ProjectViewProjectNode" />
@@ -273,6 +268,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -347,11 +343,12 @@
       <workItem from="1528627590999" duration="9007000" />
       <workItem from="1528701996900" duration="143000" />
       <workItem from="1528713458175" duration="22188000" />
+      <workItem from="1528814246246" duration="12867000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="165121000" />
+    <option name="totallyTimeSpent" value="177988000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -361,12 +358,11 @@
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49926794" weight="0.3279703" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.07954545" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.33441558" />
       <window_info anchor="bottom" id="Database Console" order="12" weight="0.32954547" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19213313" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19515885" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.17473525" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32954547" />
+      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.15733737" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
@@ -376,28 +372,29 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32954547" />
     </layout>
     <layout-to-restore>
+      <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Console" order="12" weight="0.32954547" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49926794" weight="0.3279703" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19213313" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="TODO" order="4" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32954547" />
       <window_info anchor="right" id="Database" order="3" weight="0.17473525" />
       <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.4512987" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50073206" side_tool="true" weight="0.3286385" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info id="Favorites" order="2" side_tool="true" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -519,13 +516,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Bots/Bot.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="117" selection-start-line="117" selection-end-line="117" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Traits/InitializerTrait.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
@@ -617,30 +607,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Bots/AccountsBot.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entities/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="27" lean-forward="true" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
-          <folding>
-            <element signature="e#191#401#0#PHP" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Bots/HashtagBot.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="74" selection-start-line="16" selection-start-column="74" selection-end-line="16" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Bots/GeotagBot.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -652,20 +618,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://b996efe3-623a-480e-a461-f31bd65ee3d4/schema/sql7242150/table/users">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Repositories/UsersRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="44" column="35" selection-start-line="44" selection-start-column="35" selection-end-line="44" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -690,20 +642,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Repositories/AccountsRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="99" column="31" lean-forward="true" selection-start-line="99" selection-start-column="31" selection-end-line="99" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DatabaseWorker.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="32" column="26" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Entities/Account.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="349">
@@ -718,31 +656,93 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/b996efe3-623a-480e-a461-f31bd65ee3d4/console.sql">
+    <entry file="file://$PROJECT_DIR$/src/Repositories/AccountsRepository.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="42" lean-forward="true" selection-start-column="42" selection-end-column="42" />
+        <state relative-caret-position="221">
+          <caret line="52" column="38" lean-forward="true" selection-start-line="52" selection-start-column="38" selection-end-line="52" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BotsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="827">
-          <caret line="60" column="3" selection-start-line="60" selection-start-column="3" selection-end-line="60" selection-end-column="3" />
+        <state relative-caret-position="867">
+          <caret line="51" column="34" lean-forward="true" selection-start-line="51" selection-start-column="34" selection-end-line="51" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Bots/Bot.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="75" column="17" lean-forward="true" selection-start-line="75" selection-start-column="17" selection-end-line="75" selection-end-column="17" />
+          <folding>
+            <element signature="e#7#38#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Bots/AccountsBot.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DatabaseWorker.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entities/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+          <folding>
+            <element signature="e#191#401#0#PHP" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/b996efe3-623a-480e-a461-f31bd65ee3d4/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="41" selection-start-column="41" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Repositories/UsersRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="104" column="25" selection-start-line="104" selection-start-column="25" selection-end-line="104" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://b996efe3-623a-480e-a461-f31bd65ee3d4/schema/sql7242150/table/users">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Bots/HashtagBot.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="16" column="101" selection-start-line="16" selection-start-column="101" selection-end-line="16" selection-end-column="101" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BotProcess.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        <state relative-caret-position="260">
+          <caret line="44" column="22" lean-forward="true" selection-start-line="44" selection-start-column="22" selection-end-line="44" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="40" column="1" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
+        <state relative-caret-position="34">
+          <caret line="8" column="48" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
         </state>
       </provider>
     </entry>

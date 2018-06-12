@@ -1,42 +1,51 @@
 <?php
 
 use InstagramScraper\Instagram;
+use \InstagramScraper\Model\Account;
 require_once 'src/Repositories/CommentsRepository.php';
 require_once 'src/Repositories/FollowsRepository.php';
 
 abstract class Bot{
 
     protected $instagram;
-    private $commentsText = [];
+    private $commentsText = ['Like it!', 'Nice pic', 'Awesome ☺',
+        'Nice image!!!', 'Cute ♥', "👍👍👍", "🔝🔝🔝", "🔥🔥🔥"];
 
-    protected $isLikesEnabled = false;
-    protected $isCommentsEnabled = false;
-    protected $isFollowingEnabled = false;
+    protected $likesSelected = false;
+    protected $commentsSelected = false;
+    protected $followingSelected = false;
 
+    private $pointsCount = 0;
+
+    /**
+     * @return mixed
+     */
     abstract public function start();
 
+    /**
+     * Bot constructor.
+     * @param Instagram $instagram
+     * @param array $settings
+     */
     protected function __construct(Instagram $instagram, array $settings){
         $this->instagram = $instagram;
 
         if(isset($settings)){
             if(array_key_exists('likes_enabled', $settings))
-                $this->isLikesEnabled = $settings['likes_enabled'];
+                $this->likesSelected = $settings['likes_enabled'];
             if(array_key_exists('comments_enabled', $settings))
-                $this->isCommentsEnabled = $settings['comments_enabled'];
+                $this->commentsSelected = $settings['comments_enabled'];
             if(array_key_exists('following_enabled', $settings))
-                $this->isFollowingEnabled = $settings['following_enabled'];
+                $this->followingSelected = $settings['following_enabled'];
         }
 
-        array_push($this->commentsText, 'Like it!');
-        array_push($this->commentsText, 'Nice pic');
-        array_push($this->commentsText, 'Awesome ☺');
-        array_push($this->commentsText, 'Nice image!!!');
-        array_push($this->commentsText, 'Cute ♥');
-        array_push($this->commentsText, "👍👍👍");
-        array_push($this->commentsText, "🔝🔝🔝");
-        array_push($this->commentsText, "🔥🔥🔥");
     }
 
+    /**
+     * @param $accounts
+     * @throws \InstagramScraper\Exception\InstagramException
+     * @throws \InstagramScraper\Exception\InstagramNotFoundException
+     */
     protected function processing($accounts){
 
         foreach ($accounts as $account) {
@@ -49,22 +58,14 @@ abstract class Bot{
 
             if($accountObject->getUsername() != $this->instagram->getSessionUsername()) {
 
-                if ($this->isFollowingEnabled && mt_rand(0, 1) == 1){
-                    $this->instagram->follow($accountObject->getId());
-
-                    FollowsRepository::add(new FollowedUser($accountObject->getId(),
-                        $this->instagram->getAccount($this->instagram->getSessionUsername())->getId()));
-
-                    echo "Follow: \n ID: "
-                        .strval($accountObject->getUsername()).' Id: '.strval($accountObject->getId())."\n\n";
-
-                }
+                if ($this->followingSelected && mt_rand(0, 1) == 1)
+                    $this->follow($accountObject);
 
                 if (!$accountObject->isPrivate()) {
-                    if ($this->isLikesEnabled && mt_rand(0, 1) == 1)
+                    if ($this->likesSelected && mt_rand(0, 1) == 1)
                         $this->likeAccountsMedia($accountObject);
                     try {
-                        if ($this->isCommentsEnabled && mt_rand(0, 3) == 1)
+                        if ($this->commentsSelected && mt_rand(0, 3) == 1)
                             $this->commentAccountsMedia($accountObject);
                     } catch (Exception $e) {
                         if (substr($e->getMessage(), 17, 3) != 403)
@@ -77,6 +78,11 @@ abstract class Bot{
         }
     }
 
+    /**
+     * @param $accountObject
+     * @throws \InstagramScraper\Exception\InstagramException
+     * @throws \InstagramScraper\Exception\InstagramNotFoundException
+     */
     protected function likeAccountsMedia($accountObject){
         $medias = $this->instagram->getMedias($accountObject->getUsername(), 15);
         $count = mt_rand(3, 5);
@@ -86,14 +92,17 @@ abstract class Bot{
             echo "Like\n\n";
 
             if ($count > count($medias))
-                foreach ($medias as $media)
+                foreach ($medias as $media) {
+                    $this->pointsCount++;
                     $this->instagram->like($media->getId());
+                }
             else
                 while ($count > 0) {
                     $index = mt_rand(0, count($medias) - 1);
                     $media = $medias[$index];
 
                     if (!$media->isLikedByViewer()) {
+                        $this->pointsCount++;
                         $this->instagram->like($media->getId());
                         array_splice($medias, $index, 1);
                         $count--;
@@ -102,6 +111,11 @@ abstract class Bot{
         }
     }
 
+    /**
+     * @param $accountObject
+     * @throws \InstagramScraper\Exception\InstagramException
+     * @throws \InstagramScraper\Exception\InstagramNotFoundException
+     */
     protected function commentAccountsMedia($accountObject){
         $medias = $this->instagram->getMedias($accountObject->getUserName(), 5);
 
@@ -111,6 +125,7 @@ abstract class Bot{
                 array_push($commentableMedias, $media);
 
         if(count($commentableMedias) > 0){
+            $this->pointsCount++;
             $comment = $this->instagram->comment(
                 $commentableMedias[mt_rand(0, count($commentableMedias)-1)]->getId(),
                 $this->commentsText[mt_rand(0, count($this->commentsText)-1)]
@@ -124,5 +139,29 @@ abstract class Bot{
             echo "Comment: \n ID: ".strval($comment->getId()).' Text: '.strval($comment->getText())
                 .' OwnerId: '.strval($comment->getOwner()->getId()).' PicID: '.strval($comment->getPicId())."\n\n";
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getPointsCount(){
+        return $this->pointsCount;
+    }
+
+    /**
+     * @param Account $account
+     * @throws \InstagramScraper\Exception\InstagramException
+     * @throws \InstagramScraper\Exception\InstagramNotFoundException
+     */
+    private function follow(Account $account)
+    {
+        $this->pointsCount++;
+        $this->instagram->follow($account->getId());
+
+        FollowsRepository::add(new FollowedUser($account->getId(),
+            $this->instagram->getAccount($this->instagram->getSessionUsername())->getId()));
+
+        echo "Follow: \n ID: "
+            .strval($account->getUsername()).' Id: '.strval($account->getId())."\n\n";
     }
 }

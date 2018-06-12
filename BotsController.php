@@ -14,9 +14,11 @@ const MAX_PROCESSES_COUNT = 5;
 function createNewProcess()
 {
     global $processes;
-    $account = getActualAccount();
+    global $accounts;
 
-    if (isset($account)) {
+    if(count($accounts) > 0) {
+        $account = array_shift($accounts);
+
         array_push($processes, proc_open(
                 'php BotProcess.php ' . $account->getId(),
                 [], $pipes, null, null
@@ -38,17 +40,6 @@ function filterProcesses(){
     $processes = array_filter($processes);
 }
 
-function getActualAccount(){
-    global $accounts;
-
-    foreach ($accounts as $account)
-        if(($account->getTime() < time() || is_null($account->isInProcess())) && !$account->isInProcess())
-            return $account;
-
-    return null;
-}
-
-
 $processes = [];
 $accounts = [];
 
@@ -56,15 +47,13 @@ while(true) {
     $accounts = AccountsRepository::getActualAccounts();
     filterProcesses();
 
-    while (count($processes) < MAX_PROCESSES_COUNT) {
-        if (count($processes) == count($accounts))
-            break;
-        else if (count($accounts) != 0)
+    echo count($accounts)."\n";
+    while (count($processes) < MAX_PROCESSES_COUNT)
+        if (count($accounts) != 0)
             createNewProcess();
         else
             break;
-    }
 
-    sleep(2);
+    sleep(1);
 }
 

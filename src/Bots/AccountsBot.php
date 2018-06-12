@@ -13,7 +13,7 @@ class AccountsBot extends Bot{
 
     public function start()
     {
-        if ($this->isFollowingEnabled || $this->isLikesEnabled || $this->isCommentsEnabled) {
+        if ($this->followingSelected || $this->likesSelected || $this->commentsSelected) {
             try {
                 $this->accountProcessing($this->instagram->getAccount('anthonellaruizdiaz'));
             } catch (Exception $e) {

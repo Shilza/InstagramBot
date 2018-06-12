@@ -50,7 +50,9 @@ class AccountsRepository extends Repository implements Updatable {
      */
     public static function getActualAccounts(){
         $time = time();
-        $query = "SELECT * FROM accounts_queue WHERE time <= $time OR in_process=null ORDER BY time ";
+        $limit =  MAX_PROCESSES_COUNT;
+        $query = "SELECT * FROM accounts_queue WHERE
+         in_process IS NULL OR (time <= $time AND in_process!=true) ORDER BY time LIMIT $limit";
 
         $accountsArray = DatabaseWorker::execute($query);
         $accountObjectsArray = [];

@@ -9,7 +9,7 @@ class UsersRepository extends Repository implements Updatable{
 
     /**
      * @param array $criterions
-     * @return array|null
+     * @return array User|null
      */
     public static function getBy(array $criterions)
     {
