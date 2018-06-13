@@ -14,16 +14,22 @@ require_once 'src/Repositories/FollowsRepository.php';
 require_once 'src/Repositories/AccountsRepository.php';
 
 
-const MAX_POINTS_COUNT = 200;
+const MAX_POINTS_COUNT = 70;
 
-//$id = $argv[1];
-$id = 2436801585;
-AccountsRepository::update(new Account($id, time()+15, false));
-
+echo "ID: $argv[1]";
+$id = $argv[1];
+sleep(5);
+//$id = 2436801585;
 $user = UsersRepository::getBy(['id' => $id])[0];
-
 $instagram = InstagramScraper\Instagram::withCredentials($user->getLogin(), $user->getPassword());
 $instagram->login();
+
+//\InstagramScraper\Instagram::setProxy([
+//    'address' => $argv['2'],
+//    'port'    => $argv['3'],
+//    'tunnel'  => true,
+//    'timeout' => 30,
+//]);
 
 $geotags = [
     'California', "India", "Kiev"
@@ -38,14 +44,14 @@ if($user->getSettings()['hashtag_bot_selected'])
 if($user->getSettings()['geotag_bot_selected'])
     array_push($bots, new GeotagBot($instagram, $user->getSettings(), $geotags));
 
-$sas = 0;
+$pointsCount = 0;
 while(true){
     foreach ($bots as $bot){
-        echo "NEW BOT STARTED ".gettype($bot)." Sas: $sas \n";
         $bot->start();
-        echo "Aaa".$bot->getPointsCount() ."\n";
-        $sas += $bot->getPointsCount();
-        if($sas >= MAX_POINTS_COUNT)
+        $pointsCount += $bot->getPointsCount();
+        if($pointsCount >= MAX_POINTS_COUNT)
             break 2;
     }
 }
+
+AccountsRepository::update(new Account($id, time()+120, false));

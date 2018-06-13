@@ -55,7 +55,8 @@ class UsersRepository extends Repository implements Updatable{
     public static function add($user)
     {
         if ($user instanceof User && static::isValid($user->getUserId())) {
-            $query = "INSERT INTO users (id, login, password, last_activity,
+            $query = /** @lang SQL */
+                "INSERT INTO users (id, login, password, last_activity,
                       money, following_selected, likes_selected, comments_selected,
                       genesis_account_bot_selected, hashtag_bot_selected, geotag_bot_selected) 
                       VALUES(:id, :login, :password, :last_activity,

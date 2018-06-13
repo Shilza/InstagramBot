@@ -4,23 +4,26 @@ require_once 'Bot.php';
 use InstagramScraper\Instagram;
 
 class AccountsBot extends Bot{
-    ////////////////////////Temporary
-    private $tempCount = 0;
+    private $cyclesCount = 0;
 
     public function __construct(Instagram $instagram, array $settings){
         parent::__construct($instagram, $settings);
     }
 
-    public function start()
-    {
+    public function start(){
         if ($this->followingSelected || $this->likesSelected || $this->commentsSelected) {
             try {
-                $this->accountProcessing($this->instagram->getAccount('anthonellaruizdiaz'));
-            } catch (Exception $e) {
+                $account = $this->instagram->getAccount('__diy_._slime__');
+                if(!$account->isPrivate())
+                    $this->accountProcessing($account);
+                else{//TODO: Deleting account from array of genesis accounts
+
+                }
+            } catch (\InstagramScraper\Exception\Exception $e) {
                 $this->start();
             }
         }
-        $this->tempCount = 0;
+        $this->cyclesCount = 0;
     }
 
     private function accountProcessing($account, $limit = 10){
@@ -32,6 +35,7 @@ class AccountsBot extends Bot{
 
         $nextCount = ($count > $limit ? $limit : $count);
         echo "Next count: ".strval($nextCount);
+
         $accounts = $this->instagram->getFollowers($account->getId(), $nextCount, ($nextCount < 20 ? $nextCount : 20));
         $publicAccounts = $this->getPublicAccounts($accounts);
 
@@ -71,9 +75,8 @@ class AccountsBot extends Bot{
         return $publicAccounts;
     }
 
-    //TODO:
     private function isStageFinished(){
-        if($this->tempCount++ > 1)
+        if($this->cyclesCount++ > 1)
             return true;
         else
             return false;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="InstaTest">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.8">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.9">
     <root id="1">
       <ServerVersion>5.5.58</ServerVersion>
       <DefaultEngine>InnoDB</DefaultEngine>
@@ -805,156 +805,200 @@
     </collation>
     <table id="201" parent="3" name="accounts_queue"/>
     <table id="202" parent="3" name="comments2436801585"/>
-    <table id="203" parent="3" name="follows2436801585"/>
-    <table id="204" parent="3" name="users">
+    <table id="203" parent="3" name="comments7906270844"/>
+    <table id="204" parent="3" name="follows2436801585"/>
+    <table id="205" parent="3" name="follows7906270844"/>
+    <table id="206" parent="3" name="users">
       <Collation>utf8_general_ci</Collation>
     </table>
-    <column id="205" parent="201" name="id">
+    <column id="207" parent="201" name="id">
       <Position>1</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8_general_ci</Collation>
     </column>
-    <column id="206" parent="201" name="time">
+    <column id="208" parent="201" name="time">
       <Position>2</Position>
       <DataType>int(10) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="207" parent="201" name="in_process">
+    <column id="209" parent="201" name="in_process">
       <Position>3</Position>
       <Comment>NULL if account never worked(new account in queue); 0 if account in queue(not in process); 1 if in process</Comment>
       <DataType>tinyint(1)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="208" parent="201" name="PRIMARY">
+    <key id="210" parent="201" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="209" parent="202" name="id">
+    <column id="211" parent="202" name="id">
       <Position>1</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8_general_ci</Collation>
     </column>
-    <column id="210" parent="202" name="media_id">
+    <column id="212" parent="202" name="media_id">
       <Position>2</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8_general_ci</Collation>
     </column>
-    <column id="211" parent="202" name="text">
+    <column id="213" parent="202" name="text">
       <Position>3</Position>
       <DataType>varchar(140)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8_general_ci</Collation>
     </column>
-    <column id="212" parent="202" name="date">
+    <column id="214" parent="202" name="date">
       <Position>4</Position>
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="213" parent="203" name="user_id">
+    <column id="215" parent="203" name="id">
       <Position>1</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8_general_ci</Collation>
     </column>
-    <column id="214" parent="203" name="date">
-      <Position>2</Position>
-      <DataType>timestamp|0s</DataType>
-      <NotNull>1</NotNull>
-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="215" parent="204" name="id">
-      <Position>1</Position>
-      <DataType>int(10) unsigned|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="216" parent="204" name="login">
+    <column id="216" parent="203" name="media_id">
       <Position>2</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
+      <Collation>utf8_general_ci</Collation>
     </column>
-    <column id="217" parent="204" name="password">
+    <column id="217" parent="203" name="text">
       <Position>3</Position>
-      <DataType>varchar(32)|0s</DataType>
+      <DataType>varchar(140)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
+      <Collation>utf8_general_ci</Collation>
     </column>
-    <column id="218" parent="204" name="registration">
+    <column id="218" parent="203" name="date">
       <Position>4</Position>
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="219" parent="204" name="last_activity">
+    <column id="219" parent="204" name="user_id">
+      <Position>1</Position>
+      <DataType>varchar(32)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+      <Collation>utf8_general_ci</Collation>
+    </column>
+    <column id="220" parent="204" name="date">
+      <Position>2</Position>
+      <DataType>timestamp|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="221" parent="205" name="user_id">
+      <Position>1</Position>
+      <DataType>varchar(32)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+      <Collation>utf8_general_ci</Collation>
+    </column>
+    <column id="222" parent="205" name="date">
+      <Position>2</Position>
+      <DataType>timestamp|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="223" parent="206" name="id">
+      <Position>1</Position>
+      <DataType>varchar(32)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="224" parent="206" name="login">
+      <Position>2</Position>
+      <DataType>varchar(32)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="225" parent="206" name="password">
+      <Position>3</Position>
+      <DataType>varchar(32)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="226" parent="206" name="registration">
+      <Position>4</Position>
+      <DataType>timestamp|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="227" parent="206" name="last_activity">
       <Position>5</Position>
       <DataType>int(10) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="220" parent="204" name="money">
+    <column id="228" parent="206" name="money">
       <Position>6</Position>
       <DataType>int(10) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="221" parent="204" name="following_selected">
+    <column id="229" parent="206" name="following_selected">
       <Position>7</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="222" parent="204" name="likes_selected">
+    <column id="230" parent="206" name="likes_selected">
       <Position>8</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="223" parent="204" name="comments_selected">
+    <column id="231" parent="206" name="comments_selected">
       <Position>9</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="224" parent="204" name="genesis_account_bot_selected">
+    <column id="232" parent="206" name="genesis_account_bot_selected">
       <Position>10</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="225" parent="204" name="hashtag_bot_selected">
+    <column id="233" parent="206" name="hashtag_bot_selected">
       <Position>11</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="226" parent="204" name="geotag_bot_selected">
+    <column id="234" parent="206" name="geotag_bot_selected">
       <Position>12</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="227" parent="204" name="PRIMARY">
+    <key id="235" parent="206" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

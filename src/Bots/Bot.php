@@ -31,12 +31,12 @@ abstract class Bot{
         $this->instagram = $instagram;
 
         if(isset($settings)){
-            if(array_key_exists('likes_enabled', $settings))
-                $this->likesSelected = $settings['likes_enabled'];
-            if(array_key_exists('comments_enabled', $settings))
-                $this->commentsSelected = $settings['comments_enabled'];
-            if(array_key_exists('following_enabled', $settings))
-                $this->followingSelected = $settings['following_enabled'];
+            if(array_key_exists('likes_selected', $settings))
+                $this->likesSelected = $settings['likes_selected'];
+            if(array_key_exists('comments_selected', $settings))
+                $this->commentsSelected = $settings['comments_selected'];
+            if(array_key_exists('following_selected', $settings))
+                $this->followingSelected = $settings['following_selected'];
         }
 
     }
@@ -47,7 +47,6 @@ abstract class Bot{
      * @throws \InstagramScraper\Exception\InstagramNotFoundException
      */
     protected function processing($accounts){
-
         foreach ($accounts as $account) {
 
             $accountObject = (gettype($account) == "object"

@@ -12,6 +12,8 @@ require_once 'src/Repositories/CommentsRepository.php';
 require_once 'src/Entities/FollowedUser.php';
 require_once 'src/Repositories/FollowsRepository.php';
 
+use InstagramScraper\Instagram;
+
 function getUserAndPass()
 {
     return explode(" ", file_get_contents("config", FILE_USE_INCLUDE_PATH));
@@ -19,7 +21,7 @@ function getUserAndPass()
 
 function registration($login, $pass, &$instagram, &$settings){
 
-    $instagram = InstagramScraper\Instagram::withCredentials($login, $pass);
+    $instagram = Instagram::withCredentials($login, $pass);
     $instagram->login();
 
     $settings = [
@@ -31,7 +33,7 @@ function registration($login, $pass, &$instagram, &$settings){
         'geotag_bot_selected' => true
     ];
 
-    $user = new User($instagram->getAccount($login)->getId(), $login, $pass, null, 1234234, 0, $settings);
+    $user = new User($instagram->getAccount($login)->getId(), $login, $pass, null, time(), 0, $settings);
 
     UsersRepository::add($user);
     CommentsRepository::createTable($user->getUserId());
@@ -40,12 +42,13 @@ function registration($login, $pass, &$instagram, &$settings){
     return $user;
 }
 
+//7955715631
+$arr = getUserAndPass();
 
+$user = registration($arr[0], $arr[1], $instagram, $settings);
+$accountWorker = new AccountWorker($instagram);
 
-//$arr = getUserAndPass();
-//
-//$user = registration($arr[0], $arr[1], $instagram, $settings);
-
+$accountWorker->unfollowFromAll();
 
 /*
 
