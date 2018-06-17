@@ -15,6 +15,7 @@ abstract class TagBot extends Bot{
      * @throws \InstagramScraper\Exception\InstagramException
      * @throws \InstagramScraper\Exception\InstagramNotFoundException
      * @throws \InstagramScraper\Exception\InstagramRequestException
+     * @throws \Unirest\Exception
      */
     protected function mediaProcessing(array $medias){
         $accounts = [];

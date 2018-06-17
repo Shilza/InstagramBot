@@ -44,6 +44,7 @@ class AccountsBot extends Bot{
      * @throws InstagramNotFoundException
      * @throws \InstagramScraper\Exception\InstagramException
      * @throws \InstagramScraper\Exception\InstagramRequestException
+     * @throws \Unirest\Exception
      */
     private function accountProcessing(Account $account, $limit = 10)
     {

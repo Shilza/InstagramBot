@@ -10,9 +10,12 @@ use InstagramScraper\Model\Account;
 
 use Repository\CommentsRepository;
 use Repository\FollowsRepository;
+use Unirest;
+use Util\Logger;
 
-abstract class Bot
-{
+abstract class Bot{
+    const MAX_FAILS_COUNT = 15;
+    const REQUEST_DELAY = 240;
 
     protected $instagram;
     private $commentsText = ['Like it!', 'Nice pic', 'Awesome ☺',
@@ -23,22 +26,7 @@ abstract class Bot
     protected $followingSelected = false;
 
     private $pointsCount = 0;
-
-    abstract protected function start();
-
-    public function run()
-    {
-        try {
-            if ($this->followingSelected || $this->likesSelected || $this->commentsSelected)
-                $this->start();
-        } catch (InstagramRequestException $e) {
-            if ($e->getCode() == 403) {
-                echo "403\n";
-                sleep(60);
-                $this->run();
-            }
-        }
-    }
+    private $failsCount = 0;
 
     /**
      * Bot constructor.
@@ -61,10 +49,48 @@ abstract class Bot
     }
 
     /**
+     * @throws InstagramRequestException
+     */
+    public function run(){
+
+        try {
+            if ($this->followingSelected || $this->likesSelected || $this->commentsSelected)
+                $this->start();
+        } catch (InstagramRequestException $e) {
+            if ($this->failsCount++ < static::MAX_FAILS_COUNT)
+                switch ($e->getCode()) {
+                    case 403:
+                    case 503:
+                        Logger::log("Bot crush: ".$e->getMessage());
+                        sleep(static::REQUEST_DELAY);
+                        $this->run();
+                        break;
+                    default:
+                        throw $e;
+                }
+            else
+                throw new \Exception("Request failed");
+        } catch (Unirest\Exception $exception){
+            echo 'Unirest\n';
+            $this->run();
+        } finally {
+            $this->failsCount = 0;
+            $this->pointsCount = 0;
+        }
+    }
+
+    /**
+     * @return mixed
+     * @throws InstagramRequestException
+     */
+    abstract protected function start();
+
+    /**
      * @param $accounts
+     * @throws Exception
+     * @throws InstagramRequestException
      * @throws \InstagramScraper\Exception\InstagramException
      * @throws \InstagramScraper\Exception\InstagramNotFoundException
-     * @throws \InstagramScraper\Exception\InstagramRequestException
      */
     protected function processing($accounts)
     {
@@ -168,8 +194,7 @@ abstract class Bot
     /**
      * @return int
      */
-    public function getPointsCount()
-    {
+    public function getPointsCount(){
         return $this->pointsCount;
     }
 
@@ -179,8 +204,7 @@ abstract class Bot
      * @throws \InstagramScraper\Exception\InstagramNotFoundException
      * @throws \InstagramScraper\Exception\InstagramRequestException
      */
-    private function follow(Account $account)
-    {
+    private function follow(Account $account){
         $this->pointsCount++;
         $this->instagram->follow($account->getId());
 

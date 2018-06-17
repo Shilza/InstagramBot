@@ -6,90 +6,111 @@ use InstagramScraper\Exception\Exception;
 use InstagramScraper\Instagram;
 use Repository\CommentsRepository;
 use Repository\FollowsRepository;
+use Unirest;
 
-class AccountWorker{
-    const REQUEST_DELAY = 60;
+class AccountWorker
+{
+    const REQUEST_DELAY = 240;
     const MAX_FAIL_COUNT = 5;
     private $failCount = 0;
 
     private $instagram;
 
-    public function __construct(Instagram $instagram){
+    public function __construct(Instagram $instagram)
+    {
         $this->instagram = $instagram;
+    }
+
+    public function unfollowFromAll()
+    {
+        $this->runFunction('unfollowingFromAll');
+    }
+
+    public function unfollowFromUnfollowers()
+    {
+        $this->runFunction('unfollowingFromUnfollowers');
+    }
+
+    public function deleteCommentsByBot()
+    {
+        $this->runFunction('deletingCommentsByBot');
+    }
+
+    /**
+     * @param $function
+     * @throws Exception
+     */
+    private function runFunction($function)
+    {
+        try {
+            $this->$function();
+        } catch (Exception $e) {
+            if ($this->failCount++ < static::MAX_FAIL_COUNT)
+                switch ($e->getCode()) {
+                    case 403:
+                    case 503:
+                        sleep(static::REQUEST_DELAY);
+                        $this->unfollowFromAll();
+                        break;
+                    default:
+                        throw $e;
+                } else //TODO
+                throw new \Exception("Requests failed");
+        } catch (Unirest\Exception $e) {
+            echo "Unirest\n";
+            $this->runFunction($function);
+        }
     }
 
     /**
      * @throws \Exception
      */
-    public function unfollowFromAll(){
-        try {
-            $followedUsers = FollowsRepository::getBy([
-                'owner_id' => $this->instagram->getAccount($this->instagram->getSessionUsername())->getId()
-            ]);
-            foreach ($followedUsers as $followedUser) {
+    private function unfollowingFromAll()
+    {
+        $followedUsers = FollowsRepository::getBy([
+            'owner_id' => $this->instagram->getAccount($this->instagram->getSessionUsername())->getId()
+        ]);
+        foreach ($followedUsers as $followedUser) {
+            $this->instagram->unfollow($followedUser->getUserId());
+            FollowsRepository::delete($followedUser);
+            $this->failCount = 0;
+        }
+    }
+
+    /**
+     * @throws \Exception
+     */
+    private function unfollowingFromUnfollowers()
+    {
+        $followedUsers = FollowsRepository::getBy([
+            'owner_id' => $this->instagram->getAccount($this->instagram->getSessionUsername())->getId()
+        ]);
+        foreach ($followedUsers as $followedUser)
+            if (!$this->instagram->getAccount($followedUser->getUserId())->isFollowsViewer()) {
                 $this->instagram->unfollow($followedUser->getUserId());
                 FollowsRepository::delete($followedUser);
                 $this->failCount = 0;
             }
-        } catch (Exception $e){
-            if($this->failCount++ < static::MAX_FAIL_COUNT) {
-                sleep(static::REQUEST_DELAY);
-                $this->unfollowFromAll();
-            } else //TODO
-                throw new \Exception("Requests failed");
-        }
     }
 
     /**
      * @throws \Exception
      */
-    public function unfollowFromUnfollowers(){
-        try {
-            $followedUsers = FollowsRepository::getBy([
-                'owner_id' => $this->instagram->getAccount($this->instagram->getSessionUsername())->getId()
-            ]);
-            foreach ($followedUsers as $followedUser)
-                if (!$this->instagram->getAccount($followedUser->getUserId())->isFollowsViewer()) {
-                    $this->instagram->unfollow($followedUser->getUserId());
-                    FollowsRepository::delete($followedUser);
-                    $this->failCount = 0;
-                }
-        } catch (Exception $e){
-            if($this->failCount++ < static::MAX_FAIL_COUNT) {
-                sleep(static::REQUEST_DELAY);
-                $this->unfollowFromUnfollowers();
-            } else //TODO
-                throw new \Exception("Requests failed");
-        }
+    private function deletingCommentsByBot()
+    {
+        $comments = CommentsRepository::getBy([
+            'owner_id' => $this->instagram->getAccount($this->instagram->getSessionUsername())->getId()
+        ]);
 
-    }
-
-    /**
-     * @throws \Exception
-     */
-    public function deleteCommentsByBot(){
-        try {
-            $comments = CommentsRepository::getBy([
-                'owner_id' => $this->instagram->getAccount($this->instagram->getSessionUsername())->getId()
-            ]);
-
-            foreach ($comments as $comment) {
-                try {
-                    $this->instagram->deleteComment($comment->getMediaId(), $comment->getId());
-                } catch (Exception $e) {
-                    if ((strpos($e->getMessage(), "You cannot delete this comment")) === false)
-                        throw $e;
-                }
-                CommentsRepository::delete($comment);
-                $this->failCount = 0;
+        foreach ($comments as $comment) {
+            try {
+                $this->instagram->deleteComment($comment->getMediaId(), $comment->getId());
+            } catch (Exception $e) {
+                if ((strpos($e->getMessage(), "You cannot delete this comment")) === false)
+                    throw $e;
             }
-        } catch (Exception $e){
-            if($this->failCount++ < static::MAX_FAIL_COUNT) {
-                sleep(static::REQUEST_DELAY);
-                $this->deleteCommentsByBot();
-            } else //TODO
-                throw new \Exception("Requests failed");
+            CommentsRepository::delete($comment);
+            $this->failCount = 0;
         }
     }
-
 }
