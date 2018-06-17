@@ -1,7 +1,9 @@
 <?php
 
-require_once 'Updatable.php';
-require_once 'Repository.php';
+namespace Repository;
+
+use Entity\Comment;
+use Util\DatabaseWorker;
 
 class CommentsRepository extends Repository implements Updatable {
 

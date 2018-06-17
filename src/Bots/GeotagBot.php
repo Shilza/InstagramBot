@@ -1,6 +1,7 @@
 <?php
 
-require_once 'TagBot.php';
+namespace Bot;
+
 use InstagramScraper\Instagram;
 
 class GeotagBot extends TagBot{
@@ -13,7 +14,13 @@ class GeotagBot extends TagBot{
         $this->geotags = $geotags;
     }
 
-    public function start(){
+    /**
+     * @return void
+     * @throws \InstagramScraper\Exception\InstagramException
+     * @throws \InstagramScraper\Exception\InstagramNotFoundException
+     * @throws \InstagramScraper\Exception\InstagramRequestException
+     */
+    protected function start(){
         if(isset($this->geotags)){
             $medias = $this->instagram->getCurrentTopMediasByLocationId(
                 $this->instagram->getLocationIdByName($this->geotags[mt_rand(0, count($this->geotags) - 1)]));

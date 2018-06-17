@@ -1,32 +1,52 @@
 <?php
 
-require_once 'Bot.php';
+namespace Bot;
+
+use InstagramScraper\Exception\InstagramNotFoundException;
 use InstagramScraper\Instagram;
+use InstagramScraper\Model\Account;
 
 class AccountsBot extends Bot{
     private $cyclesCount = 0;
 
-    public function __construct(Instagram $instagram, array $settings){
+    public function __construct(Instagram $instagram, array $settings)
+    {
         parent::__construct($instagram, $settings);
     }
 
-    public function start(){
-        if ($this->followingSelected || $this->likesSelected || $this->commentsSelected) {
-            try {
-                $account = $this->instagram->getAccount('__diy_._slime__');
-                if(!$account->isPrivate())
-                    $this->accountProcessing($account);
-                else{//TODO: Deleting account from array of genesis accounts
-
-                }
-            } catch (\InstagramScraper\Exception\Exception $e) {
-                $this->start();
-            }
-        }
+    /**
+     * @return mixed|void
+     * @throws \InstagramScraper\Exception\InstagramException
+     * @throws \InstagramScraper\Exception\InstagramRequestException
+     */
+    protected function start(){
+        $nickname = $this->getRandomGenesisAccount();
         $this->cyclesCount = 0;
+        try {
+            $account = $this->instagram->getAccount($nickname);
+            if (!$account->isPrivate())
+                $this->accountProcessing($account);
+            else {//TODO: Deleting account from array of genesis accounts
+            }
+        } catch(InstagramNotFoundException $e){//TODO
+        }
     }
 
-    private function accountProcessing($account, $limit = 10){
+    //TODO
+    private function getRandomGenesisAccount(){
+        return "";
+    }
+
+    /**
+     * @param Account $account
+     * @param int $limit
+     * @return bool
+     * @throws InstagramNotFoundException
+     * @throws \InstagramScraper\Exception\InstagramException
+     * @throws \InstagramScraper\Exception\InstagramRequestException
+     */
+    private function accountProcessing(Account $account, $limit = 10)
+    {
         sleep(mt_rand(0, 3));
         if ($this->isStageFinished())
             return true;
@@ -34,12 +54,12 @@ class AccountsBot extends Bot{
         $count = $account->getFollowedByCount();
 
         $nextCount = ($count > $limit ? $limit : $count);
-        echo "Next count: ".strval($nextCount);
+        echo "Next count: " . strval($nextCount);
 
         $accounts = $this->instagram->getFollowers($account->getId(), $nextCount, ($nextCount < 20 ? $nextCount : 20));
         $publicAccounts = $this->getPublicAccounts($accounts);
 
-        echo "\n Account: ".$account->getUsername()."\n"."Accounts: "."\n";
+        echo "\n Account: " . $account->getUsername() . "\n" . "Accounts: " . "\n";
         $this->processing($accounts);
 
         if ($count > $limit) {
@@ -65,7 +85,14 @@ class AccountsBot extends Bot{
             return true;
     }
 
-    private function getPublicAccounts(array $accounts){
+    /**
+     * @param array $accounts
+     * @return array
+     * @throws InstagramNotFoundException
+     * @throws \InstagramScraper\Exception\InstagramException
+     */
+    private function getPublicAccounts(array $accounts)
+    {
         $publicAccounts = [];
         foreach ($accounts as $acc) {
             $acc = $this->instagram->getAccountById($acc['id']);
@@ -75,8 +102,12 @@ class AccountsBot extends Bot{
         return $publicAccounts;
     }
 
-    private function isStageFinished(){
-        if($this->cyclesCount++ > 1)
+    /**
+     * @return bool
+     */
+    private function isStageFinished()
+    {
+        if ($this->cyclesCount++ > 1)
             return true;
         else
             return false;

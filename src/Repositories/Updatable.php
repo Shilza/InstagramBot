@@ -1,5 +1,7 @@
 <?php
 
+namespace Repository;
+
 interface Updatable
 {
     /**

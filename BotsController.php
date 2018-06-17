@@ -1,14 +1,10 @@
 <?php
 
 require 'vendor/autoload.php';
-require_once 'src/Entities/Account.php';
-require_once 'src/Repositories/AccountsRepository.php';
-require_once 'src/Bots/AccountsBot.php';
-require_once 'src/Bots/HashtagBot.php';
-require_once 'src/Bots/GeotagBot.php';
-require_once 'src/Repositories/UsersRepository.php';
 
-const MAX_PROCESSES_COUNT = 5;
+use Repository\AccountsRepository;
+
+const MAX_PROCESSES_COUNT = 2;
 
 
 function createNewProcess(){
@@ -32,7 +28,6 @@ function createNewProcess(){
                 [], $pipes, null, null
             )
         );
-
 
         $account->setInProcess(true);
         AccountsRepository::update($account);

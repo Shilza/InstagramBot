@@ -1,6 +1,8 @@
 <?php
 
-require_once 'Repository.php';
+namespace Repository;
+use Entity\FollowedUser;
+use Util\DatabaseWorker;
 
 class FollowsRepository extends Repository{
 

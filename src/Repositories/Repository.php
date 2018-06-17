@@ -1,5 +1,7 @@
 <?php
 
+namespace Repository;
+
 abstract class Repository{
 
     /**

@@ -1,7 +1,11 @@
 <?php
 
+namespace Util;
+
+use InstagramScraper\Exception\Exception;
 use InstagramScraper\Instagram;
-require_once 'src/Repositories/CommentsRepository.php';
+use Repository\CommentsRepository;
+use Repository\FollowsRepository;
 
 class AccountWorker{
     const REQUEST_DELAY = 60;
@@ -15,7 +19,7 @@ class AccountWorker{
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function unfollowFromAll(){
         try {
@@ -27,17 +31,17 @@ class AccountWorker{
                 FollowsRepository::delete($followedUser);
                 $this->failCount = 0;
             }
-        } catch (\InstagramScraper\Exception\Exception $e){
-            if($this->failCount < static::MAX_FAIL_COUNT) {
+        } catch (Exception $e){
+            if($this->failCount++ < static::MAX_FAIL_COUNT) {
                 sleep(static::REQUEST_DELAY);
                 $this->unfollowFromAll();
             } else //TODO
-                throw new Exception("Requests failed");
+                throw new \Exception("Requests failed");
         }
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function unfollowFromUnfollowers(){
         try {
@@ -50,18 +54,18 @@ class AccountWorker{
                     FollowsRepository::delete($followedUser);
                     $this->failCount = 0;
                 }
-        } catch (\InstagramScraper\Exception\Exception $e){
-            if($this->failCount < static::MAX_FAIL_COUNT) {
+        } catch (Exception $e){
+            if($this->failCount++ < static::MAX_FAIL_COUNT) {
                 sleep(static::REQUEST_DELAY);
                 $this->unfollowFromUnfollowers();
             } else //TODO
-                throw new Exception("Requests failed");
+                throw new \Exception("Requests failed");
         }
 
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function deleteCommentsByBot(){
         try {
@@ -72,19 +76,19 @@ class AccountWorker{
             foreach ($comments as $comment) {
                 try {
                     $this->instagram->deleteComment($comment->getMediaId(), $comment->getId());
-                } catch (\InstagramScraper\Exception\Exception $e) {
+                } catch (Exception $e) {
                     if ((strpos($e->getMessage(), "You cannot delete this comment")) === false)
                         throw $e;
                 }
                 CommentsRepository::delete($comment);
                 $this->failCount = 0;
             }
-        } catch (\InstagramScraper\Exception\Exception $e){
-            if($this->failCount < static::MAX_FAIL_COUNT) {
+        } catch (Exception $e){
+            if($this->failCount++ < static::MAX_FAIL_COUNT) {
                 sleep(static::REQUEST_DELAY);
                 $this->deleteCommentsByBot();
             } else //TODO
-                throw new Exception("Requests failed");
+                throw new \Exception("Requests failed");
         }
     }
 

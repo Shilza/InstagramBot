@@ -11,5 +11,13 @@
   ],
   "require": {
     "shilza/instagram-php-scraper": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Bot\\": "src/Bots",
+      "Entity\\": "src/Entities",
+      "Repository\\": "src/Repositories",
+      "Util\\": "src/Util"
+    }
   }
 }

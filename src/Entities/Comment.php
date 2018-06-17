@@ -1,5 +1,7 @@
 <?php
 
+namespace Entity;
+
 class Comment{
     private $id;
     private $ownerId;

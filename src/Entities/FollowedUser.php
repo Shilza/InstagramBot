@@ -1,5 +1,7 @@
 <?php
 
+namespace Entity;
+
 class FollowedUser{
     private $userId;
     private $ownerId;

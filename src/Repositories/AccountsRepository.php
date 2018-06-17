@@ -1,9 +1,9 @@
 <?php
 
-require_once 'Repository.php';
-require_once 'Updatable.php';
-require_once 'src/DatabaseWorker.php';
-require_once 'src/Entities/Account.php';
+namespace Repository;
+
+use Entity\Account;
+use Util\DatabaseWorker;
 
 class AccountsRepository extends Repository implements Updatable {
 

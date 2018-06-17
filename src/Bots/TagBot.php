@@ -1,6 +1,7 @@
 <?php
 
-require_once 'Bot.php';
+namespace Bot;
+
 use InstagramScraper\Instagram;
 
 abstract class TagBot extends Bot{
@@ -9,6 +10,12 @@ abstract class TagBot extends Bot{
         parent::__construct($instagram, $settings);
     }
 
+    /**
+     * @param array $medias
+     * @throws \InstagramScraper\Exception\InstagramException
+     * @throws \InstagramScraper\Exception\InstagramNotFoundException
+     * @throws \InstagramScraper\Exception\InstagramRequestException
+     */
     protected function mediaProcessing(array $medias){
         $accounts = [];
         foreach ($medias as $media)
@@ -17,6 +24,11 @@ abstract class TagBot extends Bot{
         $this->processing($accounts);
     }
 
+    /**
+     * @param array $accounts
+     * @param $accountId
+     * @return bool
+     */
     private static function contains(array $accounts, $accountId){
         foreach ($accounts as $account)
             if($account->getId() == $accountId)

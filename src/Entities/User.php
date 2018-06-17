@@ -1,7 +1,8 @@
 <?php
 
-class User{
+namespace Entity;
 
+class User{
     private $userId;
     private $login;
     private $password;

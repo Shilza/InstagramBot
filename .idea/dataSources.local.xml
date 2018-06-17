@@ -7,9 +7,18 @@
         <identifier-quote-string>`</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
-      <secret-storage>master_key</secret-storage>
       <user-name>sql7242150</user-name>
       <introspection-schemas>*:sql7242150</introspection-schemas>
+    </data-source>
+    <data-source name="@insta" uuid="c48103e7-25e8-423f-9467-39cf24895628">
+      <database-info product="MySQL" version="5.7.22" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.46 ( Revision: 9cc87a48e75c2d2e87c1a293b2862ce651cb256e )">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>anatolic_admin</user-name>
+      <introspection-schemas>*:anatolic_insta</introspection-schemas>
     </data-source>
   </component>
 </project>

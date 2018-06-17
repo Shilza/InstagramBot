@@ -1,18 +1,13 @@
 <?php
 
 require 'vendor/autoload.php';
-require_once 'src/Bots/AccountsBot.php';
-require_once 'src/Bots/HashtagBot.php';
-require_once 'src/Bots/GeotagBot.php';
-require_once 'src/AccountWorker.php';
-require_once 'src/Entities/User.php';
-require_once 'src/Repositories/UsersRepository.php';
-require_once 'src/Entities/Comment.php';
-require_once 'src/Repositories/CommentsRepository.php';
-require_once 'src/Entities/FollowedUser.php';
-require_once 'src/Repositories/FollowsRepository.php';
 
+use Entity\User;
 use InstagramScraper\Instagram;
+use Repository\CommentsRepository;
+use Repository\FollowsRepository;
+use Repository\UsersRepository;
+use Util\AccountWorker;
 
 function getUserAndPass()
 {
@@ -33,7 +28,8 @@ function registration($login, $pass, &$instagram, &$settings){
         'geotag_bot_selected' => true
     ];
 
-    $user = new User($instagram->getAccount($login)->getId(), $login, $pass, null, time(), 0, $settings);
+    $user = new User($instagram->getAccount($login)->getId(), $login, $pass,
+        null, time(), 0, $settings);
 
     UsersRepository::add($user);
     CommentsRepository::createTable($user->getUserId());
@@ -43,12 +39,12 @@ function registration($login, $pass, &$instagram, &$settings){
 }
 
 //7955715631
-$arr = getUserAndPass();
+//$arr = getUserAndPass();
+//
+$user = registration('macmilan_price', '192.168.39.26a', $instagram, $settings);
+//$accountWorker = new AccountWorker($instagram);
 
-$user = registration($arr[0], $arr[1], $instagram, $settings);
-$accountWorker = new AccountWorker($instagram);
-
-$accountWorker->unfollowFromAll();
+//$accountWorker->unfollowFromAll();
 
 /*
 
