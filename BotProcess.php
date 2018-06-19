@@ -48,7 +48,7 @@ try {
         }
     }
 } catch (\Exception $e){
-    Logger::log("Bot process crush: ".$e->getMessage());
+    Logger::log("Bot process crush: ".$e->getMessage()."\n".$e->getTraceAsString());
 } finally {
     AccountsRepository::update(new Account($id, time() + 120, false));
 }

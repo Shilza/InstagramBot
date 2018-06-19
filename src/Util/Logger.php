@@ -19,7 +19,7 @@ class Logger{
     public static function log($logInfo){
         file_put_contents(
             static::$filePath,
-            date(DATE_RFC822).': '.$logInfo."\n\n",
+            "\n\n".date(DATE_RFC822).': '.$logInfo,
             FILE_APPEND
         );
     }

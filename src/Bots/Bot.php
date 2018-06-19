@@ -61,7 +61,8 @@ abstract class Bot{
                 switch ($e->getCode()) {
                     case 403:
                     case 503:
-                        Logger::log("Bot crush: ".$e->getMessage());
+                        Logger::log("Bot crush: ".$e->getMessage()."\n".
+                            $e->getTraceAsString());
                         sleep(static::REQUEST_DELAY);
                         $this->run();
                         break;
