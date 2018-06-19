@@ -5,6 +5,7 @@ namespace Bot;
 use InstagramScraper\Exception\InstagramNotFoundException;
 use InstagramScraper\Instagram;
 use InstagramScraper\Model\Account;
+use Util\DatabaseWorker;
 
 class AccountsBot extends Bot{
     private $cyclesCount = 0;
@@ -18,23 +19,26 @@ class AccountsBot extends Bot{
      * @return mixed|void
      * @throws \InstagramScraper\Exception\InstagramException
      * @throws \InstagramScraper\Exception\InstagramRequestException
+     * @throws \Unirest\Exception
      */
     protected function start(){
-        $nickname = $this->getRandomGenesisAccount();
+        $id = $this->getRandomGenesisAccount();
         $this->cyclesCount = 0;
         try {
-            $account = $this->instagram->getAccount($nickname);
+            $account = $this->instagram->getAccountById($id);
             if (!$account->isPrivate())
                 $this->accountProcessing($account);
-            else {//TODO: Deleting account from array of genesis accounts
+            else {
+                DatabaseWorker::execute("DELETE FROM base_accounts WHERE id = $id");
             }
-        } catch(InstagramNotFoundException $e){//TODO
+        } catch(InstagramNotFoundException $e){
+            DatabaseWorker::execute("DELETE FROM base_accounts WHERE id = $id");
         }
     }
 
-    //TODO
     private function getRandomGenesisAccount(){
-        return "";
+        return DatabaseWorker::execute(
+            "SELECT id FROM base_accounts ORDER BY RAND() LIMIT 1")[0][0];
     }
 
     /**

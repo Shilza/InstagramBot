@@ -2,6 +2,7 @@
 
 namespace Bot;
 
+use Entity\BotProcessStatistics;
 use Entity\Comment;
 use Entity\FollowedUser;
 use InstagramScraper\Exception\InstagramRequestException;
@@ -11,6 +12,7 @@ use InstagramScraper\Model\Account;
 use Repository\CommentsRepository;
 use Repository\FollowsRepository;
 use Unirest;
+use Util\DatabaseWorker;
 use Util\Logger;
 
 abstract class Bot{
@@ -25,8 +27,9 @@ abstract class Bot{
     protected $commentsSelected = false;
     protected $followingSelected = false;
 
-    private $pointsCount = 0;
     private $failsCount = 0;
+
+    private $botProcessStatistics;
 
     /**
      * Bot constructor.
@@ -36,6 +39,7 @@ abstract class Bot{
     protected function __construct(Instagram $instagram, array $settings)
     {
         $this->instagram = $instagram;
+        $this->botProcessStatistics = new BotProcessStatistics();
 
         if (isset($settings)) {
             if (array_key_exists('likes_selected', $settings))
@@ -45,7 +49,6 @@ abstract class Bot{
             if (array_key_exists('following_selected', $settings))
                 $this->followingSelected = $settings['following_selected'];
         }
-
     }
 
     /**
@@ -71,12 +74,13 @@ abstract class Bot{
                 }
             else
                 throw new \Exception("Request failed");
-        } catch (Unirest\Exception $exception){
-            echo 'Unirest\n';
+        } catch (Unirest\Exception $e){
+            Logger::log("Bot crush: ".$e->getMessage()."\n".
+                $e->getTraceAsString());
             $this->run();
         } finally {
             $this->failsCount = 0;
-            $this->pointsCount = 0;
+            $this->botProcessStatistics = new BotProcessStatistics();
         }
     }
 
@@ -111,15 +115,9 @@ abstract class Bot{
                 if (!$accountObject->isPrivate()) {
                     if ($this->likesSelected && mt_rand(0, 1) == 1)
                         $this->likeAccountsMedia($accountObject);
-                    try {
-                        if ($this->commentsSelected && mt_rand(0, 3) == 1)
-                            $this->commentAccountsMedia($accountObject);
-                    } catch (Exception $e) {
-                        if (substr($e->getMessage(), 17, 3) != 403)
-                            throw $e;
-                        else
-                            sleep(3);
-                    }
+
+                    if ($this->commentsSelected && mt_rand(0, 3) == 1)
+                        $this->commentAccountsMedia($accountObject);
                 }
             }
         }
@@ -142,7 +140,7 @@ abstract class Bot{
 
             if ($count > count($medias))
                 foreach ($medias as $media) {
-                    $this->pointsCount++;
+                    $this->botProcessStatistics->likesCount++;
                     $this->instagram->like($media->getId());
                 }
             else
@@ -151,7 +149,7 @@ abstract class Bot{
                     $media = $medias[$index];
 
                     if (!$media->isLikedByViewer()) {
-                        $this->pointsCount++;
+                        $this->botProcessStatistics->likesCount++;
                         $this->instagram->like($media->getId());
                         array_splice($medias, $index, 1);
                         $count--;
@@ -172,11 +170,11 @@ abstract class Bot{
 
         $commentableMedias = [];
         foreach ($medias as $media)
-            if (!$media->isCommentDisable())
+            if (!$media->isCommentDisable() && !$this->commentedByViewer($media->getId()))
                 array_push($commentableMedias, $media);
 
         if (count($commentableMedias) > 0) {
-            $this->pointsCount++;
+            $this->botProcessStatistics->commentsCount++;
             $comment = $this->instagram->comment(
                 $commentableMedias[mt_rand(0, count($commentableMedias) - 1)]->getId(),
                 $this->commentsText[mt_rand(0, count($this->commentsText) - 1)]
@@ -193,10 +191,10 @@ abstract class Bot{
     }
 
     /**
-     * @return int
+     * @return BotProcessStatistics
      */
-    public function getPointsCount(){
-        return $this->pointsCount;
+    public function getBotProcessStatistics(){
+        return $this->botProcessStatistics;
     }
 
     /**
@@ -206,7 +204,7 @@ abstract class Bot{
      * @throws \InstagramScraper\Exception\InstagramRequestException
      */
     private function follow(Account $account){
-        $this->pointsCount++;
+        $this->botProcessStatistics->followsCount++;
         $this->instagram->follow($account->getId());
 
         FollowsRepository::add(new FollowedUser($account->getId(),
@@ -214,5 +212,12 @@ abstract class Bot{
 
         echo "Follow: \n ID: "
             . strval($account->getUsername()) . ' Id: ' . strval($account->getId()) . "\n\n";
+    }
+
+    private function commentedByViewer($mediaId)
+    {
+        return (DatabaseWorker::execute("SELECT COUNT(media_id) FROM comments"
+        .$this->instagram->getAccount($this->instagram->getSessionUsername())->getId()
+        ." WHERE media_id=$mediaId LIMIT 1")[0][0] == 1);
     }
 }

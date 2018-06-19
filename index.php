@@ -8,6 +8,7 @@ use Repository\CommentsRepository;
 use Repository\FollowsRepository;
 use Repository\UsersRepository;
 use Util\AccountWorker;
+use Repository\StatisticsRepository;
 
 function getUserAndPass()
 {
@@ -31,20 +32,24 @@ function registration($login, $pass, &$instagram, &$settings){
     $user = new User($instagram->getAccount($login)->getId(), $login, $pass,
         null, time(), 0, $settings);
 
-    UsersRepository::add($user);
-    CommentsRepository::createTable($user->getUserId());
-    FollowsRepository::createTable($user->getUserId());
+    //UsersRepository::add($user);
+    //CommentsRepository::createTable($user->getUserId());
+    //FollowsRepository::createTable($user->getUserId());
+    StatisticsRepository::add(new \Entity\BotProcessStatistics($user->getId()));
 
     return $user;
 }
 
-//7955715631
-//$arr = getUserAndPass();
-//
-$user = registration('macmilan_price', '192.168.39.26a', $instagram, $settings);
-//$accountWorker = new AccountWorker($instagram);
 
-//$accountWorker->unfollowFromAll();
+
+
+$arr = getUserAndPass();
+
+$user = registration($arr[0], $arr[1], $instagram, $settings);
+
+$accountWorker = new AccountWorker($instagram);
+
+$accountWorker->unfollowFromAll();
 
 /*
 

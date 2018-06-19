@@ -15,10 +15,11 @@ class GeotagBot extends TagBot{
     }
 
     /**
-     * @return void
+     * @return mixed|void
      * @throws \InstagramScraper\Exception\InstagramException
      * @throws \InstagramScraper\Exception\InstagramNotFoundException
      * @throws \InstagramScraper\Exception\InstagramRequestException
+     * @throws \Unirest\Exception
      */
     protected function start(){
         if(isset($this->geotags)){

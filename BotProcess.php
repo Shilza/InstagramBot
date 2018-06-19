@@ -10,6 +10,7 @@ use Bot\HashtagBot;
 use Entity\Account;
 use Repository\AccountsRepository;
 use Repository\UsersRepository;
+use Repository\StatisticsRepository;
 
 use Util\Logger;
 
@@ -19,6 +20,8 @@ echo "ID: $argv[1] ";
 $id = $argv[1];
 
 Logger::setFilePath($id);
+
+$botProcessStatistics = new \Entity\BotProcessStatistics();
 
 try {
     $user = UsersRepository::getBy(['id' => $id])[0];
@@ -38,18 +41,18 @@ try {
     if ($user->getSettings()['geotag_bot_selected'])
         array_push($bots, new GeotagBot($instagram, $user->getSettings(), $geotags));
 
-    $pointsCount = 0;
     while (true) {
         foreach ($bots as $bot) {
             $bot->run();
-            $pointsCount += $bot->getPointsCount();
-            if ($pointsCount >= MAX_POINTS_COUNT)
+            $botProcessStatistics->addPoints($bot->getBotProcessStatistics());
+            if ($botProcessStatistics->getPointsCount() >= MAX_POINTS_COUNT)
                 break 2;
         }
     }
 } catch (\Exception $e){
     Logger::log("Bot process crush: ".$e->getMessage()."\n".$e->getTraceAsString());
 } finally {
+    StatisticsRepository::addPoints($botProcessStatistics);
     AccountsRepository::update(new Account($id, time() + 120, false));
 }
 

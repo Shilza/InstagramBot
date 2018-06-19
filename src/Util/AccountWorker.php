@@ -45,10 +45,13 @@ class AccountWorker
         try {
             $this->$function();
         } catch (Exception $e) {
+
             if ($this->failCount++ < static::MAX_FAIL_COUNT)
                 switch ($e->getCode()) {
                     case 403:
                     case 503:
+                        Logger::log("Bot crush: ".$e->getMessage()."\n"
+                            .$e->getTraceAsString());
                         sleep(static::REQUEST_DELAY);
                         $this->unfollowFromAll();
                         break;
@@ -57,7 +60,8 @@ class AccountWorker
                 } else //TODO
                 throw new \Exception("Requests failed");
         } catch (Unirest\Exception $e) {
-            echo "Unirest\n";
+            Logger::log("Bot crush: ".$e->getMessage()."\n"
+                . $e->getTraceAsString());
             $this->runFunction($function);
         }
     }

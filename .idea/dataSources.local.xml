@@ -16,7 +16,6 @@
         <identifier-quote-string>`</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
-      <secret-storage>master_key</secret-storage>
       <user-name>anatolic_admin</user-name>
       <introspection-schemas>*:anatolic_insta</introspection-schemas>
     </data-source>
