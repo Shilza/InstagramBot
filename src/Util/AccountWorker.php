@@ -3,6 +3,8 @@
 namespace Util;
 
 use InstagramScraper\Exception\Exception;
+use InstagramScraper\Exception\InstagramNotFoundException;
+use InstagramScraper\Exception\InstagramRequestException;
 use InstagramScraper\Instagram;
 use Repository\CommentsRepository;
 use Repository\FollowsRepository;
@@ -18,6 +20,8 @@ class AccountWorker
 
     public function __construct(Instagram $instagram)
     {
+        Logger::setFilePath("accountWorker"
+            .$instagram->getAccount($instagram->getSessionUsername())->getId());
         $this->instagram = $instagram;
     }
 
@@ -45,22 +49,25 @@ class AccountWorker
         try {
             $this->$function();
         } catch (Exception $e) {
-
-            if ($this->failCount++ < static::MAX_FAIL_COUNT)
+            if ($this->failCount++ < static::MAX_FAIL_COUNT) {
                 switch ($e->getCode()) {
                     case 403:
                     case 503:
-                        Logger::log("Bot crush: ".$e->getMessage()."\n"
-                            .$e->getTraceAsString());
+                        Logger::log("AccountWorker crush: " . $e->getMessage() . PHP_EOL
+                            . $e->getTraceAsString());
                         sleep(static::REQUEST_DELAY);
                         $this->unfollowFromAll();
                         break;
                     default:
                         throw $e;
-                } else //TODO
-                throw new \Exception("Requests failed");
+                }
+            } else {
+                Logger::log("AccountWorker crush: " . $e->getMessage() . PHP_EOL
+                    . $e->getTraceAsString());
+                $this->runFunction($function);
+            }
         } catch (Unirest\Exception $e) {
-            Logger::log("Bot crush: ".$e->getMessage()."\n"
+            Logger::log("AccountWorker crush: " . $e->getMessage() . PHP_EOL
                 . $e->getTraceAsString());
             $this->runFunction($function);
         }
@@ -109,7 +116,12 @@ class AccountWorker
         foreach ($comments as $comment) {
             try {
                 $this->instagram->deleteComment($comment->getMediaId(), $comment->getId());
-            } catch (Exception $e) {
+            }
+            catch (InstagramNotFoundException $e){
+                //Media with given code does not exist or account is private.
+                //SKIP. JUST DELETE COMMENT FROM DB
+            }
+            catch (InstagramRequestException $e) {
                 if ((strpos($e->getMessage(), "You cannot delete this comment")) === false)
                     throw $e;
             }

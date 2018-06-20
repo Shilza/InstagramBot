@@ -35,11 +35,10 @@ function registration($login, $pass, &$instagram, &$settings){
     //UsersRepository::add($user);
     //CommentsRepository::createTable($user->getUserId());
     //FollowsRepository::createTable($user->getUserId());
-    StatisticsRepository::add(new \Entity\BotProcessStatistics($user->getId()));
+    //StatisticsRepository::add(new \Entity\BotProcessStatistics($user->getUserId()));
 
     return $user;
 }
-
 
 
 
@@ -47,12 +46,7 @@ $arr = getUserAndPass();
 
 $user = registration($arr[0], $arr[1], $instagram, $settings);
 
-$accountWorker = new AccountWorker($instagram);
-
-$accountWorker->unfollowFromAll();
-
 /*
-
 $fl = $instagram->getFollowing($instagram->getAccount($instagram->getSessionUsername())->getId(), 100);
 foreach ($fl as $item) {
     try {

@@ -7,6 +7,8 @@ use Util\DatabaseWorker;
 
 class AccountsRepository extends Repository implements Updatable {
 
+    const DAY = 86400;
+
     /**
      * @param array $criterions
      * @return mixed
@@ -52,7 +54,9 @@ class AccountsRepository extends Repository implements Updatable {
         $time = time();
         $limit =  MAX_PROCESSES_COUNT;
         $query = "SELECT * FROM accounts_queue WHERE
-         in_process IS NULL OR (time <= $time AND in_process!=true) ORDER BY time LIMIT $limit";
+         in_process IS NULL OR
+         (time <= $time AND in_process!=true AND $time > end_time)
+         ORDER BY time LIMIT $limit";
 
         $accountsArray = DatabaseWorker::execute($query);
         $accountObjectsArray = [];
@@ -70,8 +74,9 @@ class AccountsRepository extends Repository implements Updatable {
     public static function add($account)
     {
         if ($account instanceof Account && static::isValid($account->getId())) {
-            $query = "INSERT INTO accounts_queue (id, time) 
-                      VALUES(:id, :time)";
+            $end_time = time() + static::DAY;
+            $query = "INSERT INTO accounts_queue (id, time, end_time) 
+                      VALUES(:id, :time, $end_time)";
 
             DatabaseWorker::execute($query, static::accountsDataToArray($account));
         }
@@ -92,12 +97,13 @@ class AccountsRepository extends Repository implements Updatable {
 
     /**
      * @param $account
-     * @return mixed
+     * @return mixed|void
      */
     static function update($account)
     {
         if ($account instanceof Account) {
-            $query = "UPDATE accounts_queue SET time=:time, in_process=:in_process WHERE id=:id";
+            $query = "UPDATE accounts_queue SET 
+                time=:time, in_process=:in_process, end_time=:end_time WHERE id=:id";
 
             DatabaseWorker::execute($query, static::accountsDataToArray($account));
         }
@@ -109,7 +115,8 @@ class AccountsRepository extends Repository implements Updatable {
      */
     private static function dataArrayToAccount(array $accountData)
     {
-        return new Account($accountData['id'], $accountData['time'], $accountData['in_process']);
+        return new Account($accountData['id'], $accountData['time'],
+            $accountData['in_process'], $accountData['end_time']);
     }
 
     /**
@@ -118,7 +125,8 @@ class AccountsRepository extends Repository implements Updatable {
      */
     private static function accountsDataToArray(Account $account)
     {
-        $accountArray = ['id' => $account->getId(), 'time' => $account->getTime()];
+        $accountArray = ['id' => $account->getId(),
+            'time' => $account->getTime(), 'end_time' => $account->getEndTime()];
         if(!is_null($account->isInProcess()))
             $accountArray['in_process'] = $account->isInProcess();
 

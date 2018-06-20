@@ -64,7 +64,7 @@ abstract class Bot{
                 switch ($e->getCode()) {
                     case 403:
                     case 503:
-                        Logger::log("Bot crush: ".$e->getMessage()."\n".
+                        Logger::log("Bot crush: ".$e->getMessage().PHP_EOL.
                             $e->getTraceAsString());
                         sleep(static::REQUEST_DELAY);
                         $this->run();
@@ -75,7 +75,7 @@ abstract class Bot{
             else
                 throw new \Exception("Request failed");
         } catch (Unirest\Exception $e){
-            Logger::log("Bot crush: ".$e->getMessage()."\n".
+            Logger::log("Bot crush: ".$e->getMessage().PHP_EOL.
                 $e->getTraceAsString());
             $this->run();
         } finally {

@@ -7,18 +7,37 @@ class Account
     private $id;
     private $time;
     private $inProcess;
+    private $end_time;
 
     /**
      * Account constructor.
      * @param $id
      * @param $time
-     * @param $inProcess
+     * @param null $inProcess
+     * @param null $end_time
      */
-    public function __construct($id, $time, $inProcess = null)
+    public function __construct($id, $time, $inProcess = null, $end_time = null)
     {
         $this->id = $id;
         $this->time = $time;
         $this->inProcess = $inProcess;
+        $this->end_time = $end_time;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEndTime()
+    {
+        return $this->end_time;
+    }
+
+    /**
+     * @param mixed $end_time
+     */
+    public function setEndTime($end_time)
+    {
+        $this->end_time = $end_time;
     }
 
     /**

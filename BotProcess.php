@@ -14,12 +14,13 @@ use Repository\StatisticsRepository;
 
 use Util\Logger;
 
-const MAX_POINTS_COUNT = 70;
+const MAX_POINTS_COUNT = 500;
+const PAUSE = 600; //SECONDS
 
 echo "ID: $argv[1] ";
 $id = $argv[1];
 
-Logger::setFilePath($id);
+Logger::setFilePath("botProcess$id");
 
 $botProcessStatistics = new \Entity\BotProcessStatistics();
 
@@ -53,7 +54,7 @@ try {
     Logger::log("Bot process crush: ".$e->getMessage()."\n".$e->getTraceAsString());
 } finally {
     StatisticsRepository::addPoints($botProcessStatistics);
-    AccountsRepository::update(new Account($id, time() + 120, false));
+    AccountsRepository::update(new Account($id, time() + PAUSE, false));
 }
 
 

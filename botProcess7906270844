@@ -1,0 +1,23 @@
+
+
+Wed, 20 Jun 18 19:01:38 +0300: Bot crush: SSL read: error:00000000:lib(0):func(0):reason(0), errno 10054
+#0 D:\Open Server\OpenServer\domains\InstagramBot\vendor\mashape\unirest-php\src\Unirest\Request.php(236): Unirest\Request::send('GET', 'https://www.ins...', NULL, Array, NULL, NULL)
+#1 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(302): Unirest\Request::get('https://www.ins...', Array)
+#2 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(289): InstagramScraper\Instagram->getAccount('urundemarka')
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(134): InstagramScraper\Instagram->getMedias('urundemarka', 15)
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(117): Bot\Bot->likeAccountsMedia(Object(InstagramScraper\Model\Account))
+#5 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(68): Bot\Bot->processing(Array)
+#6 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(74): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#7 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(30): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#8 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(61): Bot\AccountsBot->start()
+#9 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#10 {main}
+
+Wed, 20 Jun 18 19:30:15 +0300: Bot crush: Body: Please wait a few minutes before you try again. Something went wrong. Please report issue.
+#0 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(180): InstagramScraper\Instagram->comment('180599288104398...', '\xF0\x9F\x94\x9D\xF0\x9F\x94\x9D\xF0\x9F\x94\x9D')
+#1 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(120): Bot\Bot->commentAccountsMedia(Object(InstagramScraper\Model\Account))
+#2 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\TagBot.php(24): Bot\Bot->processing(Array)
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\GeotagBot.php(28): Bot\TagBot->mediaProcessing(Array)
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(61): Bot\GeotagBot->start()
+#5 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#6 {main}

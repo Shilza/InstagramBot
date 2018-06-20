@@ -1,0 +1,31 @@
+
+
+Wed, 20 Jun 18 19:00:04 +0300: Bot crush: SSL read: error:00000000:lib(0):func(0):reason(0), errno 10054
+#0 D:\Open Server\OpenServer\domains\InstagramBot\vendor\mashape\unirest-php\src\Unirest\Request.php(236): Unirest\Request::send('GET', 'https://www.ins...', NULL, Array, NULL, NULL)
+#1 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(302): Unirest\Request::get('https://www.ins...', Array)
+#2 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(767): InstagramScraper\Instagram->getAccount('johanbae554')
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(106): InstagramScraper\Instagram->getAccountById('3094588087')
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(68): Bot\Bot->processing(Array)
+#5 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(30): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#6 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(61): Bot\AccountsBot->start()
+#7 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#8 {main}
+
+Wed, 20 Jun 18 19:01:49 +0300: Bot process crush: Body:  message => Please wait a few minutes before you try again.; status => fail; Something went wrong. Please report issue.
+#0 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(766): InstagramScraper\Instagram->getUsernameById('2436801585')
+#1 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(106): InstagramScraper\Instagram->getAccountById('2436801585')
+#2 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(68): Bot\Bot->processing(Array)
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(74): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(30): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#5 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(61): Bot\AccountsBot->start()
+#6 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(80): Bot\Bot->run()
+#7 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#8 {main}
+
+Wed, 20 Jun 18 19:40:08 +0300: Bot process crush: SQLSTATE[HY000] [1203] User anatolic_admin already has more than 'max_user_connections' active connections
+#0 D:\Open Server\OpenServer\domains\InstagramBot\src\Util\DatabaseWorker.php(17): PDO->__construct('mysql:host=anat...', 'anatolic_admin', '192.168.39.26a')
+#1 D:\Open Server\OpenServer\domains\InstagramBot\src\Util\DatabaseWorker.php(22): Util\DatabaseWorker->__construct()
+#2 D:\Open Server\OpenServer\domains\InstagramBot\src\Util\DatabaseWorker.php(29): Util\DatabaseWorker::getInstance()
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Repositories\UsersRepository.php(21): Util\DatabaseWorker::execute('SELECT * FROM u...')
+#4 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(28): Repository\UsersRepository::getBy(Array)
+#5 {main}

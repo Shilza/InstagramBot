@@ -12,7 +12,7 @@ class Logger{
     public static function log($logInfo){
         file_put_contents(
             static::$filePath,
-            "\n\n".date(DATE_RFC822).': '.$logInfo,
+            PHP_EOL.PHP_EOL.date(DATE_RFC822).': '.$logInfo,
             FILE_APPEND
         );
     }
