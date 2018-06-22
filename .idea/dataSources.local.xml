@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="InstaTest" uuid="b996efe3-623a-480e-a461-f31bd65ee3d4">
-      <database-info product="MySQL" version="5.5.58-0ubuntu0.14.04.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.46 ( Revision: 9cc87a48e75c2d2e87c1a293b2862ce651cb256e )">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
-      <user-name>sql7242150</user-name>
-      <introspection-schemas>*:sql7242150</introspection-schemas>
-    </data-source>
     <data-source name="@insta" uuid="c48103e7-25e8-423f-9467-39cf24895628">
       <database-info product="MySQL" version="5.7.22" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.46 ( Revision: 9cc87a48e75c2d2e87c1a293b2862ce651cb256e )">
         <extra-name-characters>#@</extra-name-characters>
@@ -18,6 +9,16 @@
       <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
       <user-name>anatolic_admin</user-name>
       <introspection-schemas>*:anatolic_insta</introspection-schemas>
+    </data-source>
+    <data-source name="InstaTest@localhost" uuid="49a24960-0ca0-4711-9162-456ed820f377">
+      <database-info product="MySQL" version="5.5.53" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.46 ( Revision: 9cc87a48e75c2d2e87c1a293b2862ce651cb256e )">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="upper" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <introspection-schemas>*:InstaTest</introspection-schemas>
     </data-source>
   </component>
 </project>

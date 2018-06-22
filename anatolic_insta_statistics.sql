@@ -1,0 +1,2 @@
+INSERT INTO anatolic_insta.statistics (id, likes_count, comments_count, follows_count) VALUES ('2436801585', 0, 0, 0);
+INSERT INTO anatolic_insta.statistics (id, likes_count, comments_count, follows_count) VALUES ('7906270844', 0, 0, 0);

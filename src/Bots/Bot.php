@@ -55,7 +55,6 @@ abstract class Bot{
      * @throws InstagramRequestException
      */
     public function run(){
-
         try {
             if ($this->followingSelected || $this->likesSelected || $this->commentsSelected)
                 $this->start();
@@ -78,9 +77,9 @@ abstract class Bot{
             Logger::log("Bot crush: ".$e->getMessage().PHP_EOL.
                 $e->getTraceAsString());
             $this->run();
-        } finally {
+        }
+        finally{
             $this->failsCount = 0;
-            $this->botProcessStatistics = new BotProcessStatistics();
         }
     }
 
@@ -195,6 +194,12 @@ abstract class Bot{
      */
     public function getBotProcessStatistics(){
         return $this->botProcessStatistics;
+    }
+
+    public function resetBotProcessStatistics(){
+        $this->botProcessStatistics->likesCount = 0;
+        $this->botProcessStatistics->commentsCount = 0;
+        $this->botProcessStatistics->followsCount = 0;
     }
 
     /**

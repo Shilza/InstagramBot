@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="InstaTest" uuid="b996efe3-623a-480e-a461-f31bd65ee3d4">
+    <data-source source="LOCAL" name="@insta" uuid="c48103e7-25e8-423f-9467-39cf24895628">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://sql7.freemysqlhosting.net:3306/sql7242150</jdbc-url>
+      <jdbc-url>jdbc:mysql://anatolic.heliohost.org:3306/anatolic_insta</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />
@@ -15,11 +15,11 @@
         <property name="yearIsDateType" value="false" />
       </driver-properties>
     </data-source>
-    <data-source source="LOCAL" name="@insta" uuid="c48103e7-25e8-423f-9467-39cf24895628">
+    <data-source source="LOCAL" name="InstaTest@localhost" uuid="49a24960-0ca0-4711-9162-456ed820f377">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://anatolic.heliohost.org:3306/anatolic_insta</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/InstaTest</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />

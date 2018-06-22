@@ -76,7 +76,7 @@ class StatisticsRepository extends Repository implements Updatable
             $query = "UPDATE statistics SET likes_count = likes_count + :likes_count,
                         comments_count = comments_count + :comments_count,
                         follows_count = follows_count + :follows_count WHERE id=:id";
-
+            
             DatabaseWorker::execute($query, static::statisticsDataToArray($statistics));
         }
     }

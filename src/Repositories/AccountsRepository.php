@@ -50,12 +50,13 @@ class AccountsRepository extends Repository implements Updatable {
     /**
      * @return array
      */
+    //TODO DELETE IS NULL
     public static function getActualAccounts(){
         $time = time();
         $limit =  MAX_PROCESSES_COUNT;
         $query = "SELECT * FROM accounts_queue WHERE
          in_process IS NULL OR
-         (time <= $time AND in_process!=true AND $time > end_time)
+         (time <= $time AND in_process!=true AND (end_time IS NULL OR ($time < end_time)))
          ORDER BY time LIMIT $limit";
 
         $accountsArray = DatabaseWorker::execute($query);
@@ -103,7 +104,9 @@ class AccountsRepository extends Repository implements Updatable {
     {
         if ($account instanceof Account) {
             $query = "UPDATE accounts_queue SET 
-                time=:time, in_process=:in_process, end_time=:end_time WHERE id=:id";
+                time=:time, in_process=:in_process"
+                .(is_null($account->getEndTime()) ? "" : ", end_time=:end_time")
+                ." WHERE id=:id";
 
             DatabaseWorker::execute($query, static::accountsDataToArray($account));
         }
@@ -126,9 +129,11 @@ class AccountsRepository extends Repository implements Updatable {
     private static function accountsDataToArray(Account $account)
     {
         $accountArray = ['id' => $account->getId(),
-            'time' => $account->getTime(), 'end_time' => $account->getEndTime()];
+            'time' => $account->getTime()];
         if(!is_null($account->isInProcess()))
             $accountArray['in_process'] = $account->isInProcess();
+        if(!is_null($account->getEndTime()))
+            $accountArray['end_time'] = $account->getEndTime();
 
         return $accountArray;
     }

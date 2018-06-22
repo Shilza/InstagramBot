@@ -22,7 +22,7 @@ $id = $argv[1];
 
 Logger::setFilePath("botProcess$id");
 
-$botProcessStatistics = new \Entity\BotProcessStatistics();
+$botProcessStatistics = new \Entity\BotProcessStatistics($id);
 
 try {
     $user = UsersRepository::getBy(['id' => $id])[0];
@@ -45,7 +45,10 @@ try {
     while (true) {
         foreach ($bots as $bot) {
             $bot->run();
+
             $botProcessStatistics->addPoints($bot->getBotProcessStatistics());
+            $bot->resetBotProcessStatistics();
+
             if ($botProcessStatistics->getPointsCount() >= MAX_POINTS_COUNT)
                 break 2;
         }

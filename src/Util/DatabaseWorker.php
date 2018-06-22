@@ -12,9 +12,9 @@ class DatabaseWorker{
     }
 
     private function __construct(){
-        //$this->db = new PDO('mysql:host=localhost;dbname=InstaTest', "root", "");
-        $arr = $this->getDBDatas();
-        $this->db = new \PDO("mysql:host=".$arr[0]."dbname=".$arr[1], $arr[2], $arr[3]);
+        $this->db = new \PDO('mysql:host=localhost;dbname=InstaTest', "root", "");
+        //$arr = $this->getDBDatas();
+        //$this->db = new \PDO("mysql:host=".$arr[0]."dbname=".$arr[1], $arr[2], $arr[3]);
     }
 
     private static function getInstance(){

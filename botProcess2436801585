@@ -29,3 +29,218 @@ Wed, 20 Jun 18 19:40:08 +0300: Bot process crush: SQLSTATE[HY000] [1203] User an
 #3 D:\Open Server\OpenServer\domains\InstagramBot\src\Repositories\UsersRepository.php(21): Util\DatabaseWorker::execute('SELECT * FROM u...')
 #4 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(28): Repository\UsersRepository::getBy(Array)
 #5 {main}
+
+Fri, 22 Jun 18 15:31:42 +0300: Bot crush: SSL read: error:00000000:lib(0):func(0):reason(0), errno 10054
+#0 D:\Open Server\OpenServer\domains\InstagramBot\vendor\mashape\unirest-php\src\Unirest\Request.php(236): Unirest\Request::send('GET', 'https://www.ins...', NULL, Array, NULL, NULL)
+#1 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(302): Unirest\Request::get('https://www.ins...', Array)
+#2 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(767): InstagramScraper\Instagram->getAccount('pelaultimamoda')
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(106): InstagramScraper\Instagram->getAccountById('5385828987')
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(68): Bot\Bot->processing(Array)
+#5 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(74): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#6 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(30): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#7 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(61): Bot\AccountsBot->start()
+#8 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#9 {main}
+
+Fri, 22 Jun 18 15:35:48 +0300: Bot process crush: Body:  message => Please wait a few minutes before you try again.; status => fail; Something went wrong. Please report issue.
+#0 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(766): InstagramScraper\Instagram->getUsernameById('6103846015')
+#1 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(103): InstagramScraper\Instagram->getAccountById('6103846015')
+#2 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(65): Bot\AccountsBot->getPublicAccounts(Array)
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(30): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(61): Bot\AccountsBot->start()
+#5 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#6 {main}
+
+Fri, 22 Jun 18 15:48:24 +0300: Bot crush: SSL read: error:00000000:lib(0):func(0):reason(0), errno 10054
+#0 D:\Open Server\OpenServer\domains\InstagramBot\vendor\mashape\unirest-php\src\Unirest\Request.php(236): Unirest\Request::send('GET', 'https://www.ins...', NULL, Array, NULL, NULL)
+#1 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(302): Unirest\Request::get('https://www.ins...', Array)
+#2 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(767): InstagramScraper\Instagram->getAccount('gabriel.martins...')
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(103): InstagramScraper\Instagram->getAccountById('1432172420')
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(65): Bot\AccountsBot->getPublicAccounts(Array)
+#5 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(30): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#6 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(61): Bot\AccountsBot->start()
+#7 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#8 {main}
+
+Fri, 22 Jun 18 15:50:47 +0300: Bot crush: SSL read: error:00000000:lib(0):func(0):reason(0), errno 10054
+#0 D:\Open Server\OpenServer\domains\InstagramBot\vendor\mashape\unirest-php\src\Unirest\Request.php(236): Unirest\Request::send('GET', 'https://www.ins...', NULL, Array, NULL, NULL)
+#1 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(302): Unirest\Request::get('https://www.ins...', Array)
+#2 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(767): InstagramScraper\Instagram->getAccount('__anzhelika_ale...')
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(106): InstagramScraper\Instagram->getAccountById('5378080308')
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(68): Bot\Bot->processing(Array)
+#5 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(74): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#6 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(30): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#7 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(61): Bot\AccountsBot->start()
+#8 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(80): Bot\Bot->run()
+#9 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#10 {main}
+
+Fri, 22 Jun 18 15:50:55 +0300: Bot crush: SSL read: error:00000000:lib(0):func(0):reason(0), errno 10054
+#0 D:\Open Server\OpenServer\domains\InstagramBot\vendor\mashape\unirest-php\src\Unirest\Request.php(236): Unirest\Request::send('GET', 'https://www.ins...', NULL, Array, NULL, NULL)
+#1 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(302): Unirest\Request::get('https://www.ins...', Array)
+#2 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(767): InstagramScraper\Instagram->getAccount('_.its_piyush_')
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(103): InstagramScraper\Instagram->getAccountById('7409515870')
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(65): Bot\AccountsBot->getPublicAccounts(Array)
+#5 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(30): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#6 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(61): Bot\AccountsBot->start()
+#7 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(80): Bot\Bot->run()
+#8 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(80): Bot\Bot->run()
+#9 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#10 {main}
+
+Fri, 22 Jun 18 16:16:59 +0300: Bot process crush: Failed to get followers of account id 8068179029. The account is private.
+#0 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(64): InstagramScraper\Instagram->getFollowers(8068179029, 0, 0)
+#1 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(74): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#2 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(30): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(60): Bot\AccountsBot->start()
+#4 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#5 {main}
+
+Fri, 22 Jun 18 16:21:44 +0300: Bot crush: SSL read: error:00000000:lib(0):func(0):reason(0), errno 10054
+#0 D:\Open Server\OpenServer\domains\InstagramBot\vendor\mashape\unirest-php\src\Unirest\Request.php(236): Unirest\Request::send('GET', 'https://www.ins...', NULL, Array, NULL, NULL)
+#1 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(302): Unirest\Request::get('https://www.ins...', Array)
+#2 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(767): InstagramScraper\Instagram->getAccount('hendrik_berkat')
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(103): InstagramScraper\Instagram->getAccountById('5339367780')
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(65): Bot\AccountsBot->getPublicAccounts(Array)
+#5 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(74): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#6 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(30): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#7 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(60): Bot\AccountsBot->start()
+#8 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#9 {main}
+
+Fri, 22 Jun 18 16:24:04 +0300: Bot crush: SSL read: error:00000000:lib(0):func(0):reason(0), errno 10054
+#0 D:\Open Server\OpenServer\domains\InstagramBot\vendor\mashape\unirest-php\src\Unirest\Request.php(236): Unirest\Request::send('GET', 'https://www.ins...', NULL, Array, NULL, NULL)
+#1 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(302): Unirest\Request::get('https://www.ins...', Array)
+#2 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(767): InstagramScraper\Instagram->getAccount('courtneypaigene...')
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(105): InstagramScraper\Instagram->getAccountById('22629361')
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(68): Bot\Bot->processing(Array)
+#5 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(74): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#6 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(30): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#7 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(60): Bot\AccountsBot->start()
+#8 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(79): Bot\Bot->run()
+#9 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#10 {main}
+
+Fri, 22 Jun 18 16:25:46 +0300: Bot process crush: Body:  message => Please wait a few minutes before you try again.; status => fail; Something went wrong. Please report issue.
+#0 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(766): InstagramScraper\Instagram->getUsernameById('2358784458')
+#1 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(103): InstagramScraper\Instagram->getAccountById('2358784458')
+#2 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(65): Bot\AccountsBot->getPublicAccounts(Array)
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(74): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(30): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#5 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(60): Bot\AccountsBot->start()
+#6 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(79): Bot\Bot->run()
+#7 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(79): Bot\Bot->run()
+#8 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#9 {main}
+
+Fri, 22 Jun 18 16:29:03 +0300: Bot crush: SSL read: error:00000000:lib(0):func(0):reason(0), errno 10054
+#0 D:\Open Server\OpenServer\domains\InstagramBot\vendor\mashape\unirest-php\src\Unirest\Request.php(292): Unirest\Request::send('POST', 'https://www.ins...', NULL, Array, NULL, NULL)
+#1 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(1539): Unirest\Request::post('https://www.ins...', Array)
+#2 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(213): InstagramScraper\Instagram->follow(5736702915)
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(112): Bot\Bot->follow(Object(InstagramScraper\Model\Account))
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(68): Bot\Bot->processing(Array)
+#5 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(30): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#6 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(60): Bot\AccountsBot->start()
+#7 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#8 {main}
+
+Fri, 22 Jun 18 16:37:47 +0300: Bot crush: SSL read: error:00000000:lib(0):func(0):reason(0), errno 10054
+#0 D:\Open Server\OpenServer\domains\InstagramBot\vendor\mashape\unirest-php\src\Unirest\Request.php(292): Unirest\Request::send('POST', 'https://www.ins...', NULL, Array, NULL, NULL)
+#1 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(1539): Unirest\Request::post('https://www.ins...', Array)
+#2 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(213): InstagramScraper\Instagram->follow(3451858012)
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(112): Bot\Bot->follow(Object(InstagramScraper\Model\Account))
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(68): Bot\Bot->processing(Array)
+#5 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(30): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#6 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(60): Bot\AccountsBot->start()
+#7 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#8 {main}
+
+Fri, 22 Jun 18 16:38:58 +0300: Bot crush: SSL read: error:00000000:lib(0):func(0):reason(0), errno 10054
+#0 D:\Open Server\OpenServer\domains\InstagramBot\vendor\mashape\unirest-php\src\Unirest\Request.php(236): Unirest\Request::send('GET', 'https://www.ins...', NULL, Array, NULL, NULL)
+#1 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(302): Unirest\Request::get('https://www.ins...', Array)
+#2 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(216): InstagramScraper\Instagram->getAccount('dayofdeath')
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(112): Bot\Bot->follow(Object(InstagramScraper\Model\Account))
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(68): Bot\Bot->processing(Array)
+#5 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(30): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#6 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(60): Bot\AccountsBot->start()
+#7 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(79): Bot\Bot->run()
+#8 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#9 {main}
+
+Fri, 22 Jun 18 16:41:37 +0300: Bot crush: SSL read: error:00000000:lib(0):func(0):reason(0), errno 10054
+#0 D:\Open Server\OpenServer\domains\InstagramBot\vendor\mashape\unirest-php\src\Unirest\Request.php(236): Unirest\Request::send('GET', 'https://www.ins...', NULL, Array, NULL, NULL)
+#1 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(302): Unirest\Request::get('https://www.ins...', Array)
+#2 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(225): InstagramScraper\Instagram->getAccount('dayofdeath')
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(172): Bot\Bot->commentedByViewer('180660123385250...')
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(119): Bot\Bot->commentAccountsMedia(Object(InstagramScraper\Model\Account))
+#5 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(68): Bot\Bot->processing(Array)
+#6 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(74): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#7 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\AccountsBot.php(30): Bot\AccountsBot->accountProcessing(Object(InstagramScraper\Model\Account))
+#8 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(60): Bot\AccountsBot->start()
+#9 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(79): Bot\Bot->run()
+#10 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(79): Bot\Bot->run()
+#11 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#12 {main}
+
+Fri, 22 Jun 18 16:46:41 +0300: Bot crush: Body: Please wait a few minutes before you try again. Something went wrong. Please report issue.
+#0 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(179): InstagramScraper\Instagram->comment('180089168886997...', 'Like it!')
+#1 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(119): Bot\Bot->commentAccountsMedia(Object(InstagramScraper\Model\Account))
+#2 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\TagBot.php(24): Bot\Bot->processing(Array)
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\HashtagBot.php(25): Bot\TagBot->mediaProcessing(Array)
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(60): Bot\HashtagBot->start()
+#5 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#6 {main}
+
+Fri, 22 Jun 18 16:51:23 +0300: Bot crush: SSL read: error:00000000:lib(0):func(0):reason(0), errno 10054
+#0 D:\Open Server\OpenServer\domains\InstagramBot\vendor\mashape\unirest-php\src\Unirest\Request.php(236): Unirest\Request::send('GET', 'https://www.ins...', NULL, Array, NULL, NULL)
+#1 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(302): Unirest\Request::get('https://www.ins...', Array)
+#2 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(289): InstagramScraper\Instagram->getAccount('rogerfusculin')
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(168): InstagramScraper\Instagram->getMedias('rogerfusculin', 5)
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(119): Bot\Bot->commentAccountsMedia(Object(InstagramScraper\Model\Account))
+#5 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\TagBot.php(24): Bot\Bot->processing(Array)
+#6 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\HashtagBot.php(25): Bot\TagBot->mediaProcessing(Array)
+#7 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(60): Bot\HashtagBot->start()
+#8 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(69): Bot\Bot->run()
+#9 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#10 {main}
+
+Fri, 22 Jun 18 16:53:50 +0300: Bot process crush: Account with given username does not exist.
+#0 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(766): InstagramScraper\Instagram->getUsernameById(2346448421)
+#1 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\TagBot.php(23): InstagramScraper\Instagram->getAccountById(2346448421)
+#2 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\HashtagBot.php(25): Bot\TagBot->mediaProcessing(Array)
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(60): Bot\HashtagBot->start()
+#4 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#5 {main}
+
+Fri, 22 Jun 18 17:35:27 +0300: Bot crush: SSL read: error:00000000:lib(0):func(0):reason(0), errno 10054
+#0 D:\Open Server\OpenServer\domains\InstagramBot\vendor\mashape\unirest-php\src\Unirest\Request.php(236): Unirest\Request::send('GET', 'https://www.ins...', NULL, Array, NULL, NULL)
+#1 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(302): Unirest\Request::get('https://www.ins...', Array)
+#2 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(289): InstagramScraper\Instagram->getAccount('dimakruykov')
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(168): InstagramScraper\Instagram->getMedias('dimakruykov', 5)
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(119): Bot\Bot->commentAccountsMedia(Object(InstagramScraper\Model\Account))
+#5 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\TagBot.php(24): Bot\Bot->processing(Array)
+#6 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\GeotagBot.php(28): Bot\TagBot->mediaProcessing(Array)
+#7 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(60): Bot\GeotagBot->start()
+#8 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#9 {main}
+
+Fri, 22 Jun 18 17:38:34 +0300: Bot crush: SSL read: error:00000000:lib(0):func(0):reason(0), errno 10054
+#0 D:\Open Server\OpenServer\domains\InstagramBot\vendor\mashape\unirest-php\src\Unirest\Request.php(236): Unirest\Request::send('GET', 'https://www.ins...', NULL, Array, NULL, NULL)
+#1 D:\Open Server\OpenServer\domains\InstagramBot\vendor\shilza\instagram-php-scraper\src\InstagramScraper\Instagram.php(302): Unirest\Request::get('https://www.ins...', Array)
+#2 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(225): InstagramScraper\Instagram->getAccount('dayofdeath')
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(172): Bot\Bot->commentedByViewer('179541983595867...')
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(119): Bot\Bot->commentAccountsMedia(Object(InstagramScraper\Model\Account))
+#5 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\TagBot.php(24): Bot\Bot->processing(Array)
+#6 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\HashtagBot.php(25): Bot\TagBot->mediaProcessing(Array)
+#7 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(60): Bot\HashtagBot->start()
+#8 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#9 {main}
+
+Fri, 22 Jun 18 17:42:18 +0300: Bot crush: Body: Please wait a few minutes before you try again. Something went wrong. Please report issue.
+#0 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(179): InstagramScraper\Instagram->comment('180739610985824...', 'Nice image!!!')
+#1 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(119): Bot\Bot->commentAccountsMedia(Object(InstagramScraper\Model\Account))
+#2 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\TagBot.php(24): Bot\Bot->processing(Array)
+#3 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\GeotagBot.php(28): Bot\TagBot->mediaProcessing(Array)
+#4 D:\Open Server\OpenServer\domains\InstagramBot\src\Bots\Bot.php(60): Bot\GeotagBot->start()
+#5 D:\Open Server\OpenServer\domains\InstagramBot\BotProcess.php(47): Bot\Bot->run()
+#6 {main}
