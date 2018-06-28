@@ -1,2 +1,0 @@
-INSERT INTO anatolic_insta.accounts_queue (id, time, in_process, end_time) VALUES ('2436801585', 1529526195, 1, 2000000000);
-INSERT INTO anatolic_insta.accounts_queue (id, time, in_process, end_time) VALUES ('7906270844', 1529669225, 0, null);

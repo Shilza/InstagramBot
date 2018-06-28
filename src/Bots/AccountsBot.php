@@ -50,8 +50,7 @@ class AccountsBot extends Bot{
      * @throws \InstagramScraper\Exception\InstagramRequestException
      * @throws \Unirest\Exception
      */
-    private function accountProcessing(Account $account, $limit = 10)
-    {
+    private function accountProcessing(Account $account, $limit = 10){
         sleep(mt_rand(0, 3));
         if ($this->isStageFinished())
             return true;
@@ -59,12 +58,11 @@ class AccountsBot extends Bot{
         $count = $account->getFollowedByCount();
 
         $nextCount = ($count > $limit ? $limit : $count);
-        echo "Next count: " . strval($nextCount);
 
         $accounts = $this->instagram->getFollowers($account->getId(), $nextCount, ($nextCount < 20 ? $nextCount : 20));
         $publicAccounts = $this->getPublicAccounts($accounts);
 
-        echo "\n Account: " . $account->getUsername() . "\n" . "Accounts: " . "\n";
+//        echo "\n Account: " . $account->getUsername() . "\n" . "Accounts: " . "\n";
         $this->processing($accounts);
 
         if ($count > $limit) {

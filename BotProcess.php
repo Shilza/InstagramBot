@@ -17,7 +17,7 @@ use Util\Logger;
 const MAX_POINTS_COUNT = 500;
 const PAUSE = 600; //SECONDS
 
-echo "ID: $argv[1] ";
+Logger::logToConsole("Process started with ID " . $argv[1]);
 $id = $argv[1];
 
 Logger::setFilePath("botProcess$id");
@@ -49,15 +49,19 @@ try {
             $botProcessStatistics->addPoints($bot->getBotProcessStatistics());
             $bot->resetBotProcessStatistics();
 
+            Logger::logToConsole("Points: " . $botProcessStatistics->getPointsCount() . " ID: " . $id);
+
             if ($botProcessStatistics->getPointsCount() >= MAX_POINTS_COUNT)
                 break 2;
         }
     }
+    Logger::logToConsole("Bot process with ID $id finished");
 } catch (\Exception $e){
     Logger::log("Bot process crush: ".$e->getMessage()."\n".$e->getTraceAsString());
 } finally {
     StatisticsRepository::addPoints($botProcessStatistics);
     AccountsRepository::update(new Account($id, time() + PAUSE, false));
+    Logger::logToConsole("Finally-block has reached with ID $id");
 }
 
 

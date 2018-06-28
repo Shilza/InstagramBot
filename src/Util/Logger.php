@@ -11,9 +11,16 @@ class Logger{
 
     public static function log($logInfo){
         file_put_contents(
-            static::$filePath,
+            static::$filePath . ".log",
             PHP_EOL.PHP_EOL.date(DATE_RFC822).': '.$logInfo,
             FILE_APPEND
         );
+
+        static::logToConsole($logInfo);
     }
+
+    public static function logToConsole($logInfo){
+        echo date(DATE_RFC822) . ". $logInfo\n";
+    }
+
 }

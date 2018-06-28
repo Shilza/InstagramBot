@@ -15,9 +15,10 @@ use Unirest;
 use Util\DatabaseWorker;
 use Util\Logger;
 
-abstract class Bot{
+abstract class Bot
+{
     const MAX_FAILS_COUNT = 15;
-    const REQUEST_DELAY = 240;
+    const REQUEST_DELAY = 240; //240
 
     protected $instagram;
     private $commentsText = ['Like it!', 'Nice pic', 'Awesome ☺',
@@ -53,19 +54,27 @@ abstract class Bot{
 
     /**
      * @throws InstagramRequestException
+     * @throws \Exception
      */
     public function run(){
+        Logger::logToConsole("Run " . get_class($this)
+            . " with " . $this->instagram->getSessionUsername());
         try {
             if ($this->followingSelected || $this->likesSelected || $this->commentsSelected)
                 $this->start();
         } catch (InstagramRequestException $e) {
             if ($this->failsCount++ < static::MAX_FAILS_COUNT)
                 switch ($e->getCode()) {
-                    case 403:
                     case 503:
-                        Logger::log("Bot crush: ".$e->getMessage().PHP_EOL.
+                    case 403:
+                        Logger::log("Bot crush: " . $e->getMessage() . PHP_EOL .
                             $e->getTraceAsString());
+
                         sleep(static::REQUEST_DELAY);
+
+                        Logger::logToConsole("Sleep end with username "
+                            . $this->instagram->getSessionUsername());
+
                         $this->run();
                         break;
                     default:
@@ -73,12 +82,11 @@ abstract class Bot{
                 }
             else
                 throw new \Exception("Request failed");
-        } catch (Unirest\Exception $e){
-            Logger::log("Bot crush: ".$e->getMessage().PHP_EOL.
+        } catch (Unirest\Exception $e) {
+            Logger::log("Bot crush: " . $e->getMessage() . PHP_EOL .
                 $e->getTraceAsString());
             $this->run();
-        }
-        finally{
+        } finally {
             $this->failsCount = 0;
         }
     }
@@ -91,7 +99,7 @@ abstract class Bot{
 
     /**
      * @param $accounts
-     * @throws Exception
+     * @throws \Exception
      * @throws InstagramRequestException
      * @throws \InstagramScraper\Exception\InstagramException
      * @throws \InstagramScraper\Exception\InstagramNotFoundException
@@ -104,7 +112,7 @@ abstract class Bot{
                 ? $account
                 : $this->instagram->getAccountById($account['id']));
 
-            echo $accountObject->getUsername() . "\n";
+//            echo $accountObject->getUsername() . "\n";
 
             if ($accountObject->getUsername() != $this->instagram->getSessionUsername()) {
 
@@ -135,7 +143,7 @@ abstract class Bot{
 
         if (count($medias) > 0) {
 
-            echo "Like\n\n";
+            Logger::logToConsole("Like by " . $this->instagram->getSessionUsername());
 
             if ($count > count($medias))
                 foreach ($medias as $media) {
@@ -163,8 +171,7 @@ abstract class Bot{
      * @throws \InstagramScraper\Exception\InstagramNotFoundException
      * @throws \InstagramScraper\Exception\InstagramRequestException
      */
-    protected function commentAccountsMedia($accountObject)
-    {
+    protected function commentAccountsMedia($accountObject){
         $medias = $this->instagram->getMedias($accountObject->getUserName(), 5);
 
         $commentableMedias = [];
@@ -184,15 +191,16 @@ abstract class Bot{
                     $comment->getPicId(), $comment->getText(), $comment->getCreatedAt())
             );
 
-            echo "Comment: \n ID: " . strval($comment->getId()) . ' Text: ' . strval($comment->getText())
-                . ' OwnerId: ' . strval($comment->getOwner()->getId()) . ' PicID: ' . strval($comment->getPicId()) . "\n\n";
+            Logger::logToConsole("Comment by " . $this->instagram->getSessionUsername()
+                . " on " . $comment->getOwner()->getUsername());
         }
     }
 
     /**
      * @return BotProcessStatistics
      */
-    public function getBotProcessStatistics(){
+    public function getBotProcessStatistics()
+    {
         return $this->botProcessStatistics;
     }
 
@@ -208,21 +216,28 @@ abstract class Bot{
      * @throws \InstagramScraper\Exception\InstagramNotFoundException
      * @throws \InstagramScraper\Exception\InstagramRequestException
      */
-    private function follow(Account $account){
+    private function follow(Account $account)
+    {
+        Logger::logToConsole("Follow on " . $account->getUsername()
+            . " by " . $this->instagram->getSessionUsername());
+
         $this->botProcessStatistics->followsCount++;
         $this->instagram->follow($account->getId());
 
         FollowsRepository::add(new FollowedUser($account->getId(),
             $this->instagram->getAccount($this->instagram->getSessionUsername())->getId()));
-
-        echo "Follow: \n ID: "
-            . strval($account->getUsername()) . ' Id: ' . strval($account->getId()) . "\n\n";
     }
 
+    /**
+     * @param $mediaId
+     * @return bool
+     * @throws \InstagramScraper\Exception\InstagramException
+     * @throws \InstagramScraper\Exception\InstagramNotFoundException
+     */
     private function commentedByViewer($mediaId)
     {
         return (DatabaseWorker::execute("SELECT COUNT(media_id) FROM comments"
-        .$this->instagram->getAccount($this->instagram->getSessionUsername())->getId()
-        ." WHERE media_id=$mediaId LIMIT 1")[0][0] == 1);
+                . $this->instagram->getAccount($this->instagram->getSessionUsername())->getId()
+                . " WHERE media_id=$mediaId LIMIT 1")[0][0] == 1);
     }
 }

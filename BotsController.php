@@ -55,7 +55,9 @@ while(true) {
     $accounts = AccountsRepository::getActualAccounts();
     filterProcesses();
 
-    echo count($accounts)."\n";
+    if(count($accounts) != 0)
+        \Util\Logger::logToConsole("Accounts in work: " . count($accounts));
+
     while (count($processes) < MAX_PROCESSES_COUNT)
         if (count($accounts) != 0)
             createNewProcess();

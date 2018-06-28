@@ -46,6 +46,7 @@ $arr = getUserAndPass();
 
 $user = registration($arr[0], $arr[1], $instagram, $settings);
 
+echo $instagram->getAccountById(8105924830)->getUsername();
 /*
 $fl = $instagram->getFollowing($instagram->getAccount($instagram->getSessionUsername())->getId(), 100);
 foreach ($fl as $item) {

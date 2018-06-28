@@ -22,3 +22,6 @@ Homestead.json
 
 config
 configDB
+
+*.log
+*.sql
