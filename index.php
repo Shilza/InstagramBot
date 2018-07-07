@@ -40,13 +40,25 @@ function registration($login, $pass, &$instagram, &$settings){
     return $user;
 }
 
+//$user = UsersRepository::getBy(['id' => 1])[0];
+
+//$accounts = \Repository\AccountsRepository::getAll();
+//foreach ($accounts as $account)
+//    \Repository\AccountsRepository::delete($account);
 
 
-$arr = getUserAndPass();
+//$arr = array_map(function(&$value){
+//    if(isset($value))
+//        return true;
+//    return $value;
+//}, $user->getSettings());
+//
+//$arr['hashtags'] = 'sos';
 
-$user = registration($arr[0], $arr[1], $instagram, $settings);
+//$arr = getUserAndPass();
 
-echo $instagram->getAccountById(8105924830)->getUsername();
+//$user = registration($arr[0], $arr[1], $instagram, $settings);
+
 /*
 $fl = $instagram->getFollowing($instagram->getAccount($instagram->getSessionUsername())->getId(), 100);
 foreach ($fl as $item) {

@@ -8,21 +8,78 @@ class Account
     private $time;
     private $inProcess;
     private $end_time;
+    private $limitTime;
+    private $dailyPointsCount;
+    private $subscriptionEndTime;
 
     /**
      * Account constructor.
      * @param $id
      * @param $time
-     * @param null $inProcess
-     * @param null $end_time
+     * @param $inProcess
+     * @param $end_time
+     * @param $limitTime
+     * @param $dailyPointsCount
+     * @param $subscriptionEndTime
      */
-    public function __construct($id, $time, $inProcess = null, $end_time = null)
-    {
+    public function __construct($id, $time, $subscriptionEndTime, $end_time = null, $limitTime = 0,
+                                $inProcess = null, $dailyPointsCount = 0){
         $this->id = $id;
         $this->time = $time;
         $this->inProcess = $inProcess;
         $this->end_time = $end_time;
+        $this->limitTime = $limitTime;
+        $this->dailyPointsCount = $dailyPointsCount;
+        $this->subscriptionEndTime = $subscriptionEndTime;
     }
+
+    /**
+     * @return int
+     */
+    public function getSubscriptionEndTime(){
+        return $this->subscriptionEndTime;
+    }
+
+    /**
+     * @param mixed $subscriptionEndTime
+     */
+    public function setSubscriptionEndTime($subscriptionEndTime)
+    {
+        $this->subscriptionEndTime = $subscriptionEndTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLimitTime()
+    {
+        return $this->limitTime;
+    }
+
+    /**
+     * @param mixed $limitTime
+     */
+    public function setLimitTime($limitTime)
+    {
+        $this->limitTime = $limitTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDailyPointsCount()
+    {
+        return $this->dailyPointsCount;
+    }
+
+    /**
+     * @param mixed $dailyPointsCount
+     */
+    public function setDailyPointsCount($dailyPointsCount)
+    {
+        $this->dailyPointsCount = $dailyPointsCount;
+    }
+
 
     /**
      * @return mixed

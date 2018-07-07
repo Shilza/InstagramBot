@@ -9,7 +9,7 @@ class User{
     private $registration;
     private $lastActivity;
     private $money;
-    private $settings = [];
+    private $settings;
 
     /**
      * User constructor.
@@ -21,7 +21,8 @@ class User{
      * @param $money
      * @param array $settings
      */
-    public function __construct($userId, $login, $password, $registration, $lastActivity, $money, array $settings)
+    public function __construct($userId, $login, $password, $lastActivity,
+                                $registration = null, $money = null, array $settings = null)
     {
         $this->userId = $userId;
         $this->login = $login;

@@ -11,7 +11,7 @@ class AccountsRepository extends Repository implements Updatable {
 
     /**
      * @param array $criterions
-     * @return mixed
+     * @return array Account
      */
     public static function getBy(array $criterions)
     {
@@ -56,7 +56,7 @@ class AccountsRepository extends Repository implements Updatable {
         $limit =  MAX_PROCESSES_COUNT;
         $query = "SELECT * FROM accounts_queue WHERE
          in_process IS NULL OR
-         (time <= $time AND in_process!=true AND (end_time IS NULL OR ($time < end_time)))
+         (time <= $time AND in_process != true AND (end_time IS NULL OR ($time < end_time)))
          ORDER BY time LIMIT $limit";
 
         $accountsArray = DatabaseWorker::execute($query);
@@ -76,8 +76,10 @@ class AccountsRepository extends Repository implements Updatable {
     {
         if ($account instanceof Account && static::isValid($account->getId())) {
             $end_time = time() + static::DAY;
-            $query = "INSERT INTO accounts_queue (id, time, end_time) 
-                      VALUES(:id, :time, $end_time)";
+            $query = "INSERT INTO accounts_queue (id, time, end_time, limit_time, 
+                          subscription_end_time, daily_points_count) 
+                      VALUES(:id, :time, $end_time, :limit_time, 
+                      :subscription_end_time, :daily_points_count)";
 
             DatabaseWorker::execute($query, static::accountsDataToArray($account));
         }
@@ -85,7 +87,6 @@ class AccountsRepository extends Repository implements Updatable {
 
     /**
      * @param $account
-     * @return mixed|void
      */
     public static function delete($account)
     {
@@ -97,15 +98,15 @@ class AccountsRepository extends Repository implements Updatable {
     }
 
     /**
-     * @param $account
-     * @return mixed|void
+     * @param Account $account
      */
-    static function update($account)
-    {
+    static function update($account){
         if ($account instanceof Account) {
             $query = "UPDATE accounts_queue SET 
-                time=:time, in_process=:in_process"
-                .(is_null($account->getEndTime()) ? "" : ", end_time=:end_time")
+                time = :time, in_process = :in_process,
+                limit_time = :limit_time, daily_points_count = :daily_points_count, 
+                subscription_end_time = :subscription_end_time"
+                .(is_null($account->getEndTime()) ? "" : ", end_time = :end_time")
                 ." WHERE id=:id";
 
             DatabaseWorker::execute($query, static::accountsDataToArray($account));
@@ -118,18 +119,22 @@ class AccountsRepository extends Repository implements Updatable {
      */
     private static function dataArrayToAccount(array $accountData)
     {
-        return new Account($accountData['id'], $accountData['time'],
-            $accountData['in_process'], $accountData['end_time']);
+        return new Account($accountData['id'], $accountData['time'], $accountData['subscription_end_time'],
+            $accountData['end_time'], $accountData['time_limit'],
+            $accountData['in_process'], $accountData['daily_points_count']);
     }
 
     /**
      * @param Account $account
-     * @return array
+     * @return array Account
      */
     private static function accountsDataToArray(Account $account)
     {
         $accountArray = ['id' => $account->getId(),
-            'time' => $account->getTime()];
+            'time' => $account->getTime(),
+            'limit_time' => $account->getLimitTime(),
+            'daily_points_count' => $account->getDailyPointsCount(),
+            'subscription_end_time' => $account->getSubscriptionEndTime()];
         if(!is_null($account->isInProcess()))
             $accountArray['in_process'] = $account->isInProcess();
         if(!is_null($account->getEndTime()))
@@ -138,4 +143,9 @@ class AccountsRepository extends Repository implements Updatable {
         return $accountArray;
     }
 
+    public static function deleteInvalidAccounts(){
+        $time = time();
+        $query = "DELETE FROM accounts_queue WHERE subscription_end_time < $time";
+        DatabaseWorker::execute($query);
+    }
 }

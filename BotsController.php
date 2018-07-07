@@ -5,6 +5,7 @@ require 'vendor/autoload.php';
 use Repository\AccountsRepository;
 
 const MAX_PROCESSES_COUNT = 2;
+const ACTUAL_ACCOUNTS_GET_DELAY = 120;
 
 
 function createNewProcess(){
@@ -52,6 +53,7 @@ $proxies = [
 ];
 
 while(true) {
+    AccountsRepository::deleteInvalidAccounts();
     $accounts = AccountsRepository::getActualAccounts();
     filterProcesses();
 
@@ -64,6 +66,6 @@ while(true) {
         else
             break;
 
-    sleep(1);
+    sleep(ACTUAL_ACCOUNTS_GET_DELAY);
 }
 

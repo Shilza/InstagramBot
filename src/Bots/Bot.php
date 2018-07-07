@@ -5,6 +5,7 @@ namespace Bot;
 use Entity\BotProcessStatistics;
 use Entity\Comment;
 use Entity\FollowedUser;
+use InstagramScraper\Exception\InstagramException;
 use InstagramScraper\Exception\InstagramRequestException;
 use InstagramScraper\Instagram;
 use InstagramScraper\Model\Account;
@@ -15,14 +16,14 @@ use Unirest;
 use Util\DatabaseWorker;
 use Util\Logger;
 
-abstract class Bot
-{
+abstract class Bot{
     const MAX_FAILS_COUNT = 15;
     const REQUEST_DELAY = 240; //240
 
     protected $instagram;
-    private $commentsText = ['Like it!', 'Nice pic', 'Awesome ☺',
+    const  STANDARD_COMMENTS = ['Like it!', 'Nice pic', 'Awesome ☺',
         'Nice image!!!', 'Cute ♥', "👍👍👍", "🔝🔝🔝", "🔥🔥🔥"];
+    private $comments;
 
     protected $likesSelected = false;
     protected $commentsSelected = false;
@@ -36,6 +37,7 @@ abstract class Bot
      * Bot constructor.
      * @param Instagram $instagram
      * @param array $settings
+     * @throws \Exception
      */
     protected function __construct(Instagram $instagram, array $settings)
     {
@@ -43,12 +45,22 @@ abstract class Bot
         $this->botProcessStatistics = new BotProcessStatistics();
 
         if (isset($settings)) {
-            if (array_key_exists('likes_selected', $settings))
-                $this->likesSelected = $settings['likes_selected'];
-            if (array_key_exists('comments_selected', $settings))
-                $this->commentsSelected = $settings['comments_selected'];
-            if (array_key_exists('following_selected', $settings))
-                $this->followingSelected = $settings['following_selected'];
+            if (array_key_exists('likes', $settings))
+                $this->likesSelected = $settings['likes'];
+            if (array_key_exists('comments', $settings))
+                $this->commentsSelected = $settings['comments'];
+            if (array_key_exists('followings', $settings))
+                $this->followingSelected = $settings['followings'];
+
+            if (isset($settings['custom_comments'])) {
+                if ($settings['standard_comments'])
+                    $this->comments = array_merge($settings['custom_comments'],
+                        static::STANDARD_COMMENTS);
+                else
+                    $this->comments = $settings['custom_comments'];
+            } else if ($settings['standard_comments'])
+                $this->comments = static::STANDARD_COMMENTS;
+            else throw new \Exception("No comments selected");
         }
     }
 
@@ -56,7 +68,8 @@ abstract class Bot
      * @throws InstagramRequestException
      * @throws \Exception
      */
-    public function run(){
+    public function run()
+    {
         Logger::logToConsole("Run " . get_class($this)
             . " with " . $this->instagram->getSessionUsername());
         try {
@@ -82,6 +95,11 @@ abstract class Bot
                 }
             else
                 throw new \Exception("Request failed");
+        } catch (InstagramException $e) {
+            if (stristr($e->getMessage(), "The account is private") === false)
+                throw $e;
+
+            return;
         } catch (Unirest\Exception $e) {
             Logger::log("Bot crush: " . $e->getMessage() . PHP_EOL .
                 $e->getTraceAsString());
@@ -111,8 +129,6 @@ abstract class Bot
             $accountObject = (gettype($account) == "object"
                 ? $account
                 : $this->instagram->getAccountById($account['id']));
-
-//            echo $accountObject->getUsername() . "\n";
 
             if ($accountObject->getUsername() != $this->instagram->getSessionUsername()) {
 
@@ -171,7 +187,8 @@ abstract class Bot
      * @throws \InstagramScraper\Exception\InstagramNotFoundException
      * @throws \InstagramScraper\Exception\InstagramRequestException
      */
-    protected function commentAccountsMedia($accountObject){
+    protected function commentAccountsMedia($accountObject)
+    {
         $medias = $this->instagram->getMedias($accountObject->getUserName(), 5);
 
         $commentableMedias = [];
@@ -183,7 +200,7 @@ abstract class Bot
             $this->botProcessStatistics->commentsCount++;
             $comment = $this->instagram->comment(
                 $commentableMedias[mt_rand(0, count($commentableMedias) - 1)]->getId(),
-                $this->commentsText[mt_rand(0, count($this->commentsText) - 1)]
+                $this->comments[mt_rand(0, count($this->comments) - 1)]
             );
 
             CommentsRepository::add(new Comment(
@@ -192,7 +209,9 @@ abstract class Bot
             );
 
             Logger::logToConsole("Comment by " . $this->instagram->getSessionUsername()
-                . " on " . $comment->getOwner()->getUsername());
+                . " on "
+                . $this->instagram->getMediaById($comment->getPicId())->getOwner()->getUsername()
+                . " Text: " . $comment->getText());
         }
     }
 
@@ -204,7 +223,8 @@ abstract class Bot
         return $this->botProcessStatistics;
     }
 
-    public function resetBotProcessStatistics(){
+    public function resetBotProcessStatistics()
+    {
         $this->botProcessStatistics->likesCount = 0;
         $this->botProcessStatistics->commentsCount = 0;
         $this->botProcessStatistics->followsCount = 0;
