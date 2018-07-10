@@ -5,29 +5,30 @@ namespace Bot;
 use Entity\BotProcessStatistics;
 use Entity\Comment;
 use Entity\FollowedUser;
-use InstagramScraper\Exception\InstagramException;
-use InstagramScraper\Exception\InstagramRequestException;
-use InstagramScraper\Instagram;
-use InstagramScraper\Model\Account;
-
+use InstagramAPI\Exception\RequestException;
+use InstagramAPI\Instagram;
 use Repository\CommentsRepository;
 use Repository\FollowsRepository;
-use Unirest;
 use Util\DatabaseWorker;
 use Util\Logger;
 
-abstract class Bot{
+abstract class Bot
+{
     const MAX_FAILS_COUNT = 15;
     const REQUEST_DELAY = 240; //240
+    const STANDARD_COMMENTS = ['Like it!', 'Nice pic', 'Awesome ☺',
+        'Nice image!!!', 'Cute ♥', "👍👍👍", "🔝🔝🔝", "🔥🔥🔥"];
 
     protected $instagram;
-    const  STANDARD_COMMENTS = ['Like it!', 'Nice pic', 'Awesome ☺',
-        'Nice image!!!', 'Cute ♥', "👍👍👍", "🔝🔝🔝", "🔥🔥🔥"];
     private $comments;
 
     protected $likesSelected = false;
     protected $commentsSelected = false;
     protected $followingSelected = false;
+
+    private $newCommentTime = 0;
+    private $newLikeTime = 0;
+    private $newFollowTime = 0;
 
     private $failsCount = 0;
 
@@ -53,9 +54,10 @@ abstract class Bot{
                 $this->followingSelected = $settings['followings'];
 
             if (isset($settings['custom_comments'])) {
-                if ($settings['standard_comments'])
+                if ($settings['standard_comments']) {
                     $this->comments = array_merge($settings['custom_comments'],
                         static::STANDARD_COMMENTS);
+                }
                 else
                     $this->comments = $settings['custom_comments'];
             } else if ($settings['standard_comments'])
@@ -65,17 +67,17 @@ abstract class Bot{
     }
 
     /**
-     * @throws InstagramRequestException
      * @throws \Exception
+     * @throws RequestException
      */
-    public function run()
-    {
-        Logger::logToConsole("Run " . get_class($this)
-            . " with " . $this->instagram->getSessionUsername());
+    public function run(){
         try {
-            if ($this->followingSelected || $this->likesSelected || $this->commentsSelected)
+            if ($this->followingSelected || $this->likesSelected || $this->commentsSelected) {
+                Logger::logToConsole("Run " . get_class($this)
+                    . " with " . $this->instagram->username);
                 $this->start();
-        } catch (InstagramRequestException $e) {
+            }
+        } catch (RequestException $e) {
             if ($this->failsCount++ < static::MAX_FAILS_COUNT)
                 switch ($e->getCode()) {
                     case 503:
@@ -86,94 +88,77 @@ abstract class Bot{
                         sleep(static::REQUEST_DELAY);
 
                         Logger::logToConsole("Sleep end with username "
-                            . $this->instagram->getSessionUsername());
+                            . $this->instagram->username);
 
                         $this->run();
                         break;
                     default:
-                        throw $e;
+                        if (stristr($e->getMessage(), "Not authorized to view user.") === false)
+                            throw $e;
                 }
             else
                 throw new \Exception("Request failed");
-        } catch (InstagramException $e) {
-            if (stristr($e->getMessage(), "The account is private") === false)
-                throw $e;
-
-            return;
-        } catch (Unirest\Exception $e) {
-            Logger::log("Bot crush: " . $e->getMessage() . PHP_EOL .
-                $e->getTraceAsString());
-            $this->run();
         } finally {
             $this->failsCount = 0;
         }
     }
 
-    /**
-     * @return mixed
-     * @throws InstagramRequestException
-     */
     abstract protected function start();
 
     /**
-     * @param $accounts
-     * @throws \Exception
-     * @throws InstagramRequestException
-     * @throws \InstagramScraper\Exception\InstagramException
-     * @throws \InstagramScraper\Exception\InstagramNotFoundException
+     * @param int[] $accountsID
      */
-    protected function processing($accounts)
-    {
-        foreach ($accounts as $account) {
+    protected function processing($accountsID){
+        foreach ($accountsID as $accountID)
+            if ($accountID != $this->instagram->account_id) {
 
-            $accountObject = (gettype($account) == "object"
-                ? $account
-                : $this->instagram->getAccountById($account['id']));
+                if ($this->followingSelected && mt_rand(0, 1) == 1) {
+                    if(($time = time()) < $this->newFollowTime)
+                        sleep($this->newFollowTime - $time);
+                    $this->follow($accountID);
+                    $this->newFollowTime = time() + mt_rand(28, 38); //DELAY AFTER REQUEST
+                }
 
-            if ($accountObject->getUsername() != $this->instagram->getSessionUsername()) {
+                if ($this->likesSelected && mt_rand(0, 1) == 1) {
+                    if (($time = time()) < $this->newLikeTime)
+                        sleep($this->newLikeTime - $time);
+                    $this->likeAccountsMedia($accountID);
+                    $this->newLikeTime = time() + mt_rand(28, 36); //DELAY AFTER REQUEST
+                }
 
-                if ($this->followingSelected && mt_rand(0, 1) == 1)
-                    $this->follow($accountObject);
-
-                if (!$accountObject->isPrivate()) {
-                    if ($this->likesSelected && mt_rand(0, 1) == 1)
-                        $this->likeAccountsMedia($accountObject);
-
-                    if ($this->commentsSelected && mt_rand(0, 3) == 1)
-                        $this->commentAccountsMedia($accountObject);
+                if ($this->commentsSelected && mt_rand(0, 3) == 1) {
+                    if(time() < $this->newCommentTime)
+                        continue;
+                    $this->commentAccountsMedia($accountID);
+                    $this->newCommentTime = time() + mt_rand(200, 250); //DELAY AFTER REQUEST
                 }
             }
-        }
     }
 
     /**
-     * @param $accountObject
-     * @throws \InstagramScraper\Exception\InstagramException
-     * @throws \InstagramScraper\Exception\InstagramNotFoundException
-     * @throws \InstagramScraper\Exception\InstagramRequestException
+     * @param int|string $userID
      */
-    protected function likeAccountsMedia($accountObject)
-    {
-        $medias = $this->instagram->getMedias($accountObject->getUsername(), 15);
+    protected function likeAccountsMedia($userID){
+        $medias = $this->instagram->timeline->getUserFeed($userID)->getItems();
         $count = mt_rand(3, 5);
 
         if (count($medias) > 0) {
 
-            Logger::logToConsole("Like by " . $this->instagram->getSessionUsername());
+            Logger::logToConsole("Like by " . $this->instagram->username);
 
             if ($count > count($medias))
                 foreach ($medias as $media) {
                     $this->botProcessStatistics->likesCount++;
-                    $this->instagram->like($media->getId());
+                    $this->instagram->media->like($media->getPk());
                 }
             else
                 while ($count > 0) {
                     $index = mt_rand(0, count($medias) - 1);
                     $media = $medias[$index];
 
-                    if (!$media->isLikedByViewer()) {
+                    if (!$media->getHasLiked()) {
                         $this->botProcessStatistics->likesCount++;
-                        $this->instagram->like($media->getId());
+                        $this->instagram->media->like($media->getPk());
                         array_splice($medias, $index, 1);
                         $count--;
                     }
@@ -182,35 +167,34 @@ abstract class Bot{
     }
 
     /**
-     * @param $accountObject
-     * @throws \InstagramScraper\Exception\InstagramException
-     * @throws \InstagramScraper\Exception\InstagramNotFoundException
-     * @throws \InstagramScraper\Exception\InstagramRequestException
+     * @param int|string $userID
      */
-    protected function commentAccountsMedia($accountObject)
+    protected function commentAccountsMedia($userID)
     {
-        $medias = $this->instagram->getMedias($accountObject->getUserName(), 5);
+        $medias = $this->instagram->timeline->getUserFeed($userID)->getItems();
 
-        $commentableMedias = [];
+        $commentableMediasID = [];
         foreach ($medias as $media)
-            if (!$media->isCommentDisable() && !$this->commentedByViewer($media->getId()))
-                array_push($commentableMedias, $media);
+            if (is_null($media->getCommentsDisabled()) //NULL is enabled
+                && !$this->commentedByViewer($media->getId()))
+                array_push($commentableMediasID, $media->getPk());
 
-        if (count($commentableMedias) > 0) {
+        if (count($commentableMediasID) > 0) {
             $this->botProcessStatistics->commentsCount++;
-            $comment = $this->instagram->comment(
-                $commentableMedias[mt_rand(0, count($commentableMedias) - 1)]->getId(),
+            $comment = $this->instagram->media->comment(
+                $commentableMediasID[mt_rand(0, count($commentableMediasID) - 1)],
                 $this->comments[mt_rand(0, count($this->comments) - 1)]
-            );
+            )->getComment();
 
             CommentsRepository::add(new Comment(
-                    $comment->getId(), $comment->getOwner()->getId(),
-                    $comment->getPicId(), $comment->getText(), $comment->getCreatedAt())
+                    $comment->getPk(), $comment->getUser()->getPk(),
+                    $comment->getMediaId(), $comment->getText(), $comment->getCreatedAt())
             );
 
-            Logger::logToConsole("Comment by " . $this->instagram->getSessionUsername()
+            Logger::logToConsole("Comment by " . $this->instagram->username
                 . " on "
-                . $this->instagram->getMediaById($comment->getPicId())->getOwner()->getUsername()
+                . $this->instagram->media->getInfo(
+                    $comment->getMediaId())->getItems()[0]->getUser()->getUsername()
                 . " Text: " . $comment->getText());
         }
     }
@@ -231,33 +215,27 @@ abstract class Bot{
     }
 
     /**
-     * @param Account $account
-     * @throws \InstagramScraper\Exception\InstagramException
-     * @throws \InstagramScraper\Exception\InstagramNotFoundException
-     * @throws \InstagramScraper\Exception\InstagramRequestException
+     * @param int|string $userID
      */
-    private function follow(Account $account)
+    private function follow($userID)
     {
-        Logger::logToConsole("Follow on " . $account->getUsername()
-            . " by " . $this->instagram->getSessionUsername());
-
+        Logger::logToConsole("Follow on "
+            . $this->instagram->people->getInfoById($userID)->getUser()->getUsername()
+            . " by " . $this->instagram->username);
         $this->botProcessStatistics->followsCount++;
-        $this->instagram->follow($account->getId());
+        $this->instagram->people->follow($userID);
 
-        FollowsRepository::add(new FollowedUser($account->getId(),
-            $this->instagram->getAccount($this->instagram->getSessionUsername())->getId()));
+        FollowsRepository::add(new FollowedUser($userID, $this->instagram->account_id));
     }
 
     /**
-     * @param $mediaId
+     * @param int|string $mediaId
      * @return bool
-     * @throws \InstagramScraper\Exception\InstagramException
-     * @throws \InstagramScraper\Exception\InstagramNotFoundException
      */
     private function commentedByViewer($mediaId)
     {
         return (DatabaseWorker::execute("SELECT COUNT(media_id) FROM comments"
-                . $this->instagram->getAccount($this->instagram->getSessionUsername())->getId()
-                . " WHERE media_id=$mediaId LIMIT 1")[0][0] == 1);
+                . $this->instagram->account_id
+                . "WHERE media_id=$mediaId LIMIT 1")[0][0] == 1);
     }
 }

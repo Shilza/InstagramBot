@@ -2,6 +2,9 @@
 
 namespace Bot;
 
+use InstagramAPI\Instagram;
+use InstagramAPI\Signatures;
+
 class HashtagBot extends TagBot{
     const STANDARD_HASHTAGS = ['follow4like', "follow4likes", "follow",
         "follow4", "follow4folow", "followers",
@@ -17,7 +20,7 @@ class HashtagBot extends TagBot{
      * @param array|null $hashtags
      * @throws \Exception
      */
-    public function __construct($instagram, array $settings, array $hashtags = null){
+    public function __construct(Instagram $instagram, array $settings, array $hashtags = null){
         parent::__construct($instagram, $settings);
 
         if(isset($hashtags)) {
@@ -30,14 +33,11 @@ class HashtagBot extends TagBot{
         else throw new \Exception("No hashtags selected");
     }
 
-    /**
-     * @throws \InstagramScraper\Exception\InstagramException
-     * @throws \InstagramScraper\Exception\InstagramNotFoundException
-     * @throws \InstagramScraper\Exception\InstagramRequestException
-     */
     protected function start(){
-        $medias = $this->instagram->getMediasByTag(
-            $this->hashtags[mt_rand(0, count($this->hashtags) - 1)], 20);
+        $medias = $this->instagram->hashtag->getFeed(
+            $this->hashtags[mt_rand(0, count($this->hashtags) - 1)],
+            Signatures::generateUUID()
+        )->getItems();
         $this->mediaProcessing($medias);
     }
 }

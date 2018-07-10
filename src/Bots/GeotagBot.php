@@ -2,7 +2,7 @@
 
 namespace Bot;
 
-use InstagramScraper\Instagram;
+use InstagramAPI\Instagram;
 
 class GeotagBot extends TagBot{
     const STANDARD_GEOTAGS = [
@@ -31,16 +31,16 @@ class GeotagBot extends TagBot{
         else throw new \Exception("No geotags selected");
     }
 
-    /**
-     * @return mixed|void
-     * @throws \InstagramScraper\Exception\InstagramException
-     * @throws \InstagramScraper\Exception\InstagramNotFoundException
-     * @throws \InstagramScraper\Exception\InstagramRequestException
-     */
     protected function start(){
         if(isset($this->geotags)){
-            $medias = $this->instagram->getCurrentTopMediasByLocationId(
-                $this->instagram->getLocationIdByName($this->geotags[mt_rand(0, count($this->geotags) - 1)]));
+            $result = $this->instagram->location->findPlaces(
+                $this->geotags[mt_rand(0, count($this->geotags) - 1)]);
+
+            $medias = $this->instagram->location->getFeed(
+                $result->getItems()[0]->getLocation()->getPk(),
+                $result->getRankToken() //TODO
+            )->getItems();
+
             $this->mediaProcessing($medias);
         }
     }

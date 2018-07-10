@@ -2,13 +2,11 @@
 
 namespace Util;
 
-use InstagramScraper\Exception\Exception;
-use InstagramScraper\Exception\InstagramNotFoundException;
-use InstagramScraper\Exception\InstagramRequestException;
-use InstagramScraper\Instagram;
+use InstagramAPI\Exception\BadRequestException;
+use InstagramAPI\Exception\NotFoundException;
+use InstagramAPI\Instagram;
 use Repository\CommentsRepository;
 use Repository\FollowsRepository;
-use Unirest;
 
 class AccountWorker
 {
@@ -20,8 +18,7 @@ class AccountWorker
 
     public function __construct(Instagram $instagram)
     {
-        Logger::setFilePath("accountWorker"
-            .$instagram->getAccount($instagram->getSessionUsername())->getId());
+        Logger::setFilePath("accountWorker" .$instagram->account_id);
         $this->instagram = $instagram;
     }
 
@@ -42,13 +39,13 @@ class AccountWorker
 
     /**
      * @param $function
-     * @throws Exception
+     * @throws BadRequestException
      */
     private function runFunction($function)
     {
         try {
             $this->$function();
-        } catch (Exception $e) {
+        } catch (BadRequestException $e) {
             if ($this->failCount++ < static::MAX_FAIL_COUNT) {
                 switch ($e->getCode()) {
                     case 403:
@@ -66,41 +63,33 @@ class AccountWorker
                     . $e->getTraceAsString());
                 $this->runFunction($function);
             }
-        } catch (Unirest\Exception $e) {
-            Logger::log("AccountWorker crush: " . $e->getMessage() . PHP_EOL
-                . $e->getTraceAsString());
-            $this->runFunction($function);
         }
     }
 
     /**
      * @throws \Exception
      */
-    private function unfollowingFromAll()
-    {
-        $followedUsers = FollowsRepository::getBy([
-            'owner_id' => $this->instagram->getAccount($this->instagram->getSessionUsername())->getId()
-        ]);
+    private function unfollowingFromAll(){
+        $followedUsers = FollowsRepository::getBy(['owner_id' => $this->instagram->account_id]);
         foreach ($followedUsers as $followedUser) {
-            $this->instagram->unfollow($followedUser->getUserId());
+            $this->instagram->people->unfollow($followedUser->getUserId());
             FollowsRepository::delete($followedUser);
             $this->failCount = 0;
+            sleep(mt_rand(12, 22)); //INSTAGRAM LIMITS
         }
     }
 
     /**
      * @throws \Exception
      */
-    private function unfollowingFromUnfollowers()
-    {
-        $followedUsers = FollowsRepository::getBy([
-            'owner_id' => $this->instagram->getAccount($this->instagram->getSessionUsername())->getId()
-        ]);
+    private function unfollowingFromUnfollowers(){
+        $followedUsers = FollowsRepository::getBy(['owner_id' => $this->instagram->account_id]);
         foreach ($followedUsers as $followedUser)
-            if (!$this->instagram->getAccount($followedUser->getUserId())->isFollowsViewer()) {
-                $this->instagram->unfollow($followedUser->getUserId());
+            if(!$this->instagram->people->getFriendship($followedUser->getUserId())->isFollowedBy()){
+                $this->instagram->people->unfollow($followedUser->getUserId());
                 FollowsRepository::delete($followedUser);
                 $this->failCount = 0;
+                sleep(mt_rand(12, 22));
             }
     }
 
@@ -109,19 +98,17 @@ class AccountWorker
      */
     private function deletingCommentsByBot()
     {
-        $comments = CommentsRepository::getBy([
-            'owner_id' => $this->instagram->getAccount($this->instagram->getSessionUsername())->getId()
-        ]);
+        $comments = CommentsRepository::getBy(['owner_id' => $this->instagram->account_id]);
 
         foreach ($comments as $comment) {
             try {
-                $this->instagram->deleteComment($comment->getMediaId(), $comment->getId());
+                $this->instagram->media->deleteComment($comment->getMediaId(), $comment->getId());
             }
-            catch (InstagramNotFoundException $e){
+            catch (NotFoundException $e){
                 //Media with given code does not exist or account is private.
                 //SKIP. JUST DELETE COMMENT FROM DB
             }
-            catch (InstagramRequestException $e) {
+            catch (BadRequestException $e) {
                 if ((strpos($e->getMessage(), "You cannot delete this comment")) === false)
                     throw $e;
             }

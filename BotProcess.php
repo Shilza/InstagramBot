@@ -2,7 +2,7 @@
 
 require 'vendor/autoload.php';
 
-use InstagramScraper\Instagram;
+use InstagramAPI\Instagram;
 
 use Bot\AccountsBot;
 use Bot\GeotagBot;
@@ -29,8 +29,8 @@ $account = AccountsRepository::getBy(['id' => $id])[0];
 
 try {
     $user = UsersRepository::getBy(['id' => $id])[0];
-    $instagram = Instagram::withCredentials($user->getLogin(), $user->getPassword());
-    $instagram->login();
+    $instagram = new Instagram(false, false);
+    $instagram->login($user->getLogin(), $user->getPassword());
 
     $bots = [];
 

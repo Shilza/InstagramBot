@@ -123,9 +123,18 @@ class UsersRepository extends Repository implements Updatable
                 'standard_hashtags' => $userData['standard_hashtags'],
                 'standard_geotags' => $userData['standard_geotags'],
                 'standard_comments' => $userData['standard_comments'],
-                'hashtags' => explode(" ", $userData['hashtags']),
-                'geotags' => explode(" ", $userData['geotags']),
-                'custom_comments' => explode(" ", $userData['custom_comments'])
+                'hashtags' =>
+                    (isset($userData['hashtags'])
+                        ? explode(" ", $userData['hashtags'])
+                        : null),
+                'geotags' =>
+                    (isset($userData['geotags'])
+                        ? explode(" ", $userData['geotags'])
+                        : null),
+                'custom_comments' =>
+                    (isset($userData['custom_comments'])
+                        ? explode(" ", $userData['custom_comments'])
+                        : null)
             ]
         );
     }

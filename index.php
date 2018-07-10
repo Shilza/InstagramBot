@@ -3,19 +3,14 @@
 require 'vendor/autoload.php';
 
 use Entity\User;
-use InstagramScraper\Instagram;
-use Repository\CommentsRepository;
-use Repository\FollowsRepository;
-use Repository\UsersRepository;
-use Util\AccountWorker;
-use Repository\StatisticsRepository;
 
 function getUserAndPass()
 {
     return explode(" ", file_get_contents("config", FILE_USE_INCLUDE_PATH));
 }
 
-function registration($login, $pass, &$instagram, &$settings){
+function registration($login, $pass, &$instagram, &$settings)
+{
 
     $instagram = Instagram::withCredentials($login, $pass);
     $instagram->login();
@@ -39,6 +34,22 @@ function registration($login, $pass, &$instagram, &$settings){
 
     return $user;
 }
+
+
+$instagram = new \InstagramAPI\Instagram(false, false);
+$instagram->login("macmilan_price", "192.168.39.26a");
+
+
+$instagram->media->comment(
+    $instagram->timeline->getUserFeed($instagram->people->getUserIdForName('faairyforce'))
+        ->getItems()[0]->getPk(),
+    ''
+);
+
+//$instagram->timeline->getUserFeed($instagram->people->getUserIdForName('sos.genrikovich'));
+
+//$instagram->people->follow($instagram->people->getInfoByName('faairyforce')->getUser()->getPk());
+
 
 //$user = UsersRepository::getBy(['id' => 1])[0];
 

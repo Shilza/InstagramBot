@@ -2,36 +2,38 @@
 
 namespace Bot;
 
-use InstagramScraper\Exception\InstagramNotFoundException;
-use InstagramScraper\Instagram;
-use InstagramScraper\Model\Account;
+use InstagramAPI\Exception\NotFoundException;
+use InstagramAPI\Instagram;
+use InstagramAPI\Response\Model\User;
+use InstagramAPI\Signatures;
 use Util\DatabaseWorker;
 
 class AccountsBot extends Bot{
+    const MAX_ACCOUNTS_COUNT = 20;
     private $cyclesCount = 0;
 
-    public function __construct(Instagram $instagram, array $settings)
-    {
+    /**
+     * AccountsBot constructor.
+     * @param Instagram $instagram
+     * @param array $settings
+     * @throws \Exception
+     */
+    public function __construct(Instagram $instagram, array $settings){
         parent::__construct($instagram, $settings);
     }
 
-    /**
-     * @return mixed|void
-     * @throws \InstagramScraper\Exception\InstagramException
-     * @throws \InstagramScraper\Exception\InstagramRequestException
-     * @throws \Unirest\Exception
-     */
     protected function start(){
         $id = $this->getRandomGenesisAccount();
         $this->cyclesCount = 0;
         try {
-            $account = $this->instagram->getAccountById($id);
-            if (!$account->isPrivate())
+            $account = $this->instagram->people->getInfoById($id)->getUser();
+            if (!$account->getIsPrivate()) {
                 $this->accountProcessing($account);
+            }
             else {
                 DatabaseWorker::execute("DELETE FROM base_accounts WHERE id = $id");
             }
-        } catch(InstagramNotFoundException $e){
+        } catch(NotFoundException $e){
             DatabaseWorker::execute("DELETE FROM base_accounts WHERE id = $id");
         }
     }
@@ -42,65 +44,55 @@ class AccountsBot extends Bot{
     }
 
     /**
-     * @param Account $account
-     * @param int $limit
+     * @param User $account
      * @return bool
-     * @throws InstagramNotFoundException
-     * @throws \InstagramScraper\Exception\InstagramException
-     * @throws \InstagramScraper\Exception\InstagramRequestException
-     * @throws \Unirest\Exception
      */
-    private function accountProcessing(Account $account, $limit = 10){
+    private function accountProcessing(User $account){
         sleep(mt_rand(0, 3));
         if ($this->isStageFinished())
             return true;
 
-        $count = $account->getFollowedByCount();
+        if(!$account->getFollowerCount())
+            return false;
 
-        $nextCount = ($count > $limit ? $limit : $count);
-
-        $accounts = $this->instagram->getFollowers($account->getId(), $nextCount, ($nextCount < 20 ? $nextCount : 20));
+        $accounts = $this->instagram->people->getFollowers($account->getPk(),
+            Signatures::generateUUID())->getUsers();
         $publicAccounts = $this->getPublicAccounts($accounts);
 
 //        echo "\n Account: " . $account->getUsername() . "\n" . "Accounts: " . "\n";
-        $this->processing($accounts);
 
-        if ($count > $limit) {
-            if (count($publicAccounts) == 0)
-                return $this->accountProcessing($account, $limit * 2 > $count ? $count : $limit * 2);
-            else {
-                if (!$this->accountProcessing($publicAccounts[rand(0, count($publicAccounts) - 1)])) {
-                    foreach ($publicAccounts as $publicAccount)
-                        if ($this->accountProcessing($publicAccount))
-                            return true;
-                    return false;
-                } else
-                    return true;
-            }
-        } else if (count($publicAccounts) == 0)
+        $accountsID = [];
+        foreach ($publicAccounts as $acc)
+            array_push($accountsID, $acc->getPk());
+        $this->processing($accountsID);
+
+
+        if (count($publicAccounts) == 0)
             return false;
-        else if (!$this->accountProcessing($publicAccounts[rand(0, count($publicAccounts) - 1)])) {
-            foreach ($publicAccounts as $publicAccount)
-                if ($this->accountProcessing($publicAccount))
-                    return true;
-            return false;
-        } else
-            return true;
+        else {
+            if (!$this->accountProcessing($publicAccounts[rand(0, count($publicAccounts) - 1)])) {
+                foreach ($publicAccounts as $publicAccount)
+                    if ($this->accountProcessing($publicAccount))
+                        return true;
+                return false;
+            } else
+                return true;
+        }
     }
 
     /**
-     * @param array $accounts
-     * @return array
-     * @throws InstagramNotFoundException
-     * @throws \InstagramScraper\Exception\InstagramException
+     * @param User[] $accounts
+     * @return User[]
      */
-    private function getPublicAccounts(array $accounts)
-    {
+    private function getPublicAccounts(array $accounts){
         $publicAccounts = [];
-        foreach ($accounts as $acc) {
-            $acc = $this->instagram->getAccountById($acc['id']);
-            if (!$acc->isPrivate())
-                array_push($publicAccounts, $acc);
+        $maxCount = static::MAX_ACCOUNTS_COUNT;
+        foreach ($accounts as $account) {
+            if($maxCount-- <= 0)
+                break;
+
+            if (!$account->getIsPrivate())
+                array_push($publicAccounts, $account);
         }
         return $publicAccounts;
     }

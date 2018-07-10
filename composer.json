@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "shilza/instagram-php-scraper": "dev-master"
+    "mgp25/instagram-php": "v4.1.0"
   },
   "autoload": {
     "psr-4": {
