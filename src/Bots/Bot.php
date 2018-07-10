@@ -5,6 +5,7 @@ namespace Bot;
 use Entity\BotProcessStatistics;
 use Entity\Comment;
 use Entity\FollowedUser;
+use InstagramAPI\Exception\NetworkException;
 use InstagramAPI\Exception\RequestException;
 use InstagramAPI\Instagram;
 use Repository\CommentsRepository;
@@ -77,7 +78,16 @@ abstract class Bot
                     . " with " . $this->instagram->username);
                 $this->start();
             }
-        } catch (RequestException $e) {
+        } catch (\InstagramAPI\Exception\FeedbackRequiredException $e){
+            if($e->hasResponse())
+                Logger::log("Bot crush: " . $e->getResponse()->getMessage()
+                    ."\n" .$e->getTraceAsString());
+            var_dump($e->getResponse()->getHttpResponse());
+        }
+        catch (NetworkException $e){
+            Logger::log("Bot crush: " . $e->getMessage() . "\n" . $e->getTraceAsString());
+        }
+        catch (RequestException $e) {
             if ($this->failsCount++ < static::MAX_FAILS_COUNT)
                 switch ($e->getCode()) {
                     case 503:
@@ -98,7 +108,8 @@ abstract class Bot
                 }
             else
                 throw new \Exception("Request failed");
-        } finally {
+        }
+        finally {
             $this->failsCount = 0;
         }
     }
@@ -113,22 +124,22 @@ abstract class Bot
             if ($accountID != $this->instagram->account_id) {
 
                 if ($this->followingSelected && mt_rand(0, 1) == 1) {
-                    if(($time = time()) < $this->newFollowTime)
-                        sleep($this->newFollowTime - $time);
+//                    if(($time = time()) < $this->newFollowTime)
+//                        sleep($this->newFollowTime - $time);
                     $this->follow($accountID);
                     $this->newFollowTime = time() + mt_rand(28, 38); //DELAY AFTER REQUEST
                 }
 
                 if ($this->likesSelected && mt_rand(0, 1) == 1) {
-                    if (($time = time()) < $this->newLikeTime)
-                        sleep($this->newLikeTime - $time);
+//                    if (($time = time()) < $this->newLikeTime)
+//                        sleep($this->newLikeTime - $time);
                     $this->likeAccountsMedia($accountID);
                     $this->newLikeTime = time() + mt_rand(28, 36); //DELAY AFTER REQUEST
                 }
 
                 if ($this->commentsSelected && mt_rand(0, 3) == 1) {
-                    if(time() < $this->newCommentTime)
-                        continue;
+//                    if(time() < $this->newCommentTime)
+//                        continue;
                     $this->commentAccountsMedia($accountID);
                     $this->newCommentTime = time() + mt_rand(200, 250); //DELAY AFTER REQUEST
                 }
@@ -159,9 +170,10 @@ abstract class Bot
                     if (!$media->getHasLiked()) {
                         $this->botProcessStatistics->likesCount++;
                         $this->instagram->media->like($media->getPk());
-                        array_splice($medias, $index, 1);
-                        $count--;
                     }
+
+                    array_splice($medias, $index, 1);
+                    $count--;
                 }
         }
     }

@@ -8,24 +8,15 @@ const MAX_PROCESSES_COUNT = 2;
 const ACTUAL_ACCOUNTS_GET_DELAY = 120;
 
 
-function createNewProcess(){
+function createNewProcess($scriptName){
     global $processes;
     global $accounts;
-    global $proxies;
 
     if(count($accounts) > 0) {
         $account = array_shift($accounts);
 
-        $proxyArray = [];
-        foreach ($proxies as &$proxy)
-            if(!$proxy['isUsed']){
-                $proxyArray = $proxy;
-                $proxy['isUsed'] = true;
-                break;
-            }
-
         array_push($processes, proc_open(
-                'php BotProcess.php ' . $account->getId() . ' ' . $proxyArray['ip'] . ' ' . $proxyArray['port'] ,
+                "php $scriptName.php " . $account->getId(),
                 [], $pipes, null, null
             )
         );
@@ -47,10 +38,6 @@ function filterProcesses(){
 
 $processes = [];
 $accounts = [];
-$proxies = [
-    ['ip' => '206.81.2.4', 'port' => '808', 'isUsed' => false],
-    ['ip' => '183.88.212.141', 'port' => '8080', 'isUsed' => false]
-];
 
 while(true) {
     AccountsRepository::deleteInvalidAccounts();
@@ -62,7 +49,7 @@ while(true) {
 
     while (count($processes) < MAX_PROCESSES_COUNT)
         if (count($accounts) != 0)
-            createNewProcess();
+            createNewProcess("BotProcess");
         else
             break;
 

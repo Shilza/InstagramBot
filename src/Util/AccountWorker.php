@@ -12,6 +12,7 @@ class AccountWorker
 {
     const REQUEST_DELAY = 240;
     const MAX_FAIL_COUNT = 5;
+    const MAX_UNFOLLOWS_COUNT = 2000;
     private $failCount = 0;
 
     private $instagram;

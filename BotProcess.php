@@ -13,7 +13,7 @@ use Repository\StatisticsRepository;
 
 use Util\Logger;
 
-const MAX_POINTS_COUNT = 200;
+$maxPointsCount = 0;
 const BREAK_TIME = 3600; //SECONDS
 const DAY = 86400;
 $maxDailyPointsCount = 0;
@@ -42,17 +42,26 @@ try {
     if ($settings['geotag_bot'])
         array_push($bots, new GeotagBot($instagram, $settings));
 
-    if ($settings['likes'])
+    if ($settings['likes']) {
         $maxDailyPointsCount += 1000;
-    if ($settings['followings'])
+        $maxPointsCount += 75;
+    }
+    if ($settings['followings']) {
         $maxDailyPointsCount += 1000;
-    if ($settings['comments'])
+        $maxPointsCount += 75;
+    }
+    if ($settings['comments']) {
         $maxDailyPointsCount += 500;
-
+        $maxPointsCount += 50;
+    }
 
     if (count($bots) > 0) {
         if ($account->getDailyPointsCount() == 0)
             $account->setLimitTime(time() + DAY);
+        else if($account->getLimitTime() < time()){
+            $account->setDailyPointsCount(0);
+            $account->setLimitTime(time() + DAY);
+        }
 
         while (true) {
             foreach ($bots as $bot) {
@@ -63,13 +72,14 @@ try {
 
                 Logger::logToConsole("Points: " . $botProcessStatistics->getPointsCount() . " ID: " . $id);
 
-                if ($botProcessStatistics->getPointsCount() >= MAX_POINTS_COUNT)
+                if ($botProcessStatistics->getPointsCount() >= $maxPointsCount)
                     break 2;
             }
         }
     }
     Logger::logToConsole("Bot process with ID $id finished");
-} catch (\Exception $e) {
+}
+catch (\Exception $e) {
     Logger::log("Bot process crush: " . $e->getMessage() . "\n" . $e->getTraceAsString());
 } finally {
     StatisticsRepository::addPoints($botProcessStatistics);
@@ -80,24 +90,10 @@ try {
     if ($account->getDailyPointsCount() >= $maxDailyPointsCount) {
         $account->setDailyPointsCount(0);
         $account->setTime($account->getLimitTime());
-    } else {
-        $account->setDailyPointsCount(
-            $account->getDailyPointsCount() + $botProcessStatistics->getPointsCount()
-        );
+    } else
         $account->setTime(time() + BREAK_TIME);
-    }
 
     $account->setInProcess(false);
     AccountsRepository::update($account);
     Logger::logToConsole("Finally-block has reached with ID $id");
 }
-
-
-
-
-//\InstagramScraper\Instagram::setProxy([
-//    'address' => $argv['2'],
-//    'port'    => $argv['3'],
-//    'tunnel'  => true,
-//    'timeout' => 30,
-//]);

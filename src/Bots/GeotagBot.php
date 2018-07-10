@@ -38,7 +38,7 @@ class GeotagBot extends TagBot{
 
             $medias = $this->instagram->location->getFeed(
                 $result->getItems()[0]->getLocation()->getPk(),
-                $result->getRankToken() //TODO
+                $result->getRankToken()
             )->getItems();
 
             $this->mediaProcessing($medias);

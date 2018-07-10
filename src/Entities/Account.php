@@ -11,19 +11,27 @@ class Account
     private $limitTime;
     private $dailyPointsCount;
     private $subscriptionEndTime;
+    private $target;
+    private $commentsLimitTime;
+    private $followsLimitTime;
 
     /**
      * Account constructor.
      * @param $id
      * @param $time
-     * @param $inProcess
-     * @param $end_time
-     * @param $limitTime
-     * @param $dailyPointsCount
      * @param $subscriptionEndTime
+     * @param $target
+     * @param null $end_time
+     * @param int $limitTime
+     * @param null $inProcess
+     * @param int $dailyPointsCount
+     * @param int $commentsLimitTime
+     * @param int $followsLimitTime
      */
-    public function __construct($id, $time, $subscriptionEndTime, $end_time = null, $limitTime = 0,
-                                $inProcess = null, $dailyPointsCount = 0){
+    public function __construct($id, $time, $subscriptionEndTime, $target,
+                                $end_time = null, $limitTime = 0,
+                                $inProcess = null, $dailyPointsCount = 0,
+                                $commentsLimitTime = 0, $followsLimitTime = 0){
         $this->id = $id;
         $this->time = $time;
         $this->inProcess = $inProcess;
@@ -31,6 +39,57 @@ class Account
         $this->limitTime = $limitTime;
         $this->dailyPointsCount = $dailyPointsCount;
         $this->subscriptionEndTime = $subscriptionEndTime;
+        $this->target = $target;
+        $this->commentsLimitTime = $commentsLimitTime;
+        $this->followsLimitTime = $followsLimitTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTarget()
+    {
+        return $this->target;
+    }
+
+    /**
+     * @param mixed $target
+     */
+    public function setTarget($target): void
+    {
+        $this->target = $target;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCommentsLimitTime()
+    {
+        return $this->commentsLimitTime;
+    }
+
+    /**
+     * @param mixed $commentsLimitTime
+     */
+    public function setCommentsLimitTime($commentsLimitTime): void
+    {
+        $this->commentsLimitTime = $commentsLimitTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFollowsLimitTime()
+    {
+        return $this->followsLimitTime;
+    }
+
+    /**
+     * @param mixed $followsLimitTime
+     */
+    public function setFollowsLimitTime($followsLimitTime): void
+    {
+        $this->followsLimitTime = $followsLimitTime;
     }
 
     /**
