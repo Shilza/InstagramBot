@@ -35,13 +35,10 @@ function registration($login, $pass, &$instagram, &$settings)
     return $user;
 }
 
+//$instagram = new \InstagramAPI\Instagram(false, false);
+//$instagram->login("macmilan_price", "192.168.39.26a");
 
-$instagram = new \InstagramAPI\Instagram(false, false);
-$instagram->login("macmilan_price", "192.168.39.26a");
-
-try{
-    $a = \InstagramAPI\InstagramID::fromCode('BlDQbZ_BYgs');
-    $instagram->media->comment($a, "hello");
-} catch (Exception $e){
-    var_dump($e);
-}
+//\Repository\AccountsRepository::add(new \Entity\Account(2436801585, 1));
+//\Repository\AccountsRepository::add(new \Entity\Account(7906270844, 1));
+//\Repository\AccountsRepository::add(new \Entity\Account(2436801585, -2));
+//\Repository\AccountsRepository::add(new \Entity\Account(7906270844, -3));

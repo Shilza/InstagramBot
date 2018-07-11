@@ -9,7 +9,7 @@ class CommentsRepository extends Repository implements Updatable {
 
     /**
      * @param array $criterions
-     * @return array|null
+     * @return Comment[]|null
      */
     public static function getBy(array $criterions)
     {
@@ -42,7 +42,7 @@ class CommentsRepository extends Repository implements Updatable {
     /**
      * @param Comment $comment
      */
-    public static function update($comment)
+    public static function update(&$comment)
     {
         $ownerId = $comment->getOwnerId();
         if($comment instanceof Comment && static::isValid($ownerId)){

@@ -8,7 +8,7 @@ class FollowsRepository extends Repository{
 
     /**
      * @param array $criterions
-     * @return array|null
+     * @return FollowedUser[]|null
      */
     public static function getBy(array $criterions)
     {

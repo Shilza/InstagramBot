@@ -14,12 +14,12 @@ use Repository\StatisticsRepository;
 use Util\Logger;
 
 $maxPointsCount = 0;
-const BREAK_TIME = 3600; //SECONDS
+const BREAK_TIME = 3600; //1 HOUR
 const DAY = 86400;
 $maxDailyPointsCount = 0;
 
 
-Logger::logToConsole("Process started with ID " . $argv[1]);
+Logger::logToConsole("BotProcess started with ID " . $argv[1]);
 $id = $argv[1];
 
 Logger::setFilePath("botProcess$id");

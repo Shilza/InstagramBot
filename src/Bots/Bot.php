@@ -82,7 +82,7 @@ abstract class Bot
             if($e->hasResponse())
                 Logger::log("Bot crush: " . $e->getResponse()->getMessage()
                     ."\n" .$e->getTraceAsString());
-            var_dump($e->getResponse()->getHttpResponse());
+            var_dump($e);
         }
         catch (NetworkException $e){
             Logger::log("Bot crush: " . $e->getMessage() . "\n" . $e->getTraceAsString());

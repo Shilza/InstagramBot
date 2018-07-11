@@ -8,19 +8,29 @@ const MAX_PROCESSES_COUNT = 2;
 const ACTUAL_ACCOUNTS_GET_DELAY = 120;
 
 
-function createNewProcess($scriptName){
+function createNewProcess(){
     global $processes;
     global $accounts;
 
     if(count($accounts) > 0) {
         $account = array_shift($accounts);
 
-        array_push($processes, proc_open(
-                "php $scriptName.php " . $account->getId(),
-                [], $pipes, null, null
-            )
-        );
-
+        if($account->getTarget() == 1)
+            array_push($processes, proc_open(
+                    "php BotProcess.php " . $account->getId(),
+                    [], $pipes, null, null
+                )
+            );
+        else if($account->getTarget() > 1)
+            array_push($processes, proc_open(
+                    "php AccountWorkerProcess.php " . $account->getId()
+                    . " " . $account->getTarget(),
+                    [], $pipes, null, null
+                )
+            );
+        else
+            return;
+        
         $account->setInProcess(true);
         AccountsRepository::update($account);
     }
@@ -49,7 +59,7 @@ while(true) {
 
     while (count($processes) < MAX_PROCESSES_COUNT)
         if (count($accounts) != 0)
-            createNewProcess("BotProcess");
+            createNewProcess();
         else
             break;
 

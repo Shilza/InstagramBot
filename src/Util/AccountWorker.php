@@ -12,15 +12,27 @@ class AccountWorker
 {
     const REQUEST_DELAY = 240;
     const MAX_FAIL_COUNT = 5;
-    const MAX_UNFOLLOWS_COUNT = 2000;
-    private $failCount = 0;
+    private $maxPointsCount;
+
+    private $failsCount = 0;
 
     private $instagram;
 
-    public function __construct(Instagram $instagram)
+    /**
+     * AccountWorker constructor.
+     * @param Instagram $instagram
+     * @param $target
+     */
+    public function __construct(Instagram $instagram, $target)
     {
-        Logger::setFilePath("accountWorker" .$instagram->account_id);
         $this->instagram = $instagram;
+
+        if ($target == 2)
+            $this->maxPointsCount = mt_rand(20, 30);
+            //$this->maxPointsCount = mt_rand(800, 1000);
+        else if ($target > 2)
+            $this->maxPointsCount = mt_rand(20, 30);
+            //$this->maxPointsCount = mt_rand(1800, 2000);
     }
 
     public function unfollowFromAll()
@@ -46,8 +58,9 @@ class AccountWorker
     {
         try {
             $this->$function();
-        } catch (BadRequestException $e) {
-            if ($this->failCount++ < static::MAX_FAIL_COUNT) {
+        }
+        catch (BadRequestException $e) {
+            if ($this->failsCount++ < static::MAX_FAIL_COUNT) {
                 switch ($e->getCode()) {
                     case 403:
                     case 503:
@@ -70,28 +83,44 @@ class AccountWorker
     /**
      * @throws \Exception
      */
-    private function unfollowingFromAll(){
-        $followedUsers = FollowsRepository::getBy(['owner_id' => $this->instagram->account_id]);
+    private function unfollowingFromAll()
+    {
+        $this->unfollow(FollowsRepository::getBy(['owner_id' => $this->instagram->account_id]));
+    }
+
+    /**
+     * @param $followedUsers
+     */
+    private function unfollow(array $followedUsers){
         foreach ($followedUsers as $followedUser) {
-            $this->instagram->people->unfollow($followedUser->getUserId());
+            Logger::logToConsole("Unfollow from " . $followedUser->getUserId()
+                . " by " . $followedUser->getOwnerId());
+            try {
+                $this->instagram->people->unfollow($followedUser->getUserId());
+            } catch (NotFoundException $e){
+                //SKIP DELETED ACCOUNT
+            }
             FollowsRepository::delete($followedUser);
-            $this->failCount = 0;
-            sleep(mt_rand(12, 22)); //INSTAGRAM LIMITS
+            $this->failsCount = 0;
+
+            if (--$this->maxPointsCount <= 0)
+                return;
+            //sleep(mt_rand(12, 22)); //INSTAGRAM LIMITS
         }
     }
 
     /**
      * @throws \Exception
      */
-    private function unfollowingFromUnfollowers(){
+    private function unfollowingFromUnfollowers()
+    {
         $followedUsers = FollowsRepository::getBy(['owner_id' => $this->instagram->account_id]);
+        $unfollowers = [];
         foreach ($followedUsers as $followedUser)
-            if(!$this->instagram->people->getFriendship($followedUser->getUserId())->isFollowedBy()){
-                $this->instagram->people->unfollow($followedUser->getUserId());
-                FollowsRepository::delete($followedUser);
-                $this->failCount = 0;
-                sleep(mt_rand(12, 22));
-            }
+            if (!$this->instagram->people->getFriendship($followedUser->getUserId())->isFollowedBy())
+                array_push($unfollowers, $followedUser);
+
+        $this->unfollow($unfollowers);
     }
 
     /**
@@ -103,18 +132,31 @@ class AccountWorker
 
         foreach ($comments as $comment) {
             try {
+                Logger::logToConsole("Delete comment from " . $comment->getMediaId()
+                    . " by " . $comment->getOwnerId());
+
                 $this->instagram->media->deleteComment($comment->getMediaId(), $comment->getId());
-            }
-            catch (NotFoundException $e){
+            } catch (NotFoundException $e) {
                 //Media with given code does not exist or account is private.
                 //SKIP. JUST DELETE COMMENT FROM DB
-            }
-            catch (BadRequestException $e) {
+            } catch (BadRequestException $e) {
                 if ((strpos($e->getMessage(), "You cannot delete this comment")) === false)
                     throw $e;
             }
             CommentsRepository::delete($comment);
-            $this->failCount = 0;
+            $this->failsCount = 0;
+
+            if (--$this->maxPointsCount <= 0)
+                return;
+            //sleep(mt_rand(12, 22));
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxPointsCount(): int
+    {
+        return $this->maxPointsCount;
     }
 }

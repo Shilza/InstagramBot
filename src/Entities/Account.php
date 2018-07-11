@@ -2,6 +2,8 @@
 
 namespace Entity;
 
+use Repository\AccountsRepository;
+
 class Account
 {
     private $id;
@@ -10,38 +12,50 @@ class Account
     private $end_time;
     private $limitTime;
     private $dailyPointsCount;
-    private $subscriptionEndTime;
     private $target;
-    private $commentsLimitTime;
-    private $followsLimitTime;
+    //for identification in db
+    private $oldTarget;
 
     /**
      * Account constructor.
      * @param $id
-     * @param $time
-     * @param $subscriptionEndTime
      * @param $target
-     * @param null $end_time
+     * @param int $end_time
+     * @param int $time
      * @param int $limitTime
      * @param null $inProcess
      * @param int $dailyPointsCount
-     * @param int $commentsLimitTime
-     * @param int $followsLimitTime
      */
-    public function __construct($id, $time, $subscriptionEndTime, $target,
-                                $end_time = null, $limitTime = 0,
-                                $inProcess = null, $dailyPointsCount = 0,
-                                $commentsLimitTime = 0, $followsLimitTime = 0){
+    public function __construct($id, $target, $end_time = -1, $time = 0, $limitTime = 0,
+                                $inProcess = null, $dailyPointsCount = 0){
         $this->id = $id;
         $this->time = $time;
         $this->inProcess = $inProcess;
-        $this->end_time = $end_time;
         $this->limitTime = $limitTime;
         $this->dailyPointsCount = $dailyPointsCount;
-        $this->subscriptionEndTime = $subscriptionEndTime;
         $this->target = $target;
-        $this->commentsLimitTime = $commentsLimitTime;
-        $this->followsLimitTime = $followsLimitTime;
+        $this->oldTarget = $target;
+
+        if($end_time < 0 && $target == 1)
+            $this->end_time = time() + AccountsRepository::DAY;
+        else
+            $this->end_time = $end_time;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOldTarget()
+    {
+        return $this->oldTarget;
+    }
+
+    /**
+     * @param mixed $oldTarget
+     */
+    public function setOldTarget($oldTarget): void
+    {
+        $this->oldTarget = $oldTarget;
     }
 
     /**
@@ -58,53 +72,6 @@ class Account
     public function setTarget($target): void
     {
         $this->target = $target;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCommentsLimitTime()
-    {
-        return $this->commentsLimitTime;
-    }
-
-    /**
-     * @param mixed $commentsLimitTime
-     */
-    public function setCommentsLimitTime($commentsLimitTime): void
-    {
-        $this->commentsLimitTime = $commentsLimitTime;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFollowsLimitTime()
-    {
-        return $this->followsLimitTime;
-    }
-
-    /**
-     * @param mixed $followsLimitTime
-     */
-    public function setFollowsLimitTime($followsLimitTime): void
-    {
-        $this->followsLimitTime = $followsLimitTime;
-    }
-
-    /**
-     * @return int
-     */
-    public function getSubscriptionEndTime(){
-        return $this->subscriptionEndTime;
-    }
-
-    /**
-     * @param mixed $subscriptionEndTime
-     */
-    public function setSubscriptionEndTime($subscriptionEndTime)
-    {
-        $this->subscriptionEndTime = $subscriptionEndTime;
     }
 
     /**

@@ -846,6 +846,7 @@
     </column>
     <column id="219" parent="209" name="time">
       <Position>2</Position>
+      <Comment>TIME WHEN CONTROLLER CAN TAKE ACCOUN</Comment>
       <DataType>int(10) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
@@ -858,11 +859,13 @@
     </column>
     <column id="221" parent="209" name="end_time">
       <Position>4</Position>
+      <Comment>24 HOURS AFTER PRESS THE BUTTON</Comment>
       <DataType>int(10) unsigned|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="222" parent="209" name="limit_time">
       <Position>5</Position>
+      <Comment>TIME WHERE DAILY LIMIT RESET</Comment>
       <DataType>int(10) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
@@ -870,246 +873,223 @@
     </column>
     <column id="223" parent="209" name="daily_points_count">
       <Position>6</Position>
+      <Comment>COUNT OF POINTS MADE BY BOT</Comment>
       <DataType>int(10) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="224" parent="209" name="subscription_end_time">
+    <column id="224" parent="209" name="target">
       <Position>7</Position>
-      <DataType>int(10) unsigned|0s</DataType>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="225" parent="209" name="target">
-      <Position>8</Position>
-      <Comment>0 IS THE BOT PROCESS(LIKES, FOLLOWS, COMMENTS)
-1 IS THE ACCOUNT WORKER DELETE COMMENTS
-2 IS THE ACCOUNT WORKER UNFOLLOWS</Comment>
+      <Comment>1 IS THE BOT PROCESS(LIKES, FOLLOWS, COMMENTS)
+2 IS THE ACCOUNT WORKER DELETE COMMENTS
+3 IS THE ACCOUNT WORKER UNFOLLOWS
+4 IS THE ACCOUNT WORKER UNFOLLOW FROM UNFOLLOWERS
+TARGET WITH MINUS MEANS THAT THE ACTION WAS CANCELED</Comment>
       <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="226" parent="209" name="comments_limit_time">
-      <Position>9</Position>
-      <DataType>int(10) unsigned|0s</DataType>
-      <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="227" parent="209" name="follows_limit_time">
-      <Position>10</Position>
-      <DataType>int(10) unsigned|0s</DataType>
-      <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <key id="228" parent="209" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="229" parent="210" name="id">
+    <column id="225" parent="210" name="id">
       <Position>1</Position>
       <DataType>varchar(32)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="230" parent="211" name="id">
+    <column id="226" parent="211" name="id">
       <Position>1</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="231" parent="211" name="media_id">
+    <column id="227" parent="211" name="media_id">
       <Position>2</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="232" parent="211" name="text">
+    <column id="228" parent="211" name="text">
       <Position>3</Position>
       <DataType>varchar(140)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="233" parent="211" name="date">
+    <column id="229" parent="211" name="date">
       <Position>4</Position>
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="234" parent="212" name="id">
+    <column id="230" parent="212" name="id">
       <Position>1</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="235" parent="212" name="media_id">
+    <column id="231" parent="212" name="media_id">
       <Position>2</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="236" parent="212" name="text">
+    <column id="232" parent="212" name="text">
       <Position>3</Position>
       <DataType>varchar(140)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="237" parent="212" name="date">
+    <column id="233" parent="212" name="date">
       <Position>4</Position>
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="238" parent="213" name="user_id">
+    <column id="234" parent="213" name="user_id">
       <Position>1</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="239" parent="213" name="date">
+    <column id="235" parent="213" name="date">
       <Position>2</Position>
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="240" parent="214" name="user_id">
+    <column id="236" parent="214" name="user_id">
       <Position>1</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="241" parent="214" name="date">
+    <column id="237" parent="214" name="date">
       <Position>2</Position>
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="242" parent="215" name="id">
+    <column id="238" parent="215" name="id">
       <Position>1</Position>
       <DataType>varchar(32)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="243" parent="215" name="likes_count">
+    <column id="239" parent="215" name="likes_count">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="244" parent="215" name="comments_count">
+    <column id="240" parent="215" name="comments_count">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="245" parent="215" name="follows_count">
+    <column id="241" parent="215" name="follows_count">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="246" parent="215" name="statistics_id_uindex">
+    <index id="242" parent="215" name="statistics_id_uindex">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="247" parent="215" name="statistics_id_uindex">
+    <key id="243" parent="215" name="statistics_id_uindex">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>statistics_id_uindex</UnderlyingIndexName>
     </key>
-    <column id="248" parent="216" name="id">
+    <column id="244" parent="216" name="id">
       <Position>1</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8_general_ci</Collation>
     </column>
-    <column id="249" parent="216" name="genesis_account_bot">
+    <column id="245" parent="216" name="genesis_account_bot">
       <Position>2</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="250" parent="216" name="hashtag_bot">
+    <column id="246" parent="216" name="hashtag_bot">
       <Position>3</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="251" parent="216" name="geotag_bot">
+    <column id="247" parent="216" name="geotag_bot">
       <Position>4</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="252" parent="216" name="likes">
+    <column id="248" parent="216" name="likes">
       <Position>5</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="253" parent="216" name="followings">
+    <column id="249" parent="216" name="followings">
       <Position>6</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="254" parent="216" name="comments">
+    <column id="250" parent="216" name="comments">
       <Position>7</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="255" parent="216" name="standard_hashtags">
+    <column id="251" parent="216" name="standard_hashtags">
       <Position>8</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="256" parent="216" name="standard_geotags">
+    <column id="252" parent="216" name="standard_geotags">
       <Position>9</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="257" parent="216" name="hashtags">
+    <column id="253" parent="216" name="hashtags">
       <Position>10</Position>
       <DataType>text|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="258" parent="216" name="geotags">
+    <column id="254" parent="216" name="geotags">
       <Position>11</Position>
       <DataType>text|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="259" parent="216" name="standard_comments">
+    <column id="255" parent="216" name="standard_comments">
       <Position>12</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="260" parent="216" name="custom_comments">
+    <column id="256" parent="216" name="custom_comments">
       <Position>13</Position>
       <DataType>text|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="261" parent="216" name="PRIMARY">
+    <key id="257" parent="216" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="262" parent="216" name="id_key">
+    <foreign-key id="258" parent="216" name="id_key">
       <ColNames>id</ColNames>
       <RefSchemaName>instatest</RefSchemaName>
       <RefTableName>users</RefTableName>
@@ -1117,50 +1097,57 @@
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="263" parent="217" name="id">
+    <column id="259" parent="217" name="id">
       <Position>1</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="264" parent="217" name="login">
+    <column id="260" parent="217" name="login">
       <Position>2</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="265" parent="217" name="password">
+    <column id="261" parent="217" name="password">
       <Position>3</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="266" parent="217" name="registration">
+    <column id="262" parent="217" name="registration">
       <Position>4</Position>
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="267" parent="217" name="last_activity">
+    <column id="263" parent="217" name="last_activity">
       <Position>5</Position>
       <DataType>int(10) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="268" parent="217" name="money">
+    <column id="264" parent="217" name="money">
       <Position>6</Position>
       <DataType>int(10) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="269" parent="217" name="PRIMARY">
+    <column id="265" parent="217" name="subscription_end_time">
+      <Position>7</Position>
+      <Comment>TIME WHEN SUBSCRIPTION ENDS</Comment>
+      <DataType>int(10) unsigned|0s</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="266" parent="217" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <trigger id="270" parent="217" name="user_added">
+    <trigger id="267" parent="217" name="user_added">
       <Turn>after-row</Turn>
       <Events>I</Events>
     </trigger>

@@ -11,7 +11,7 @@ class AccountsRepository extends Repository implements Updatable {
 
     /**
      * @param array $criterions
-     * @return array Account
+     * @return Account[]
      */
     public static function getBy(array $criterions)
     {
@@ -20,7 +20,8 @@ class AccountsRepository extends Repository implements Updatable {
             foreach ($criterions as $key => $value)
                 $query .= "$key='$value' AND ";
 
-            $accountsArray = DatabaseWorker::execute(substr($query, 0, iconv_strlen($query) - 5));
+            $accountsArray = DatabaseWorker::execute(
+                substr($query, 0, iconv_strlen($query) - 5));
             $accountObjectsArray = [];
 
             foreach ($accountsArray as $account)
@@ -50,19 +51,16 @@ class AccountsRepository extends Repository implements Updatable {
     /**
      * @return array
      */
-    //TODO DELETE IS NULL
-    //TODO REFACTOR QUERY
     public static function getActualAccounts(){
         $time = time();
         $limit =  MAX_PROCESSES_COUNT;
-        $query = "SELECT * FROM accounts_queue WHERE
-         in_process IS NULL OR (( 
-            (time <= $time AND ((end_time IS NULL OR $time < end_time) AND target = 0))
-            OR (target = 1 AND $time < comments_limit_time)
-            OR (target = 2 AND $time < follows_limit_time)
-         )
-         AND in_process != true)
-         ORDER BY time LIMIT $limit";
+        $query = "SELECT * FROM accounts_queue WHERE (in_process IS NULL AND target > 0) OR(
+          in_process = false AND time <= $time
+          AND (
+            ($time < end_time AND target = 1)
+            OR ($time > limit_time AND (target = 2 OR target = 3))
+          ))
+          ORDER BY time LIMIT $limit";
 
         $accountsArray = DatabaseWorker::execute($query);
         $accountObjectsArray = [];
@@ -80,15 +78,14 @@ class AccountsRepository extends Repository implements Updatable {
     public static function add($account)
     {
         if ($account instanceof Account && static::isValid($account->getId())) {
-            $end_time = time() + static::DAY;
             $query = "INSERT INTO accounts_queue (id, time, end_time, limit_time, 
-                          subscription_end_time, daily_points_count, target, 
-                          comments_limit_time, follows_limit_time) 
-                      VALUES(:id, :time, $end_time, :limit_time, 
-                      :subscription_end_time, :daily_points_count, :target,
-                      :comments_limit_time, :follows_limit_time)";
+                      daily_points_count, target) 
+                      VALUES(:id, :time, :end_time, :limit_time, :daily_points_count, :target)";
 
-            DatabaseWorker::execute($query, static::accountsDataToArray($account));
+            $arr = static::accountsDataToArray($account);
+            array_splice($arr,
+                array_search('old_target', array_keys($arr), true), 1);
+            DatabaseWorker::execute($query, $arr);
         }
     }
 
@@ -107,15 +104,13 @@ class AccountsRepository extends Repository implements Updatable {
     /**
      * @param Account $account
      */
-    static function update($account){
+    static function update(&$account){
         if ($account instanceof Account) {
             $query = "UPDATE accounts_queue SET 
                 time = :time, in_process = :in_process,
                 limit_time = :limit_time, daily_points_count = :daily_points_count, 
-                subscription_end_time = :subscription_end_time, target = :target,
-                comments_limit_time = :comments_limit_time, follows_limit_time = :follows_limit_time"
-                .(is_null($account->getEndTime()) ? "" : ", end_time = :end_time")
-                ." WHERE id=:id";
+                target = :target, end_time = :end_time
+                WHERE id=:id AND target=:old_target";
 
             DatabaseWorker::execute($query, static::accountsDataToArray($account));
         }
@@ -127,10 +122,9 @@ class AccountsRepository extends Repository implements Updatable {
      */
     private static function dataArrayToAccount(array $accountData)
     {
-        return new Account($accountData['id'], $accountData['time'], $accountData['subscription_end_time'],
-            $accountData['target'], $accountData['end_time'], $accountData['time_limit'],
-            $accountData['in_process'], $accountData['daily_points_count'],
-            $accountData['comments_limit_time'], $accountData['follows_limit_time']);
+        return new Account($accountData['id'],
+            $accountData['target'], $accountData['end_time'], $accountData['time'],
+            $accountData['limit_time'], $accountData['in_process'], $accountData['daily_points_count']);
     }
 
     /**
@@ -144,24 +138,24 @@ class AccountsRepository extends Repository implements Updatable {
             'time' => $account->getTime(),
             'limit_time' => $account->getLimitTime(),
             'daily_points_count' => $account->getDailyPointsCount(),
-            'subscription_end_time' => $account->getSubscriptionEndTime(),
             'target' => $account->getTarget(),
-            'comments_limit_time' => $account->getCommentsLimitTime(),
-            'follows_limit_time' => $account->getFollowsLimitTime()
+            'end_time' => $account->getEndTime(),
+            'old_target' => $account->getOldTarget()
         ];
 
         if(!is_null($account->isInProcess()))
             $accountArray['in_process'] = $account->isInProcess();
-        if(!is_null($account->getEndTime()))
-            $accountArray['end_time'] = $account->getEndTime();
 
         return $accountArray;
     }
 
-    //TODO DELETE BY TIME, BECAUSE OF REASONS
     public static function deleteInvalidAccounts(){
         $time = time();
-        $query = "DELETE FROM accounts_queue WHERE subscription_end_time < $time";
+
+        $query = "DELETE FROM accounts_queue WHERE
+                    ((SELECT subscription_end_time FROM users WHERE accounts_queue.id = users.id LIMIT 1) 
+                    < $time AND limit_time < $time)
+                    OR (target < 0 AND limit_time < $time)";
         DatabaseWorker::execute($query);
     }
 }

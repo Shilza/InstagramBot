@@ -58,7 +58,7 @@ class StatisticsRepository extends Repository implements Updatable
      * @param $statistics
      * @return mixed|void
      */
-    static function update($statistics)
+    static function update(&$statistics)
     {
         if ($statistics instanceof BotProcessStatistics) {
             $query = "UPDATE statistics SET likes_count=:likes_count,

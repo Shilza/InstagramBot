@@ -10,7 +10,7 @@ class UsersRepository extends Repository implements Updatable
 
     /**
      * @param array $criterions
-     * @return array User|null
+     * @return User[]|null
      */
     public static function getBy(array $criterions)
     {
@@ -34,7 +34,7 @@ class UsersRepository extends Repository implements Updatable
     /**
      * @param User $user
      */
-    public static function update($user)
+    public static function update(&$user)
     {
         if ($user instanceof User) {
             $query = "UPDATE users, user_settings

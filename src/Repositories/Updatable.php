@@ -8,5 +8,5 @@ interface Updatable
      * @param $entity
      * @return mixed
      */
-    static function update($entity);
+    static function update(&$entity);
 }

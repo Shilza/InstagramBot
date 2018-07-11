@@ -44,7 +44,6 @@ class DatabaseWorker{
                 $query->bindParam(':'.$key, $values[$key]);
 
         $query->execute();
-
         static::disconnect();
 
         return $query->fetchAll();
