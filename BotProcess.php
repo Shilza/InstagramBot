@@ -19,10 +19,10 @@ const DAY = 86400;
 $maxDailyPointsCount = 0;
 
 
-Logger::logToConsole("BotProcess started with ID " . $argv[1]);
+Logger::info("BotProcess started");
 $id = $argv[1];
 
-Logger::setFilePath("botProcess$id");
+Logger::setFilePath($id);
 
 $botProcessStatistics = new \Entity\BotProcessStatistics($id);
 $account = AccountsRepository::getBy(['id' => $id])[0];
@@ -31,6 +31,7 @@ try {
     $user = UsersRepository::getBy(['id' => $id])[0];
     $instagram = new Instagram(false, false);
     $instagram->login($user->getLogin(), $user->getPassword());
+    Logger::info("login");
 
     $bots = [];
 
@@ -70,17 +71,17 @@ try {
                 $botProcessStatistics->addPoints($bot->getBotProcessStatistics());
                 $bot->resetBotProcessStatistics();
 
-                Logger::logToConsole("Points: " . $botProcessStatistics->getPointsCount() . " ID: " . $id);
+                Logger::trace("Points: " . $botProcessStatistics->getPointsCount());
 
                 if ($botProcessStatistics->getPointsCount() >= $maxPointsCount)
                     break 2;
             }
         }
     }
-    Logger::logToConsole("Bot process with ID $id finished");
+    Logger::info("Bot process with finished");
 }
 catch (\Exception $e) {
-    Logger::log("Bot process crush: " . $e->getMessage() . "\n" . $e->getTraceAsString());
+    Logger::error("Bot process crush: " . $e->getMessage() . "\n" . $e->getTraceAsString());
 } finally {
     StatisticsRepository::addPoints($botProcessStatistics);
     $account->setDailyPointsCount(
@@ -95,5 +96,5 @@ catch (\Exception $e) {
 
     $account->setInProcess(false);
     AccountsRepository::update($account);
-    Logger::logToConsole("Finally-block has reached with ID $id");
+    Logger::info("Finally-block has reached with");
 }

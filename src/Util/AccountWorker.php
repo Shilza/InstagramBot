@@ -3,7 +3,9 @@
 namespace Util;
 
 use InstagramAPI\Exception\BadRequestException;
+use InstagramAPI\Exception\NetworkException;
 use InstagramAPI\Exception\NotFoundException;
+use InstagramAPI\Exception\RequestException;
 use InstagramAPI\Instagram;
 use Repository\CommentsRepository;
 use Repository\FollowsRepository;
@@ -11,7 +13,7 @@ use Repository\FollowsRepository;
 class AccountWorker
 {
     const REQUEST_DELAY = 240;
-    const MAX_FAIL_COUNT = 5;
+    const MAX_FAILS_COUNT = 5;
     private $maxPointsCount;
 
     private $failsCount = 0;
@@ -52,31 +54,39 @@ class AccountWorker
 
     /**
      * @param $function
-     * @throws BadRequestException
+     * @throws \Exception
      */
     private function runFunction($function)
     {
         try {
             $this->$function();
         }
-        catch (BadRequestException $e) {
-            if ($this->failsCount++ < static::MAX_FAIL_COUNT) {
-                switch ($e->getCode()) {
-                    case 403:
-                    case 503:
-                        Logger::log("AccountWorker crush: " . $e->getMessage() . PHP_EOL
-                            . $e->getTraceAsString());
-                        sleep(static::REQUEST_DELAY);
-                        $this->unfollowFromAll();
-                        break;
-                    default:
-                        throw $e;
+        catch (\InstagramAPI\Exception\FeedbackRequiredException $e) {
+            if ($e->hasResponse())
+                Logger::debug("Bot crush: " . $e->getResponse()->getMessage()
+                    . "\n" . $e->getTraceAsString());
+            Logger::debug(var_export($e, true));
+        } catch (NetworkException $e) {
+            Logger::debug("Bot crush: " . $e->getMessage() . "\n" . $e->getTraceAsString());
+        } catch (RequestException $e) {
+            if ($this->failsCount++ < static::MAX_FAILS_COUNT) {
+                if (stristr($e->getMessage(), "Please wait a few minutes before you try again.") !== false) {
+                    Logger::debug("AccountWorker crush: " . $e->getMessage() . PHP_EOL
+                        . $e->getTraceAsString());
+
+                    sleep(static::REQUEST_DELAY);
+
+                    Logger::debug("Sleep end");
+
+                    $this->runFunction($function);
                 }
-            } else {
-                Logger::log("AccountWorker crush: " . $e->getMessage() . PHP_EOL
-                    . $e->getTraceAsString());
-                $this->runFunction($function);
-            }
+                else if (stristr($e->getMessage(), "Not authorized to view user.") === false) {
+                    throw $e;
+                }
+            } else
+                throw new \Exception("Request failed");
+        } finally {
+            $this->failsCount = 0;
         }
     }
 

@@ -5,6 +5,7 @@ namespace Bot;
 use Entity\BotProcessStatistics;
 use Entity\Comment;
 use Entity\FollowedUser;
+use InstagramAPI\Exception\FeedbackRequiredException;
 use InstagramAPI\Exception\NetworkException;
 use InstagramAPI\Exception\RequestException;
 use InstagramAPI\Instagram;
@@ -58,8 +59,7 @@ abstract class Bot
                 if ($settings['standard_comments']) {
                     $this->comments = array_merge($settings['custom_comments'],
                         static::STANDARD_COMMENTS);
-                }
-                else
+                } else
                     $this->comments = $settings['custom_comments'];
             } else if ($settings['standard_comments'])
                 $this->comments = static::STANDARD_COMMENTS;
@@ -71,45 +71,39 @@ abstract class Bot
      * @throws \Exception
      * @throws RequestException
      */
-    public function run(){
+    public function run()
+    {
         try {
             if ($this->followingSelected || $this->likesSelected || $this->commentsSelected) {
-                Logger::logToConsole("Run " . get_class($this)
+                Logger::info("Run " . get_class($this)
                     . " with " . $this->instagram->username);
                 $this->start();
             }
-        } catch (\InstagramAPI\Exception\FeedbackRequiredException $e){
-            if($e->hasResponse())
-                Logger::log("Bot crush: " . $e->getResponse()->getMessage()
-                    ."\n" .$e->getTraceAsString());
-            var_dump($e);
-        }
-        catch (NetworkException $e){
-            Logger::log("Bot crush: " . $e->getMessage() . "\n" . $e->getTraceAsString());
-        }
-        catch (RequestException $e) {
-            if ($this->failsCount++ < static::MAX_FAILS_COUNT)
-                switch ($e->getCode()) {
-                    case 503:
-                    case 403:
-                        Logger::log("Bot crush: " . $e->getMessage() . PHP_EOL .
-                            $e->getTraceAsString());
+        } catch (FeedbackRequiredException $e) {
+            if ($e->hasResponse())
+                Logger::debug("Bot crush: " . $e->getResponse()->getMessage()
+                    . "\n" . $e->getTraceAsString());
+            Logger::debug(var_export($e, true));
+        } catch (NetworkException $e) {
+            Logger::debug("Bot crush: " . $e->getMessage() . "\n" . $e->getTraceAsString());
+        } catch (RequestException $e) {
+            if ($this->failsCount++ < static::MAX_FAILS_COUNT) {
+                if (stristr($e->getMessage(), "Please wait a few minutes before you try again.") !== false) {
+                    Logger::debug("Bot crush: " . $e->getMessage() . PHP_EOL .
+                        $e->getTraceAsString());
 
-                        sleep(static::REQUEST_DELAY);
+                    sleep(static::REQUEST_DELAY);
 
-                        Logger::logToConsole("Sleep end with username "
-                            . $this->instagram->username);
+                    Logger::debug("Sleep end");
 
-                        $this->run();
-                        break;
-                    default:
-                        if (stristr($e->getMessage(), "Not authorized to view user.") === false)
-                            throw $e;
+                    $this->run();
                 }
-            else
+                else if (stristr($e->getMessage(), "Not authorized to view user.") === false) {
+                    throw $e;
+                }
+            } else
                 throw new \Exception("Request failed");
-        }
-        finally {
+        } finally {
             $this->failsCount = 0;
         }
     }
@@ -119,7 +113,8 @@ abstract class Bot
     /**
      * @param int[] $accountsID
      */
-    protected function processing($accountsID){
+    protected function processing($accountsID)
+    {
         foreach ($accountsID as $accountID)
             if ($accountID != $this->instagram->account_id) {
 
@@ -149,13 +144,14 @@ abstract class Bot
     /**
      * @param int|string $userID
      */
-    protected function likeAccountsMedia($userID){
+    protected function likeAccountsMedia($userID)
+    {
         $medias = $this->instagram->timeline->getUserFeed($userID)->getItems();
         $count = mt_rand(3, 5);
 
         if (count($medias) > 0) {
 
-            Logger::logToConsole("Like by " . $this->instagram->username);
+            Logger::trace("Like by " . $this->instagram->username);
 
             if ($count > count($medias))
                 foreach ($medias as $media) {
@@ -203,7 +199,7 @@ abstract class Bot
                     $comment->getMediaId(), $comment->getText(), $comment->getCreatedAt())
             );
 
-            Logger::logToConsole("Comment by " . $this->instagram->username
+            Logger::trace("Comment by " . $this->instagram->username
                 . " on "
                 . $this->instagram->media->getInfo(
                     $comment->getMediaId())->getItems()[0]->getUser()->getUsername()
@@ -231,7 +227,7 @@ abstract class Bot
      */
     private function follow($userID)
     {
-        Logger::logToConsole("Follow on "
+        Logger::trace("Follow on "
             . $this->instagram->people->getInfoById($userID)->getUser()->getUsername()
             . " by " . $this->instagram->username);
         $this->botProcessStatistics->followsCount++;

@@ -32,7 +32,7 @@ switch ($argv[2]){
 }
 
 Logger::logToConsole("AccountWorkerProcess $target started with ID " . $argv[1]);
-Logger::setFilePath("awFollowsProcess$id");
+Logger::setFilePath($id);
 
 $account = AccountsRepository::getBy(['id' => $id])[0];
 $maxPointsCount = 0;
@@ -51,12 +51,12 @@ try {
 
     $accountWorker = new AccountWorker($instagram, $argv[2]);
     $maxPointsCount = $accountWorker->getMaxPointsCount();
-    Logger::setFilePath("$target" .$instagram->account_id);
+    Logger::setFilePath($instagram->account_id);
     $accountWorker->$target();
     Logger::logToConsole("AccountWorkerProcess target $target with ID $id finished");
 }
 catch (\Exception $e) {
-    Logger::log("AccountWorker process crush: " . $e->getMessage() . "\n" . $e->getTraceAsString());
+    Logger::error("AccountWorker process crush: " . $e->getMessage() . "\n" . $e->getTraceAsString());
 } finally {
     $account->setDailyPointsCount(
         $account->getDailyPointsCount() + $maxPointsCount - $accountWorker->getMaxPointsCount()
