@@ -35,7 +35,7 @@ class Logger{
         static::logToConsole($logInfo . "ID : " . static::$filePath);
     }
 
-    public static function logToConsole($logInfo){
+    private static function logToConsole($logInfo){
         echo date(DATE_RFC822) . ". $logInfo\n";
     }
 

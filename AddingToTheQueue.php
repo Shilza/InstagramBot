@@ -2,8 +2,6 @@
 
 require 'vendor/autoload.php';
 
-use InstagramScraper\Instagram;
-
 const MAX_HASHTAG_LENGTH = 20;
 
 $settings = ['hashtags' => "aaaaaajhdijghdksjrghjdhg liker liked follow4follow like"];

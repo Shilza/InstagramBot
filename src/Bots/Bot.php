@@ -83,7 +83,6 @@ abstract class Bot
             if ($e->hasResponse())
                 Logger::debug("Bot crush: " . $e->getResponse()->getMessage()
                     . "\n" . $e->getTraceAsString());
-            Logger::debug(var_export($e, true));
         } catch (NetworkException $e) {
             Logger::debug("Bot crush: " . $e->getMessage() . "\n" . $e->getTraceAsString());
         } catch (RequestException $e) {
@@ -117,24 +116,23 @@ abstract class Bot
     {
         foreach ($accountsID as $accountID)
             if ($accountID != $this->instagram->account_id) {
-
                 if ($this->followingSelected && mt_rand(0, 1) == 1) {
-//                    if(($time = time()) < $this->newFollowTime)
-//                        sleep($this->newFollowTime - $time);
+                    if(($time = time()) < $this->newFollowTime)
+                        sleep($this->newFollowTime - $time);
                     $this->follow($accountID);
                     $this->newFollowTime = time() + mt_rand(28, 38); //DELAY AFTER REQUEST
                 }
 
                 if ($this->likesSelected && mt_rand(0, 1) == 1) {
-//                    if (($time = time()) < $this->newLikeTime)
-//                        sleep($this->newLikeTime - $time);
+                    if (($time = time()) < $this->newLikeTime)
+                        sleep($this->newLikeTime - $time);
                     $this->likeAccountsMedia($accountID);
                     $this->newLikeTime = time() + mt_rand(28, 36); //DELAY AFTER REQUEST
                 }
 
                 if ($this->commentsSelected && mt_rand(0, 3) == 1) {
-//                    if(time() < $this->newCommentTime)
-//                        continue;
+                    if(time() < $this->newCommentTime)
+                        continue;
                     $this->commentAccountsMedia($accountID);
                     $this->newCommentTime = time() + mt_rand(200, 250); //DELAY AFTER REQUEST
                 }
@@ -151,21 +149,22 @@ abstract class Bot
 
         if (count($medias) > 0) {
 
-            Logger::trace("Like by " . $this->instagram->username);
-
             if ($count > count($medias))
                 foreach ($medias as $media) {
                     $this->botProcessStatistics->likesCount++;
                     $this->instagram->media->like($media->getPk());
+                    Logger::trace("Like " . $media->getUser()->getUsername());
                 }
             else
                 while ($count > 0) {
                     $index = mt_rand(0, count($medias) - 1);
                     $media = $medias[$index];
 
+
                     if (!$media->getHasLiked()) {
                         $this->botProcessStatistics->likesCount++;
                         $this->instagram->media->like($media->getPk());
+                        Logger::trace("Like " . $media->getUser()->getUsername());
                     }
 
                     array_splice($medias, $index, 1);
@@ -199,8 +198,7 @@ abstract class Bot
                     $comment->getMediaId(), $comment->getText(), $comment->getCreatedAt())
             );
 
-            Logger::trace("Comment by " . $this->instagram->username
-                . " on "
+            Logger::trace("Comment on "
                 . $this->instagram->media->getInfo(
                     $comment->getMediaId())->getItems()[0]->getUser()->getUsername()
                 . " Text: " . $comment->getText());

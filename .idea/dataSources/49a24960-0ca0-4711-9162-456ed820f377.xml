@@ -1084,12 +1084,17 @@ TARGET WITH MINUS MEANS THAT THE ACTION WAS CANCELED</Comment>
       <DataType>text|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="257" parent="216" name="PRIMARY">
+    <column id="257" parent="216" name="direct_messages">
+      <Position>14</Position>
+      <DataType>text|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="258" parent="216" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="258" parent="216" name="id_key">
+    <foreign-key id="259" parent="216" name="id_key">
       <ColNames>id</ColNames>
       <RefSchemaName>instatest</RefSchemaName>
       <RefTableName>users</RefTableName>
@@ -1097,57 +1102,57 @@ TARGET WITH MINUS MEANS THAT THE ACTION WAS CANCELED</Comment>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="259" parent="217" name="id">
+    <column id="260" parent="217" name="id">
       <Position>1</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="260" parent="217" name="login">
+    <column id="261" parent="217" name="login">
       <Position>2</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="261" parent="217" name="password">
+    <column id="262" parent="217" name="password">
       <Position>3</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="262" parent="217" name="registration">
+    <column id="263" parent="217" name="registration">
       <Position>4</Position>
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="263" parent="217" name="last_activity">
+    <column id="264" parent="217" name="last_activity">
       <Position>5</Position>
       <DataType>int(10) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="264" parent="217" name="money">
+    <column id="265" parent="217" name="money">
       <Position>6</Position>
       <DataType>int(10) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="265" parent="217" name="subscription_end_time">
+    <column id="266" parent="217" name="subscription_end_time">
       <Position>7</Position>
       <Comment>TIME WHEN SUBSCRIPTION ENDS</Comment>
       <DataType>int(10) unsigned|0s</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="266" parent="217" name="PRIMARY">
+    <key id="267" parent="217" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <trigger id="267" parent="217" name="user_added">
+    <trigger id="268" parent="217" name="user_added">
       <Turn>after-row</Turn>
       <Events>I</Events>
     </trigger>

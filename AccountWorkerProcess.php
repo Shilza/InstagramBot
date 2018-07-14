@@ -31,7 +31,7 @@ switch ($argv[2]){
         exit();
 }
 
-Logger::logToConsole("AccountWorkerProcess $target started with ID " . $argv[1]);
+Logger::info("AccountWorkerProcess $target started");
 Logger::setFilePath($id);
 
 $account = AccountsRepository::getBy(['id' => $id])[0];
@@ -40,6 +40,7 @@ $maxPointsCount = 0;
 try {
     $user = UsersRepository::getBy(['id' => $id])[0];
     $instagram = new Instagram(false, false);
+    $accountWorker = new AccountWorker($instagram, $argv[2]);
     $instagram->login($user->getLogin(), $user->getPassword());
 
     if ($account->getDailyPointsCount() == 0)
@@ -49,11 +50,10 @@ try {
         $account->setLimitTime(time() + DAY);
     }
 
-    $accountWorker = new AccountWorker($instagram, $argv[2]);
     $maxPointsCount = $accountWorker->getMaxPointsCount();
     Logger::setFilePath($instagram->account_id);
     $accountWorker->$target();
-    Logger::logToConsole("AccountWorkerProcess target $target with ID $id finished");
+    Logger::info("AccountWorkerProcess target $target");
 }
 catch (\Exception $e) {
     Logger::error("AccountWorker process crush: " . $e->getMessage() . "\n" . $e->getTraceAsString());
@@ -66,5 +66,5 @@ catch (\Exception $e) {
 
     $account->setInProcess(false);
     AccountsRepository::update($account);
-    Logger::logToConsole("Finally-block accountWorker $target has reached with ID $id");
+    Logger::info("Finally-block accountWorker $target");
 }

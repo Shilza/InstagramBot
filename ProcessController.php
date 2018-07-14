@@ -3,10 +3,12 @@
 require 'vendor/autoload.php';
 
 use Repository\AccountsRepository;
+use Util\Logger;
 
 const MAX_PROCESSES_COUNT = 2;
 const ACTUAL_ACCOUNTS_GET_DELAY = 120;
 
+Logger::setFilePath("system");
 
 function createNewProcess(){
     global $processes;
@@ -55,7 +57,7 @@ while(true) {
     filterProcesses();
 
     if(count($accounts) != 0)
-        \Util\Logger::logToConsole("Accounts in work: " . count($accounts));
+        Logger::trace("Accounts in work: " . count($accounts));
 
     while (count($processes) < MAX_PROCESSES_COUNT)
         if (count($accounts) != 0)

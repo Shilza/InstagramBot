@@ -36,9 +36,8 @@ function registration($login, $pass, &$instagram, &$settings)
 }
 
 $instagram = new \InstagramAPI\Instagram(false, false);
-$instagram->login("macmilan_price", "192.168.39.26a");
+$instagram->login("", "");
 
-echo $instagram->people->getInfoById('260952414')->getUser()->getUsername();
 
 //\Repository\AccountsRepository::add(new \Entity\Account(2436801585, 1));
 //\Repository\AccountsRepository::add(new \Entity\Account(7906270844, 1));

@@ -7,7 +7,7 @@ use Util\DatabaseWorker;
 
 class UsersRepository extends Repository implements Updatable
 {
-
+    const DELIMITER = "\n";
     /**
      * @param array $criterions
      * @return User[]|null
@@ -50,7 +50,8 @@ class UsersRepository extends Repository implements Updatable
              user_settings.standard_comments = :standard_comments,
              user_settings.hashtags = :hashtags,
              user_settings.geotags = :geotags,  
-             user_settings.custom_comments = :custom_comments
+             user_settings.custom_comments = :custom_comments,
+             user_settings.direct_messages = :direct_messages
             WHERE users.id = :id AND user_settings.id = :id";
 
             DatabaseWorker::execute($query, static::usersDataToArray($user));
@@ -125,15 +126,19 @@ class UsersRepository extends Repository implements Updatable
                 'standard_comments' => $userData['standard_comments'],
                 'hashtags' =>
                     (isset($userData['hashtags'])
-                        ? explode(" ", $userData['hashtags'])
+                        ? explode(static::DELIMITER, $userData['hashtags'])
                         : null),
                 'geotags' =>
                     (isset($userData['geotags'])
-                        ? explode(" ", $userData['geotags'])
+                        ? explode(static::DELIMITER, $userData['geotags'])
                         : null),
                 'custom_comments' =>
                     (isset($userData['custom_comments'])
-                        ? explode(" ", $userData['custom_comments'])
+                        ? explode(static::DELIMITER, $userData['custom_comments'])
+                        : null),
+                'direct_messages' =>
+                    (isset($userData['custom_comments'])
+                        ? explode(static::DELIMITER, $userData['direct_messages'])
                         : null)
             ]
         );

@@ -2,6 +2,7 @@
 
 require 'vendor/autoload.php';
 
+use Entity\BotProcessStatistics;
 use InstagramAPI\Instagram;
 
 use Bot\AccountsBot;
@@ -18,13 +19,13 @@ const BREAK_TIME = 3600; //1 HOUR
 const DAY = 86400;
 $maxDailyPointsCount = 0;
 
-
-Logger::info("BotProcess started");
 $id = $argv[1];
 
 Logger::setFilePath($id);
 
-$botProcessStatistics = new \Entity\BotProcessStatistics($id);
+Logger::info("BotProcess started");
+
+$botProcessStatistics = new BotProcessStatistics($id);
 $account = AccountsRepository::getBy(['id' => $id])[0];
 
 try {
@@ -32,6 +33,13 @@ try {
     $instagram = new Instagram(false, false);
     $instagram->login($user->getLogin(), $user->getPassword());
     Logger::info("login");
+
+
+//    if() {
+//        $dialogs = getDirectDialogs();
+//        sendMessagesToNewFolllowers($instagram->people->getRecentActivityInbox()->getNewStories());
+//        sendMessagesToNewFolllowers($instagram->people->getRecentActivityInbox()->getOldStories());
+//    }
 
     $bots = [];
 
@@ -64,7 +72,7 @@ try {
             $account->setLimitTime(time() + DAY);
         }
 
-        while (true) {
+        while (true)
             foreach ($bots as $bot) {
                 $bot->run();
 
@@ -76,7 +84,6 @@ try {
                 if ($botProcessStatistics->getPointsCount() >= $maxPointsCount)
                     break 2;
             }
-        }
     }
     Logger::info("Bot process with finished");
 }
@@ -97,4 +104,37 @@ catch (\Exception $e) {
     $account->setInProcess(false);
     AccountsRepository::update($account);
     Logger::info("Finally-block has reached with");
+}
+
+
+function getDirectDialogs(){
+    global $instagram;
+
+    $cursor = null;
+    $threads = [];
+    do {
+        $inbox = $instagram->direct->getInbox($cursor)->getInbox();
+        foreach ($inbox->getThreads() as $thread)
+            if(count($thread->getUsers()) === 1)
+                array_push($threads, $thread->getUsers()[0]->getPk());
+
+        $cursor = $inbox->getOldestCursor();
+    } while (isset($cursor));
+
+
+    return $threads;
+}
+
+function sendMessagesToNewFolllowers(array $stories){
+    global $instagram;
+    global $dialogs;
+
+    foreach ($stories as $story)
+        if (stristr($story->getArgs()->getText(), "started following") !== false) {
+            $followsId = $story->getArgs()->getProfileId();
+            if(!in_array($followsId, $dialogs)){
+                $instagram->direct->sendText(['users' => [$followsId]], "Hii");
+                sleep(mt_rand(8, 13));
+            }
+        }
 }
