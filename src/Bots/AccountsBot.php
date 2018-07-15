@@ -2,6 +2,7 @@
 
 namespace Bot;
 
+use Exception\WorkStoppedException;
 use InstagramAPI\Exception\NotFoundException;
 use InstagramAPI\Instagram;
 use InstagramAPI\Response\Model\User;
@@ -9,7 +10,6 @@ use InstagramAPI\Signatures;
 use Util\DatabaseWorker;
 
 class AccountsBot extends Bot{
-    const MAX_ACCOUNTS_COUNT = 20;
     private $cyclesCount = 0;
 
     /**
@@ -22,6 +22,9 @@ class AccountsBot extends Bot{
         parent::__construct($instagram, $settings);
     }
 
+    /**
+     * @throws WorkStoppedException
+     */
     protected function start(){
         $id = $this->getRandomGenesisAccount();
         $this->cyclesCount = 0;
@@ -46,6 +49,7 @@ class AccountsBot extends Bot{
     /**
      * @param User $account
      * @return bool
+     * @throws WorkStoppedException
      */
     private function accountProcessing(User $account){
         sleep(mt_rand(0, 3));
@@ -55,17 +59,26 @@ class AccountsBot extends Bot{
         if(!$account->getFollowerCount())
             return false;
 
-        $accounts = $this->instagram->people->getFollowers($account->getPk(),
-            Signatures::generateUUID())->getUsers();
-        $publicAccounts = $this->getPublicAccounts($accounts);
+        $accounts = array_merge(
+            array_slice(
+                $this->instagram->people->getFollowers($account->getPk(),
+                    Signatures::generateUUID())->getUsers(), 0, mt_rand(15, 25)
+            ),
+            array_slice(
+                $this->instagram->media->getLikers(
+                    $this->instagram->timeline->getUserFeed(
+                        $account->getPk())->getItems()[0]->getPk())->getUsers(),
+                0, mt_rand(15, 25)
+            )
+        );
 
-//        echo "\n Account: " . $account->getUsername() . "\n" . "Accounts: " . "\n";
+        $publicAccounts = static::getPublicAccounts($accounts);
 
         $accountsID = [];
         foreach ($publicAccounts as $acc)
             array_push($accountsID, $acc->getPk());
-        $this->processing($accountsID);
 
+        $this->processing($accountsID);
 
         if (count($publicAccounts) == 0)
             return false;
@@ -78,23 +91,6 @@ class AccountsBot extends Bot{
             } else
                 return true;
         }
-    }
-
-    /**
-     * @param User[] $accounts
-     * @return User[]
-     */
-    private function getPublicAccounts(array $accounts){
-        $publicAccounts = [];
-        $maxCount = static::MAX_ACCOUNTS_COUNT;
-        foreach ($accounts as $account) {
-            if($maxCount-- <= 0)
-                break;
-
-            if (!$account->getIsPrivate())
-                array_push($publicAccounts, $account);
-        }
-        return $publicAccounts;
     }
 
     /**

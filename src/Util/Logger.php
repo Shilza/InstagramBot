@@ -10,29 +10,29 @@ class Logger{
     }
     
     public static function info($logInfo){
-        static::log(" [INFO] --> $logInfo ");
+        static::log("[INFO]", $logInfo);
     }
 
     public static function error($logInfo){
-        static::log( " [ERROR] --> $logInfo ");
+        static::log("[ERROR]", $logInfo);
     }
 
     public static function trace($logInfo){
-        static::log(" [TRACE] --> $logInfo ");
+        static::log("[TRACE]", $logInfo);
     }
 
     public static function debug($logInfo){
-        static::log(" [DEBUG] --> $logInfo ");
+        static::log("[DEBUG]", $logInfo);
     }
 
-    private static function log($logInfo){
+    private static function log($tag, $logInfo){
         file_put_contents(
             static::$filePath . ".log",
-            PHP_EOL.PHP_EOL.date(DATE_RFC822).$logInfo,
+            PHP_EOL.PHP_EOL.$tag." ".date(DATE_RFC822)." --> ".$logInfo,
             FILE_APPEND
         );
 
-        static::logToConsole($logInfo . "ID : " . static::$filePath);
+        static::logToConsole($logInfo . " ID: " . static::$filePath);
     }
 
     private static function logToConsole($logInfo){

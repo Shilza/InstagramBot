@@ -2,6 +2,7 @@
 
 namespace Bot;
 
+use Exception\WorkStoppedException;
 use InstagramAPI\Instagram;
 
 class GeotagBot extends TagBot{
@@ -31,17 +32,19 @@ class GeotagBot extends TagBot{
         else throw new \Exception("No geotags selected");
     }
 
+    /**
+     * @throws WorkStoppedException
+     */
     protected function start(){
         if(isset($this->geotags)){
             $result = $this->instagram->location->findPlaces(
                 $this->geotags[mt_rand(0, count($this->geotags) - 1)]);
 
-            $medias = $this->instagram->location->getFeed(
+            $this->mediaProcessing($this->instagram->location->getFeed(
                 $result->getItems()[0]->getLocation()->getPk(),
                 $result->getRankToken()
-            )->getItems();
-
-            $this->mediaProcessing($medias);
+            )->getItems()
+            );
         }
     }
 

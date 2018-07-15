@@ -7,6 +7,7 @@ use InstagramAPI\Exception\NetworkException;
 use InstagramAPI\Exception\NotFoundException;
 use InstagramAPI\Exception\RequestException;
 use InstagramAPI\Instagram;
+use Repository\AccountsRepository;
 use Repository\CommentsRepository;
 use Repository\FollowsRepository;
 
@@ -14,11 +15,11 @@ class AccountWorker
 {
     const REQUEST_DELAY = 240;
     const MAX_FAILS_COUNT = 5;
+
     private $maxPointsCount;
-
     private $failsCount = 0;
-
     private $instagram;
+    private $target;
 
     /**
      * AccountWorker constructor.
@@ -28,6 +29,7 @@ class AccountWorker
     public function __construct(Instagram $instagram, $target)
     {
         $this->instagram = $instagram;
+        $this->target = $target;
 
         if ($target == 2)
             $this->maxPointsCount = mt_rand(70, 100);
@@ -97,15 +99,17 @@ class AccountWorker
     }
 
     /**
-     * @param $followedUsers
+     * @param array $followedUsers
+     * @return bool
      */
     private function unfollow(array $followedUsers){
-        echo "COUNT UNFOLLOW " . count($followedUsers) . "\n";
 
         for($i = 0; $i < count($followedUsers); $i++){
 
-            if ($this->maxPointsCount-- <= 0)
-                return;
+            //IF WORK IS STOPPED OR MAX LIMIT WAS REACHED
+            if(empty(AccountsRepository::getBy(['id' => $this->instagram->account_id,
+                'target' => $this->target])) || $this->maxPointsCount-- <= 0)
+                return false;
 
             Logger::trace("Unfollow from " . $followedUsers[$i]->getUserId());
             try {
@@ -120,6 +124,8 @@ class AccountWorker
 
             //sleep(mt_rand(12, 22)); //INSTAGRAM LIMITS
         }
+
+        return true;
     }
 
     /**
@@ -144,8 +150,7 @@ class AccountWorker
                     $i--;
                 }
 
-            $this->unfollow($unfollowers);
-            if ($this->maxPointsCount <= 0)
+            if(!$this->unfollow($unfollowers) || $this->maxPointsCount <= 0)
                 return;
         }
     }

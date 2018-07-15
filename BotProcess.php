@@ -3,6 +3,7 @@
 require 'vendor/autoload.php';
 
 use Entity\BotProcessStatistics;
+use Exception\WorkStoppedException;
 use InstagramAPI\Instagram;
 
 use Bot\AccountsBot;
@@ -16,6 +17,7 @@ use Util\Logger;
 
 $maxPointsCount = 0;
 const BREAK_TIME = 3600; //1 HOUR
+//const BREAK_TIME = 300;
 const DAY = 86400;
 $maxDailyPointsCount = 0;
 
@@ -34,11 +36,12 @@ try {
     $instagram->login($user->getLogin(), $user->getPassword());
     Logger::info("login");
 
-
-//    if() {
+//    if(isset($settings['direct_messages']) && !empty($settings['direct_messages'])) {
 //        $dialogs = getDirectDialogs();
-//        sendMessagesToNewFolllowers($instagram->people->getRecentActivityInbox()->getNewStories());
-//        sendMessagesToNewFolllowers($instagram->people->getRecentActivityInbox()->getOldStories());
+//        sendMessagesToNewFolllowers($instagram->people->getRecentActivityInbox()->getNewStories(),
+//               $settings['direct_messages']);
+//        sendMessagesToNewFolllowers($instagram->people->getRecentActivityInbox()->getOldStories(),
+//              $settings['direct_messages']);
 //    }
 
     $bots = [];
@@ -76,6 +79,7 @@ try {
             foreach ($bots as $bot) {
                 $bot->run();
 
+                //TODO: ADD BOTPROCESSSTATISTICS OBJECT INTO BOT BY REF
                 $botProcessStatistics->addPoints($bot->getBotProcessStatistics());
                 $bot->resetBotProcessStatistics();
 
@@ -85,15 +89,26 @@ try {
                     break 2;
             }
     }
-    Logger::info("Bot process with finished");
+    Logger::info("Bot process finished");
+}
+catch (WorkStoppedException $e){
+    $account->setOldTarget(-$account->getOldTarget());
+    $account->setTarget(-$account->getTarget());
+    Logger::info("Bot process stopped");
 }
 catch (\Exception $e) {
     Logger::error("Bot process crush: " . $e->getMessage() . "\n" . $e->getTraceAsString());
 } finally {
+    echo "Stat count: " . $botProcessStatistics->getPointsCount() . PHP_EOL;
+
     StatisticsRepository::addPoints($botProcessStatistics);
     $account->setDailyPointsCount(
         $account->getDailyPointsCount() + $botProcessStatistics->getPointsCount()
     );
+
+    echo "POOOINTS FNALLY "
+        . ($account->getDailyPointsCount() + $botProcessStatistics->getPointsCount())
+        . PHP_EOL;
 
     if ($account->getDailyPointsCount() >= $maxDailyPointsCount) {
         $account->setDailyPointsCount(0);
@@ -103,10 +118,12 @@ catch (\Exception $e) {
 
     $account->setInProcess(false);
     AccountsRepository::update($account);
-    Logger::info("Finally-block has reached with");
+    Logger::info("Finally-block has reached");
 }
 
-
+/**
+ * @return array
+ */
 function getDirectDialogs(){
     global $instagram;
 
@@ -125,7 +142,11 @@ function getDirectDialogs(){
     return $threads;
 }
 
-function sendMessagesToNewFolllowers(array $stories){
+/**
+ * @param array $stories
+ * @param array $messages
+ */
+function sendMessagesToNewFolllowers(array $stories, array $messages){
     global $instagram;
     global $dialogs;
 
@@ -133,7 +154,8 @@ function sendMessagesToNewFolllowers(array $stories){
         if (stristr($story->getArgs()->getText(), "started following") !== false) {
             $followsId = $story->getArgs()->getProfileId();
             if(!in_array($followsId, $dialogs)){
-                $instagram->direct->sendText(['users' => [$followsId]], "Hii");
+                $instagram->direct->sendText(['users' => [$followsId]],
+                    $messages[mt_rand(0, count($messages)-1)]);
                 sleep(mt_rand(8, 13));
             }
         }

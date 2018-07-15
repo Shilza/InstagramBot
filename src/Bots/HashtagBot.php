@@ -2,8 +2,10 @@
 
 namespace Bot;
 
+use Exception\WorkStoppedException;
 use InstagramAPI\Instagram;
 use InstagramAPI\Signatures;
+use Util\Logger;
 
 class HashtagBot extends TagBot{
     const STANDARD_HASHTAGS = ['follow4like', "follow4likes", "follow",
@@ -33,11 +35,15 @@ class HashtagBot extends TagBot{
         else throw new \Exception("No hashtags selected");
     }
 
-    protected function start(){
-        $medias = $this->instagram->hashtag->getFeed(
+    /**
+     * @throws WorkStoppedException
+     */
+    protected function start()
+    {
+        $this->mediaProcessing($this->instagram->hashtag->getFeed(
             $this->hashtags[mt_rand(0, count($this->hashtags) - 1)],
             Signatures::generateUUID()
-        )->getItems();
-        $this->mediaProcessing($medias);
+        )->getItems()
+        );
     }
 }

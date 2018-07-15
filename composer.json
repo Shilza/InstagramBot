@@ -17,7 +17,8 @@
       "Bot\\": "src/Bots",
       "Entity\\": "src/Entities",
       "Repository\\": "src/Repositories",
-      "Util\\": "src/Util"
+      "Util\\": "src/Util",
+      "Exception\\": "src/Exceptions"
     }
   }
 }

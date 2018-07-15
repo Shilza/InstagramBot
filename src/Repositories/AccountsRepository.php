@@ -11,7 +11,7 @@ class AccountsRepository extends Repository implements Updatable {
 
     /**
      * @param array $criterions
-     * @return Account[]
+     * @return Account[]|null
      */
     public static function getBy(array $criterions)
     {
@@ -52,6 +52,7 @@ class AccountsRepository extends Repository implements Updatable {
      * @return array
      */
     public static function getActualAccounts(){
+
         $time = time();
         $limit =  MAX_PROCESSES_COUNT;
         $query = "SELECT * FROM accounts_queue WHERE (in_process IS NULL AND target > 0) OR(
