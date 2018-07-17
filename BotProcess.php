@@ -36,23 +36,25 @@ try {
     $instagram->login($user->getLogin(), $user->getPassword());
     Logger::info("login");
 
-//    if(isset($settings['direct_messages']) && !empty($settings['direct_messages'])) {
-//        $dialogs = getDirectDialogs();
-//        sendMessagesToNewFolllowers($instagram->people->getRecentActivityInbox()->getNewStories(),
-//               $settings['direct_messages']);
-//        sendMessagesToNewFolllowers($instagram->people->getRecentActivityInbox()->getOldStories(),
-//              $settings['direct_messages']);
-//    }
+    $settings = $user->getSettings();
+
+    if(isset($settings['direct_messages']) && !empty($settings['direct_messages'])) {
+        $dialogs = getDirectDialogs();
+        sendMessagesToNewFolllowers($instagram->people->getRecentActivityInbox()->getNewStories(),
+               $settings['direct_messages']);
+        sendMessagesToNewFolllowers($instagram->people->getRecentActivityInbox()->getOldStories(),
+              $settings['direct_messages']);
+    }
 
     $bots = [];
 
-    $settings = $user->getSettings();
+
     if ($settings['genesis_account_bot'])
-        array_push($bots, new AccountsBot($instagram, $settings));
+        array_push($bots, new AccountsBot($instagram, $botProcessStatistics, $settings));
     if ($settings['hashtag_bot'])
-        array_push($bots, new HashtagBot($instagram, $settings));
+        array_push($bots, new HashtagBot($instagram, $botProcessStatistics, $settings));
     if ($settings['geotag_bot'])
-        array_push($bots, new GeotagBot($instagram, $settings));
+        array_push($bots, new GeotagBot($instagram, $botProcessStatistics, $settings));
 
     if ($settings['likes']) {
         $maxDailyPointsCount += 1000;
@@ -79,10 +81,6 @@ try {
             foreach ($bots as $bot) {
                 $bot->run();
 
-                //TODO: ADD BOTPROCESSSTATISTICS OBJECT INTO BOT BY REF
-                $botProcessStatistics->addPoints($bot->getBotProcessStatistics());
-                $bot->resetBotProcessStatistics();
-
                 Logger::trace("Points: " . $botProcessStatistics->getPointsCount());
 
                 if ($botProcessStatistics->getPointsCount() >= $maxPointsCount)
@@ -96,8 +94,11 @@ catch (WorkStoppedException $e){
     $account->setTarget(-$account->getTarget());
     Logger::info("Bot process stopped");
 }
+catch (\InstagramAPI\Exception\ThrottledException $e){
+    Logger::error("Bot process crush: " . $e->getMessage() . PHP_EOL . $e->getTraceAsString());
+}
 catch (\Exception $e) {
-    Logger::error("Bot process crush: " . $e->getMessage() . "\n" . $e->getTraceAsString());
+    Logger::error("Bot process crush: " . get_class($e) . PHP_EOL);
 } finally {
     echo "Stat count: " . $botProcessStatistics->getPointsCount() . PHP_EOL;
 
@@ -105,10 +106,6 @@ catch (\Exception $e) {
     $account->setDailyPointsCount(
         $account->getDailyPointsCount() + $botProcessStatistics->getPointsCount()
     );
-
-    echo "POOOINTS FNALLY "
-        . ($account->getDailyPointsCount() + $botProcessStatistics->getPointsCount())
-        . PHP_EOL;
 
     if ($account->getDailyPointsCount() >= $maxDailyPointsCount) {
         $account->setDailyPointsCount(0);

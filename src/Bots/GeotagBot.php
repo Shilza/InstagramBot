@@ -2,6 +2,7 @@
 
 namespace Bot;
 
+use Entity\BotProcessStatistics;
 use Exception\WorkStoppedException;
 use InstagramAPI\Instagram;
 
@@ -15,12 +16,12 @@ class GeotagBot extends TagBot{
     /**
      * GeotagBot constructor.
      * @param Instagram $instagram
+     * @param BotProcessStatistics $botProcessStatistics
      * @param array $settings
-     * @param array|null $geotags
      * @throws \Exception
      */
-    public function __construct(Instagram $instagram, array $settings, array $geotags = null){
-        parent::__construct($instagram, $settings);
+    public function __construct(Instagram $instagram, BotProcessStatistics &$botProcessStatistics, array $settings){
+        parent::__construct($instagram, $botProcessStatistics, $settings);
 
         if(isset($geotags)) {
             if($settings['standard_geotags'])

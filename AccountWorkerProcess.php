@@ -2,6 +2,7 @@
 
 require 'vendor/autoload.php';
 
+use Exception\WorkStoppedException;
 use InstagramAPI\Instagram;
 
 use Repository\AccountsRepository;
@@ -22,10 +23,13 @@ switch ($argv[2]){
         $target = "deleteCommentsByBot";
         break;
     case 3:
-        $target = "unfollowFromAll";
+        $target = "unfollowFromAllByDB";
         break;
     case 4:
         $target = "unfollowFromUnfollowers";
+        break;
+    case 5:
+        $target = "unfollowFromAll";
         break;
     default:
         exit();
@@ -53,7 +57,12 @@ try {
     $maxPointsCount = $accountWorker->getMaxPointsCount();
     Logger::setFilePath($instagram->account_id);
     $accountWorker->$target();
-    Logger::info("AccountWorkerProcess target $target");
+    Logger::info("AccountWorkerProcess finished target $target");
+}
+catch (WorkStoppedException $e){
+    $account->setOldTarget(-$account->getOldTarget());
+    $account->setTarget(-$account->getTarget());
+    Logger::info("AccountWorker target $target stopped");
 }
 catch (\Exception $e) {
     Logger::error("AccountWorker process crush: " . $e->getMessage() . "\n" . $e->getTraceAsString());

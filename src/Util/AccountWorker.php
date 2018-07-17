@@ -2,11 +2,14 @@
 
 namespace Util;
 
+use Entity\FollowedUser;
+use Exception\WorkStoppedException;
 use InstagramAPI\Exception\BadRequestException;
 use InstagramAPI\Exception\NetworkException;
 use InstagramAPI\Exception\NotFoundException;
 use InstagramAPI\Exception\RequestException;
 use InstagramAPI\Instagram;
+use InstagramAPI\Signatures;
 use Repository\AccountsRepository;
 use Repository\CommentsRepository;
 use Repository\FollowsRepository;
@@ -38,8 +41,12 @@ class AccountWorker
             $this->maxPointsCount = mt_rand(1800, 2000);
     }
 
-    public function unfollowFromAll()
+    public function unfollowFromAllByDB()
     {
+        $this->runFunction('unfollowingFromAllByDB');
+    }
+
+    public function unfollowFromAll(){
         $this->runFunction('unfollowingFromAll');
     }
 
@@ -93,14 +100,31 @@ class AccountWorker
     /**
      * @throws \Exception
      */
-    private function unfollowingFromAll()
+    private function unfollowingFromAllByDB()
     {
         $this->unfollow(FollowsRepository::getBy(['owner_id' => $this->instagram->account_id]));
     }
 
     /**
+     * @throws WorkStoppedException
+     */
+    private function unfollowingFromAll()
+    {
+        $followings = [];
+
+        foreach (array_slice($this->instagram->people->getSelfFollowing(
+            Signatures::generateUUID())->getUsers(), 0, $this->maxPointsCount)
+                 as $following) {
+            array_push($followings,
+                new FollowedUser($following->getPk(), $this->instagram->account_id));
+        }
+
+        $this->unfollow($followings);
+    }
+
+    /**
      * @param array $followedUsers
-     * @return bool
+     * @throws WorkStoppedException
      */
     private function unfollow(array $followedUsers){
 
@@ -109,7 +133,7 @@ class AccountWorker
             //IF WORK IS STOPPED OR MAX LIMIT WAS REACHED
             if(empty(AccountsRepository::getBy(['id' => $this->instagram->account_id,
                 'target' => $this->target])) || $this->maxPointsCount-- <= 0)
-                return false;
+                throw new WorkStoppedException();
 
             Logger::trace("Unfollow from " . $followedUsers[$i]->getUserId());
             try {
@@ -122,10 +146,8 @@ class AccountWorker
             FollowsRepository::delete($followedUsers[$i]);
             $this->failsCount = 0;
 
-            //sleep(mt_rand(12, 22)); //INSTAGRAM LIMITS
+            sleep(mt_rand(12, 22)); //DELAY AFTER REQUEST
         }
-
-        return true;
     }
 
     /**
@@ -133,7 +155,15 @@ class AccountWorker
      */
     private function unfollowingFromUnfollowers()
     {
-        $allFollowedUsers = FollowsRepository::getBy(['owner_id' => $this->instagram->account_id]);
+        $allFollowedUsers = [];
+
+        foreach (
+            array_slice($this->instagram->people->getSelfFollowing(
+                Signatures::generateUUID())->getUsers(), 0, $this->maxPointsCount)
+            as $following) {
+            array_push($allFollowedUsers,
+                new FollowedUser($following->getPk(), $this->instagram->account_id));
+        }
 
         for($count = 0; $count * 200 < count($allFollowedUsers); $count++){
             $followedUsers = array_slice($allFollowedUsers, $count * 200, 200);
@@ -150,7 +180,8 @@ class AccountWorker
                     $i--;
                 }
 
-            if(!$this->unfollow($unfollowers) || $this->maxPointsCount <= 0)
+            $this->unfollow($unfollowers);
+            if($this->maxPointsCount <= 0)
                 return;
         }
     }

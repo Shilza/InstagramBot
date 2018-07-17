@@ -2,18 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee65cf2f-b42d-49cd-aae3-dcf44451cd04" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c48103e7-25e8-423f-9467-39cf24895628.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/49a24960-0ca0-4711-9162-456ed820f377.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/49a24960-0ca0-4711-9162-456ed820f377.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AccountWorkerProcess.php" beforeDir="false" afterPath="$PROJECT_DIR$/AccountWorkerProcess.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BotProcess.php" beforeDir="false" afterPath="$PROJECT_DIR$/BotProcess.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Bots/AccountsBot.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bots/AccountsBot.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Bots/Bot.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bots/Bot.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Bots/GeotagBot.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bots/GeotagBot.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Bots/HashtagBot.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bots/HashtagBot.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Bots/TagBot.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bots/TagBot.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repositories/AccountsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repositories/AccountsRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/BotProcessStatistics.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/BotProcessStatistics.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repositories/UsersRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repositories/UsersRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Util/AccountWorker.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Util/AccountWorker.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/DatabaseWorker.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Util/DatabaseWorker.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Util/Logger.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Util/Logger.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -89,32 +91,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AccountsBot.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Bots/AccountsBot.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="69" selection-start-line="69" selection-end-line="69" />
-              <folding>
-                <element signature="e#23#58#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Logger.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Util/Logger.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Bot.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Bots/Bot.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="229" column="31" lean-forward="true" selection-start-line="229" selection-start-column="31" selection-end-line="229" selection-end-column="31" />
+            <state relative-caret-position="-2237">
+              <caret line="77" column="22" lean-forward="true" selection-start-line="77" selection-start-column="22" selection-end-line="77" selection-end-column="22" />
               <folding>
                 <element signature="e#23#55#0#PHP" expanded="true" />
               </folding>
@@ -122,27 +103,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="2436801585.log" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/2436801585.log">
+      <file leaf-file-name="DatabaseWorker.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Util/DatabaseWorker.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-37160" />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/49a24960-0ca0-4711-9162-456ed820f377/console.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="41" selection-start-column="41" selection-end-column="41" />
+            <state relative-caret-position="272">
+              <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BotProcess.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="configDB" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/configDB">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="BotProcess.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BotProcess.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="20" column="18" lean-forward="true" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+            <state relative-caret-position="358">
+              <caret line="157" column="9" lean-forward="true" selection-start-line="157" selection-start-column="9" selection-end-line="157" selection-end-column="9" />
               <folding>
                 <element signature="e#39#71#0#PHP" expanded="true" />
               </folding>
@@ -150,11 +129,47 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StatisticsRepository.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Repositories/StatisticsRepository.php">
+      <file leaf-file-name="UsersRepository.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Repositories/UsersRepository.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="79" column="58" lean-forward="true" selection-start-line="79" selection-start-column="58" selection-end-line="79" selection-end-column="58" />
+            <state relative-caret-position="273">
+              <caret line="140" column="44" lean-forward="true" selection-start-line="140" selection-start-column="44" selection-end-line="140" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="standard_1.php" pinned="false" current-in-tab="false">
+        <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/standard_1.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="179">
+              <caret line="996" column="21" selection-start-line="996" selection-start-column="21" selection-end-line="996" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="users" pinned="false" current-in-tab="false">
+        <entry file="das://49a24960-0ca0-4711-9162-456ed820f377/schema/instatest/table/users">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state>
+              <filtering enabled="true" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user_settings" pinned="false" current-in-tab="false">
+        <entry file="das://49a24960-0ca0-4711-9162-456ed820f377/schema/instatest/table/user_settings">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state>
+              <filtering enabled="true" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="56" selection-start-line="7" selection-start-column="56" selection-end-line="7" selection-end-column="56" />
             </state>
           </provider>
         </entry>
@@ -163,11 +178,9 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>subscription_end_time</find>
       <find>ge</find>
       <find>finall</find>
       <find>subsc</find>
-      <find>Finally</find>
       <find>few</find>
       <find>few minutes</find>
       <find>code</find>
@@ -193,6 +206,8 @@
       <find>Run Bot\HashtagBot</find>
       <find>HashtagBot</find>
       <find>points</find>
+      <find>Finally</find>
+      <find>NotFo</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -201,7 +216,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Exception/InstagramAuthException.php" />
         <option value="$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Exception/InstagramNotFoundException.php" />
         <option value="$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Exception/InstagramException.php" />
         <option value="$PROJECT_DIR$/vendor/shilza/instagram-php-scraper/src/InstagramScraper/Exception/InstagramRequestException.php" />
@@ -215,7 +229,6 @@
         <option value="$PROJECT_DIR$/7906270844.txt" />
         <option value="$PROJECT_DIR$/src/BaseAccountsRepository.php" />
         <option value="$PROJECT_DIR$/src/Repositories/BaseAccountsRepository.php" />
-        <option value="$PROJECT_DIR$/src/Entities/BotProcessStatistics.php" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/c48103e7-25e8-423f-9467-39cf24895628/console.sql" />
         <option value="$PROJECT_DIR$/botProcess7906270844" />
         <option value="$PROJECT_DIR$/.gitignore" />
@@ -231,27 +244,29 @@
         <option value="$PROJECT_DIR$/src/Repositories/CommentsRepository.php" />
         <option value="$PROJECT_DIR$/src/Repositories/StatisticsRepository.php" />
         <option value="$PROJECT_DIR$/src/Entities/Account.php" />
-        <option value="$PROJECT_DIR$/src/Util/DatabaseWorker.php" />
-        <option value="$PROJECT_DIR$/7906270844.log" />
-        <option value="$PROJECT_DIR$/src/Repositories/UsersRepository.php" />
         <option value="$PROJECT_DIR$/AddingToTheQueue.php" />
-        <option value="$PROJECT_DIR$/AccountWorkerProcess.php" />
         <option value="$PROJECT_DIR$/ProcessController.php" />
         <option value="$PROJECT_DIR$/2436801585.log" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/49a24960-0ca0-4711-9162-456ed820f377/console.sql" />
-        <option value="$PROJECT_DIR$/src/Util/AccountWorker.php" />
-        <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/src/Repositories/AccountsRepository.php" />
         <option value="$PROJECT_DIR$/src/Exception/WorkStoppedException.php" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/src/Exceptions/WorkStoppedException.php" />
-        <option value="$PROJECT_DIR$/src/Bots/HashtagBot.php" />
-        <option value="$PROJECT_DIR$/src/Bots/TagBot.php" />
         <option value="$PROJECT_DIR$/src/Bots/GeotagBot.php" />
+        <option value="$PROJECT_DIR$/src/Bots/HashtagBot.php" />
+        <option value="$PROJECT_DIR$/src/Entities/BotProcessStatistics.php" />
+        <option value="$PROJECT_DIR$/7906270844.log" />
+        <option value="$PROJECT_DIR$/config" />
+        <option value="$PROJECT_DIR$/src/Bots/TagBot.php" />
         <option value="$PROJECT_DIR$/src/Bots/AccountsBot.php" />
-        <option value="$PROJECT_DIR$/src/Util/Logger.php" />
+        <option value="$PROJECT_DIR$/AccountWorkerProcess.php" />
         <option value="$PROJECT_DIR$/src/Bots/Bot.php" />
+        <option value="$PROJECT_DIR$/src/Util/Logger.php" />
+        <option value="$PROJECT_DIR$/src/Util/AccountWorker.php" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/49a24960-0ca0-4711-9162-456ed820f377/console.sql" />
+        <option value="$PROJECT_DIR$/src/Repositories/UsersRepository.php" />
         <option value="$PROJECT_DIR$/BotProcess.php" />
+        <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/src/Util/DatabaseWorker.php" />
       </list>
     </option>
   </component>
@@ -280,7 +295,7 @@
       <path value="$PROJECT_DIR$/vendor/shilza/instagram-php-scraper" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="643" />
     <option name="y" value="30" />
     <option name="width" value="720" />
@@ -347,7 +362,7 @@
     <property name="database.console.LAST_STATE" value="false" />
     <property name="dumpAutoload D:/Open Server/OpenServer/domains/InstagramBot/composer.json" value="--no-interaction --ansi --verbose" />
     <property name="dumpAutoload E:/VISUAL/OpenServer/domains/InstaTest.com/composer.json" value="--no-interaction --ansi --verbose" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../inst" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="SQL Dialects" />
@@ -373,7 +388,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="PHP Script.ProcessController.php">
+  <component name="RunManager" selected="PHP Script.index.php">
     <configuration name="AddingToTheQueue.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/AddingToTheQueue.php" />
     <configuration name="BotProcess.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/BotProcess.php" />
     <configuration name="HashtagBot.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/src/Bots/HashtagBot.php" />
@@ -388,8 +403,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="PHP Script.ProcessController.php" />
         <item itemvalue="PHP Script.index.php" />
+        <item itemvalue="PHP Script.ProcessController.php" />
         <item itemvalue="PHP Script.AddingToTheQueue.php" />
         <item itemvalue="PHP Script.BotProcess.php" />
         <item itemvalue="PHP Script.HashtagBot.php" />
@@ -457,11 +472,12 @@
       <workItem from="1531396537884" duration="5589000" />
       <workItem from="1531561524472" duration="21286000" />
       <workItem from="1531645045366" duration="17230000" />
+      <workItem from="1531824917846" duration="11917000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="427516000" />
+    <option name="totallyTimeSpent" value="439433000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -473,19 +489,20 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="4" weight="0.32954547" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50073206" side_tool="true" weight="0.3279703" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49926794" weight="0.09577922" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49926794" visible="true" weight="0.06818182" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32954547" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.36201298" />
       <window_info anchor="bottom" id="Database Console" order="12" weight="0.34253246" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2397882" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24357034" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" visible="true" weight="0.12708019" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32792208" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39935064" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -495,7 +512,6 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32792208" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -510,74 +526,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vendor/mgp25/instagram-php/src/Instagram.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1504">
-          <caret line="186" column="13" selection-start-line="186" selection-start-column="13" selection-end-line="186" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/mgp25/instagram-php/src/Request/Account.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="15" column="6" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/mgp25/instagram-php/examples/pushReceiver.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="40" column="54" selection-start-line="40" selection-start-column="54" selection-end-line="40" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/mgp25/instagram-php/src/Push/Notification.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4038">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/standard_1.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="978" column="35" selection-start-line="978" selection-start-column="35" selection-end-line="978" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/mgp25/instagram-php/src/Response/Model/Story.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="28" column="28" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/mgp25/instagram-php/src/Request/People.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="125" column="20" selection-start-line="125" selection-start-column="20" selection-end-line="125" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/mgp25/instagram-php/src/Request/Direct.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="34" column="15" selection-start-line="34" selection-start-column="15" selection-end-line="34" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/mgp25/instagram-php/examples/paginateWithExclusion.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-526" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/mgp25/instagram-php/examples/paginationExample.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="545">
-          <caret line="41" column="9" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/mgp25/instagram-php/src/Response/DirectInboxResponse.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="181">
@@ -594,13 +542,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/botProcess2436801585.log" />
     <entry file="file://$PROJECT_DIR$/botProcess7906270844.log" />
-    <entry file="file://$PROJECT_DIR$/src/Repositories/FollowsRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="24" column="55" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AddingToTheQueue.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -615,41 +556,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ProcessController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="969">
-          <caret line="58" column="29" selection-start-line="58" selection-start-column="29" selection-end-line="58" selection-end-column="29" />
-          <folding>
-            <element signature="e#39#73#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/7906270844.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11849">
-          <caret line="697" column="11" selection-start-line="697" selection-start-column="11" selection-end-line="697" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="dbSrc:///41306d28/49a24960-0ca0-4711-9162-456ed820f377/schema/instatest/table/users/trigger/user_added.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="49" lean-forward="true" selection-start-line="4" selection-start-column="49" selection-end-line="4" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://49a24960-0ca0-4711-9162-456ed820f377/schema/instatest/table/users">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entities/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="89">
-          <caret line="23" column="20" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -674,20 +584,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Repositories/UsersRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="141" column="31" lean-forward="true" selection-start-line="141" selection-start-column="31" selection-end-line="141" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://49a24960-0ca0-4711-9162-456ed820f377/schema/instatest/table/base_accounts">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/mgp25/instagram-php/src/Request/Timeline.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="211">
@@ -706,20 +602,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="314">
           <caret line="1137" column="9" selection-start-line="1137" selection-start-column="9" selection-end-line="1137" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://49a24960-0ca0-4711-9162-456ed820f377/schema/instatest/table/user_settings">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="38" column="56" selection-start-line="38" selection-start-column="56" selection-end-line="38" selection-end-column="56" />
         </state>
       </provider>
     </entry>
@@ -751,60 +633,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Bots/TagBot.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="16" column="21" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
-          <folding>
-            <element signature="e#23#58#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Bots/GeotagBot.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="35" column="20" lean-forward="true" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
-          <folding>
-            <element signature="e#23#58#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Bots/HashtagBot.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="42" column="24" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="24" />
-          <folding>
-            <element signature="e#23#58#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Util/AccountWorker.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="111" column="16" lean-forward="true" selection-start-line="111" selection-start-column="16" selection-end-line="111" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AccountWorkerProcess.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="55" column="56" lean-forward="true" selection-start-line="55" selection-start-column="56" selection-end-line="55" selection-end-column="56" />
-          <folding>
-            <element signature="e#39#66#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Repositories/AccountsRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="107" column="20" selection-start-line="107" selection-start-column="20" selection-end-line="107" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/composer.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -812,40 +640,206 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/49a24960-0ca0-4711-9162-456ed820f377/console.sql">
+    <entry file="file://$PROJECT_DIR$/src/Bots/GeotagBot.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="41" selection-start-column="41" selection-end-column="41" />
+        <state relative-caret-position="306">
+          <caret line="22" column="70" lean-forward="true" selection-start-line="22" selection-start-column="70" selection-end-line="22" selection-end-column="70" />
+          <folding>
+            <element signature="e#23#55#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Bots/HashtagBot.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="30" column="51" selection-start-line="30" selection-start-column="51" selection-end-line="30" selection-end-column="51" />
+          <folding>
+            <element signature="e#23#55#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Repositories/StatisticsRepository.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="79" column="58" lean-forward="true" selection-start-line="79" selection-start-column="58" selection-end-line="79" selection-end-column="58" />
+        <state relative-caret-position="251">
+          <caret line="73" column="20" selection-start-line="73" selection-start-column="20" selection-end-line="73" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entities/BotProcessStatistics.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/mgp25/instagram-php/src/Request/People.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="316" column="38" selection-start-line="316" selection-start-column="12" selection-end-line="316" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="6" lean-forward="true" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="das://49a24960-0ca0-4711-9162-456ed820f377/schema/instatest/table/base_accounts">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Bots/TagBot.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="35" column="25" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
+          <folding>
+            <element signature="e#23#55#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/7906270844.log">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/2436801585.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75038">
+          <caret line="4414" column="101" selection-start-line="4414" selection-start-column="84" selection-end-line="4414" selection-end-column="101" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entities/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="23" column="69" lean-forward="true" selection-start-line="23" selection-start-column="69" selection-end-line="23" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ProcessController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="58" column="29" selection-start-line="58" selection-start-column="29" selection-end-line="58" selection-end-column="29" />
+          <folding>
+            <element signature="e#39#73#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Bots/AccountsBot.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="69" selection-start-line="69" selection-end-line="69" />
+        <state relative-caret-position="418">
+          <caret line="83" column="53" lean-forward="true" selection-start-line="83" selection-start-column="53" selection-end-line="83" selection-end-column="53" />
           <folding>
-            <element signature="e#23#58#0#PHP" expanded="true" />
+            <element signature="e#23#55#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entities/FollowedUser.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="15" column="46" selection-start-line="15" selection-start-column="46" selection-end-line="15" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://49a24960-0ca0-4711-9162-456ed820f377/schema/instatest/table/follows2436801585">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Repositories/AccountsRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="107" column="20" selection-start-line="107" selection-start-column="20" selection-end-line="107" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/standard_2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="1004" column="9" selection-start-line="1004" selection-start-column="9" selection-end-line="1004" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Util/Logger.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
+        <state relative-caret-position="186">
+          <caret line="31" column="23" lean-forward="true" selection-start-line="31" selection-start-column="23" selection-end-line="31" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/2436801585.log">
+    <entry file="file://$PROJECT_DIR$/src/Repositories/FollowsRepository.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-37160" />
+        <state relative-caret-position="224">
+          <caret line="59" column="64" selection-start-line="59" selection-start-column="64" selection-end-line="59" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Util/AccountWorker.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="208" column="13" selection-start-line="208" selection-start-column="13" selection-end-line="208" selection-end-column="13" />
+          <folding>
+            <element signature="e#24#48#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AccountWorkerProcess.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="58" column="24" selection-start-line="58" selection-start-column="24" selection-end-line="58" selection-end-column="24" />
+          <folding>
+            <element signature="e#39#74#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://49a24960-0ca0-4711-9162-456ed820f377/schema/instatest/table/users">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/49a24960-0ca0-4711-9162-456ed820f377/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="45" selection-start-column="45" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/standard_1.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="996" column="21" selection-start-line="996" selection-start-column="21" selection-end-line="996" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://49a24960-0ca0-4711-9162-456ed820f377/schema/instatest/table/user_settings">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Repositories/UsersRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="140" column="44" lean-forward="true" selection-start-line="140" selection-start-column="44" selection-end-line="140" selection-end-column="44" />
+        </state>
       </provider>
     </entry>
     <entry file="das://49a24960-0ca0-4711-9162-456ed820f377/schema/instatest/table/accounts_queue">
@@ -855,23 +849,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/BotProcess.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="157" column="9" lean-forward="true" selection-start-line="157" selection-start-column="9" selection-end-line="157" selection-end-column="9" />
+          <folding>
+            <element signature="e#39#71#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Bots/Bot.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="229" column="31" lean-forward="true" selection-start-line="229" selection-start-column="31" selection-end-line="229" selection-end-column="31" />
+        <state relative-caret-position="-2237">
+          <caret line="77" column="22" lean-forward="true" selection-start-line="77" selection-start-column="22" selection-end-line="77" selection-end-column="22" />
           <folding>
             <element signature="e#23#55#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BotProcess.php">
+    <entry file="file://$PROJECT_DIR$/configDB">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="20" column="18" lean-forward="true" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
-          <folding>
-            <element signature="e#39#71#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="119">
+          <caret line="7" column="56" selection-start-line="7" selection-start-column="56" selection-end-line="7" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Util/DatabaseWorker.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
         </state>
       </provider>
     </entry>

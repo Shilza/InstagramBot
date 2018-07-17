@@ -28,7 +28,7 @@ class Logger{
     private static function log($tag, $logInfo){
         file_put_contents(
             static::$filePath . ".log",
-            PHP_EOL.PHP_EOL.$tag." ".date(DATE_RFC822)." --> ".$logInfo,
+            PHP_EOL.$tag." ".date(DATE_RFC822)." --> ".$logInfo,
             FILE_APPEND
         );
 

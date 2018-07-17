@@ -28,13 +28,4 @@ class BotProcessStatistics{
     public function getPointsCount(){
         return $this->likesCount + $this->commentsCount + $this->followsCount;
     }
-
-    /**
-     * @param BotProcessStatistics $botProcessStatistics
-     */
-    public function addPoints(BotProcessStatistics $botProcessStatistics){
-        $this->likesCount += $botProcessStatistics->likesCount;
-        $this->commentsCount += $botProcessStatistics->commentsCount;
-        $this->followsCount += $botProcessStatistics->followsCount;
-    }
 }

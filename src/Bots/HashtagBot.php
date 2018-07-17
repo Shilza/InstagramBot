@@ -2,6 +2,7 @@
 
 namespace Bot;
 
+use Entity\BotProcessStatistics;
 use Exception\WorkStoppedException;
 use InstagramAPI\Instagram;
 use InstagramAPI\Signatures;
@@ -17,13 +18,13 @@ class HashtagBot extends TagBot{
 
     /**
      * HashtagBot constructor.
-     * @param $instagram
+     * @param Instagram $instagram
+     * @param BotProcessStatistics $botProcessStatistics
      * @param array $settings
-     * @param array|null $hashtags
      * @throws \Exception
      */
-    public function __construct(Instagram $instagram, array $settings, array $hashtags = null){
-        parent::__construct($instagram, $settings);
+    public function __construct(Instagram $instagram, BotProcessStatistics &$botProcessStatistics, array $settings){
+        parent::__construct($instagram, $botProcessStatistics, $settings);
 
         if(isset($hashtags)) {
             if($settings['standard_hashtags'])

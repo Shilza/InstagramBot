@@ -2,6 +2,7 @@
 
 namespace Bot;
 
+use Entity\BotProcessStatistics;
 use Exception\WorkStoppedException;
 use InstagramAPI\Exception\NotFoundException;
 use InstagramAPI\Instagram;
@@ -15,11 +16,12 @@ class AccountsBot extends Bot{
     /**
      * AccountsBot constructor.
      * @param Instagram $instagram
+     * @param BotProcessStatistics $botProcessStatistics
      * @param array $settings
      * @throws \Exception
      */
-    public function __construct(Instagram $instagram, array $settings){
-        parent::__construct($instagram, $settings);
+    public function __construct(Instagram $instagram, BotProcessStatistics &$botProcessStatistics, array $settings){
+        parent::__construct($instagram, $botProcessStatistics, $settings);
     }
 
     /**
@@ -59,20 +61,27 @@ class AccountsBot extends Bot{
         if(!$account->getFollowerCount())
             return false;
 
-        $accounts = array_merge(
-            array_slice(
+        $items = $this->instagram->timeline->getUserFeed(
+            $account->getPk())->getItems();
+        if (count($items) > 0)
+            $accounts = array_merge(
+                array_slice(
+                    $this->instagram->people->getFollowers($account->getPk(),
+                        Signatures::generateUUID())->getUsers(), 0, mt_rand(15, 25)
+                ),
+                array_slice(
+                    $this->instagram->media->getLikers(
+                       $items[0]->getPk())->getUsers(),
+                    0, mt_rand(15, 25)
+                )
+            );
+        else
+            $accounts = array_slice(
                 $this->instagram->people->getFollowers($account->getPk(),
                     Signatures::generateUUID())->getUsers(), 0, mt_rand(15, 25)
-            ),
-            array_slice(
-                $this->instagram->media->getLikers(
-                    $this->instagram->timeline->getUserFeed(
-                        $account->getPk())->getItems()[0]->getPk())->getUsers(),
-                0, mt_rand(15, 25)
-            )
-        );
+            );
 
-        $publicAccounts = static::getPublicAccounts($accounts);
+        $publicAccounts = $this->getPublicAccounts($accounts);
 
         $accountsID = [];
         foreach ($publicAccounts as $acc)

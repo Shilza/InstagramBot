@@ -43,13 +43,14 @@ abstract class Bot
     /**
      * Bot constructor.
      * @param Instagram $instagram
+     * @param BotProcessStatistics $botProcessStatistics
      * @param array $settings
      * @throws \Exception
      */
-    protected function __construct(Instagram $instagram, array $settings)
+    protected function __construct(Instagram $instagram, BotProcessStatistics &$botProcessStatistics, array $settings)
     {
         $this->instagram = $instagram;
-        $this->botProcessStatistics = new BotProcessStatistics();
+        $this->botProcessStatistics = $botProcessStatistics;
 
         if (isset($settings)) {
             if (array_key_exists('likes', $settings))
@@ -131,15 +132,15 @@ abstract class Bot
 
             if ($accountID != $this->instagram->account_id) {
                 if ($this->followingSelected && mt_rand(0, 1) == 1) {
-                   // if (($time = time()) < $this->newFollowTime)
-                       // sleep($this->newFollowTime - $time);
+                    if (($time = time()) < $this->newFollowTime)
+                        sleep($this->newFollowTime - $time);
                     $this->follow($accountID);
                     $this->newFollowTime = time() + mt_rand(28, 38); //DELAY AFTER REQUEST
                 }
 
                 if ($this->likesSelected && mt_rand(0, 1) == 1) {
-//                    if (($time = time()) < $this->newLikeTime)
-//                        sleep($this->newLikeTime - $time);
+                    if (($time = time()) < $this->newLikeTime)
+                        sleep($this->newLikeTime - $time);
                     $this->likeAccountsMedia($accountID);
                     $this->newLikeTime = time() + mt_rand(28, 36); //DELAY AFTER REQUEST
                 }
@@ -148,7 +149,7 @@ abstract class Bot
                     if (time() < $this->newCommentTime)
                         continue;
                     $this->commentAccountsMedia($accountID);
-                    //$this->newCommentTime = time() + mt_rand(200, 250); //DELAY AFTER REQUEST
+                    $this->newCommentTime = time() + mt_rand(200, 250); //DELAY AFTER REQUEST
                 }
             }
         }
@@ -220,28 +221,13 @@ abstract class Bot
     }
 
     /**
-     * @return BotProcessStatistics
-     */
-    public function getBotProcessStatistics()
-    {
-        return $this->botProcessStatistics;
-    }
-
-    public function resetBotProcessStatistics()
-    {
-        $this->botProcessStatistics->likesCount = 0;
-        $this->botProcessStatistics->commentsCount = 0;
-        $this->botProcessStatistics->followsCount = 0;
-    }
-
-    /**
      * @param int|string $userID
      */
     private function follow($userID)
     {
         Logger::trace("Follow on "
             . $this->instagram->people->getInfoById($userID)->getUser()->getUsername()
-            . " by " . $this->instagram->username);
+        );
         $this->botProcessStatistics->followsCount++;
         $this->instagram->people->follow($userID);
 
@@ -263,7 +249,7 @@ abstract class Bot
      * @param User[] $accounts
      * @return User[]
      */
-    protected static function getPublicAccounts(array $accounts){
+    protected function getPublicAccounts(array $accounts){
         $publicAccounts = [];
         $maxCount = static::MAX_ACCOUNTS_COUNT;
 
@@ -271,7 +257,9 @@ abstract class Bot
             if($maxCount <= 0)
                 break;
 
-            if (!$account->getIsPrivate()) {
+            if (!$account->getIsPrivate() &&
+                count($this->instagram->timeline->getUserFeed($account->getPk())->getItems()) > 0
+            ) {
                 array_push($publicAccounts, $account);
                 $maxCount--;
             }

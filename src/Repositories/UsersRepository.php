@@ -100,7 +100,8 @@ class UsersRepository extends Repository implements Updatable
 
         if (!is_null($user->getSettings()))
             foreach ($user->getSettings() as $key => $value)
-                $values[$key] = $value;
+                $values[$key] = (is_array($value) ? implode(static::DELIMITER, $value) : $value);
+
 
         return $values;
     }
@@ -137,7 +138,7 @@ class UsersRepository extends Repository implements Updatable
                         ? explode(static::DELIMITER, $userData['custom_comments'])
                         : null),
                 'direct_messages' =>
-                    (isset($userData['custom_comments'])
+                    (isset($userData['direct_messages'])
                         ? explode(static::DELIMITER, $userData['direct_messages'])
                         : null)
             ]

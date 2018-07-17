@@ -2,14 +2,22 @@
 
 namespace Bot;
 
+use Entity\BotProcessStatistics;
 use Exception\WorkStoppedException;
 use InstagramAPI\Instagram;
 use InstagramAPI\Response\Model\Item;
 
 abstract class TagBot extends Bot{
 
-    protected function __construct(Instagram $instagram, array $settings){
-        parent::__construct($instagram, $settings);
+    /**
+     * TagBot constructor.
+     * @param Instagram $instagram
+     * @param BotProcessStatistics $botProcessStatistics
+     * @param array $settings
+     * @throws \Exception
+     */
+    protected function __construct(Instagram $instagram, BotProcessStatistics &$botProcessStatistics, array $settings){
+        parent::__construct($instagram, $botProcessStatistics,$settings);
     }
 
     /**
@@ -25,7 +33,7 @@ abstract class TagBot extends Bot{
 
         $accountsID = array_slice($accountsID, 0, mt_rand(15, 25));
         foreach (
-            static::getPublicAccounts(array_slice(
+            $this->getPublicAccounts(array_slice(
                     $this->instagram->media->getLikers($medias[0]->getPk())->getUsers(),
                     0, mt_rand(15, 25)
                 )
